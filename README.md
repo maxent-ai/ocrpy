@@ -1,2 +1,2 @@
 # ocrpy
-unified interface to google vision, textract, tesseract OCR tools.
+unified interface to google vision, aws textract, azure, tesseract OCR tools.
