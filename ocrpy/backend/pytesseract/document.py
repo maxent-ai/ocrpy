@@ -125,3 +125,8 @@ class PyTesseract(Document):
     def tokens(self):
         token = tesseract_token_extractor(BeautifulSoup(self.ocr))
         return token
+
+    @property
+    def full_text(self):
+        text = pytesseract.image_to_string(self.image)
+        return text

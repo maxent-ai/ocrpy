@@ -39,3 +39,7 @@ class Document:
     @abc.abstractproperty
     def meta(self):
         return NotImplementedError
+
+    @abc.abstractproperty
+    def full_text(self):
+        return NotImplemented
