@@ -1,0 +1,1 @@
+from .pytesseract import PyTesseract
