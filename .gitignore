@@ -136,6 +136,6 @@ dmypy.json
 
 # Cython debug symbols
 cython_debug/
-notebook/
 nohup.out
 .DS_Store
+.vscode
