@@ -3,7 +3,7 @@ import attr
 import uuid
 import boto3
 from dotenv import load_dotenv
-from ..error_handler import NotSupportedError
+from ..utils import NotSupportedError
 from ..utils import aws_region_extractor, aws_token_formator
 from .base import Document, LineSegmentation, BlockSegmentation
 
