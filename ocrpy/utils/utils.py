@@ -44,3 +44,20 @@ def tesseract_token_extractor(context):
                  meta_data=dict(text_length=len(text)))
         token_list.append(_)
     return token_list
+
+
+def aws_region_extractor(block):
+    x1, x2 = block['Geometry']['BoundingBox']['Left'], block['Geometry']['BoundingBox']['Left'] + \
+        block['Geometry']['BoundingBox']['Width']
+    y1, y2 = block['Geometry']['BoundingBox']['Top'], block['Geometry']['BoundingBox']['Top'] + \
+        block['Geometry']['BoundingBox']['Height']
+    return dict(x1=x1, y1=y1, x2=x2, y2=y2)
+
+
+def aws_token_formator(token):
+    text = token.get("Text")
+    index = token.get("Id")
+    region = aws_region_extractor(token)
+    metadata = dict(text_length=len(text), confidence=token.get("Confidence"))
+    token = dict(text=text, region=region, idx=index, metadata=metadata)
+    return token
