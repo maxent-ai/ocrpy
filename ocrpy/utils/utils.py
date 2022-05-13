@@ -61,3 +61,30 @@ def aws_token_formator(token):
     metadata = dict(text_length=len(text), confidence=token.get("Confidence"))
     token = dict(text=text, region=region, idx=index, metadata=metadata)
     return token
+
+
+def gcp_region_extractor(block):
+    x_points = [v.x for v in block.vertices]
+    y_points = [v.y for v in block.vertices]
+    x1, x2 = min(x_points), max(x_points)
+    y1, y2 = min(y_points), max(y_points)
+    region = dict(x1=x1, y1=y1, x2=x2, y2=y2)
+    return region
+
+
+def gcp_token_formator(symbols):
+    word = ''
+    for symbol in symbols:
+        word += symbol.text
+        if symbol.property.detected_break.type in (3, 5):
+            word += '\n'
+        elif symbol.property.detected_break.type == 4:
+            word += '-'
+        elif symbol.property.detected_break.type != 0:
+            word += ' '
+
+    metadata = dict(text_length=len(word), confidence=symbols.confidence)
+    word = dict(text=word,
+                region=gcp_region_extractor(symbol.bounding_box.vertices),
+                metadata=metadata)
+    return word
