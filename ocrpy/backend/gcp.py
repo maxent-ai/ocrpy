@@ -23,10 +23,7 @@ class GCPBlockSegmentation(BlockSegmentation):
         find block form gcp response
         """
         blocks = []
-        pages = self.orc.pages
-        if  not isinstance(pages, list):
-            pages = [pages]
-
+        pages = self.ocr.pages
         
         for page in pages:
             for block_idx, block in enumerate(page.blocks):
@@ -58,7 +55,7 @@ class GCPLineSegmentation(LineSegmentation):
 
     @property
     def lines(self):
-        CustomError("GCP does not support line segmentation")
+        NotSupportedError("GCP does not support line segmentation")
 
 @attr.s
 class GCPTextract(Document):
@@ -69,6 +66,7 @@ class GCPTextract(Document):
     def __attrs_post_init__(self):
         with open(self.image, 'rb') as document:
             image = document.read()
+            image = vision.Image(content=image)
         if self.env_file:
             cred  = service_account.Credentials.from_service_account_file(self.env_file)
             client = vision.ImageAnnotatorClient(credentials=cred)

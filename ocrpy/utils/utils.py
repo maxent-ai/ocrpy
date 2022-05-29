@@ -1,3 +1,6 @@
+import numpy as np
+
+
 def tesseract_region_extractor(context):
     x, y, w, h = context.get('hpos'), context.get(
         'vpos'), context.get('width'), context.get('height')
@@ -64,8 +67,8 @@ def aws_token_formator(token):
 
 
 def gcp_region_extractor(block):
-    x_points = [v.x for v in block.vertices]
-    y_points = [v.y for v in block.vertices]
+    x_points = [v.x for v in block]
+    y_points = [v.y for v in block]
     x1, x2 = min(x_points), max(x_points)
     y1, y2 = min(y_points), max(y_points)
     region = dict(x1=x1, y1=y1, x2=x2, y2=y2)
@@ -74,8 +77,10 @@ def gcp_region_extractor(block):
 
 def gcp_token_formator(symbols):
     word = ''
+    confidence = []
     for symbol in symbols:
         word += symbol.text
+        confidence.append(symbol.confidence)
         if symbol.property.detected_break.type in (3, 5):
             word += '\n'
         elif symbol.property.detected_break.type == 4:
@@ -83,7 +88,7 @@ def gcp_token_formator(symbols):
         elif symbol.property.detected_break.type != 0:
             word += ' '
 
-    metadata = dict(text_length=len(word), confidence=symbols.confidence)
+    metadata = dict(text_length=len(word), confidence=np.mean(confidence))
     word = dict(text=word,
                 region=gcp_region_extractor(symbol.bounding_box.vertices),
                 metadata=metadata)
