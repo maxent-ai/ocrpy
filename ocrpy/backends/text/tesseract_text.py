@@ -60,6 +60,7 @@ class TesseractLineSegmenter(AbstractLineSegmenter):
     """
     Implements Line Segmentation using Tesseract OCR Engine. 
     """
+    
     @property
     def lines(self) -> List[Dict[str, Any]]:
         line_data = self._extract_lines()
