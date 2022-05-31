@@ -1,17 +1,42 @@
-[metadata]
-name = 'ocrpy'
-version = '0.0.1'
-description = ''
-author = 'U.N. Owen'
-author_email = 'me@un.known'
-license = 'MIT/Apache-2.0'
-url = 'https://github.com/_/ocrpy'
-
-[requires]
-python_version = ['2.7', '3.5', '3.6', 'pypy', 'pypy3']
-
 [build-system]
-requires = ['setuptools', 'wheel']
+requires = ["hatchling", "hatch-vcs"]
+build-backend = "hatchling.build"
 
-[tool.hatch.commands]
-prerelease = 'hatch build'
+
+[project]
+name = 'ocrpy'
+description = 'unified interface to google vision, aws textract, azure, tesseract OCR, EasyOCR tools.'
+readme = 'README.md'
+requires-python = ">=3.7"
+authors = [
+  { name = "Maxentlabs", email = "maxentlabsai@gmail.com" },
+]
+license = { text = "MIT" }
+
+classifiers = [
+    'Development Status :: 4 - Beta',
+    'Intended Audience :: Developers',
+    'License :: OSI Approved :: MIT License',
+    'License :: OSI Approved :: Apache Software License',
+    'Natural Language :: English',
+    'Operating System :: OS Independent',
+    'Programming Language :: Python :: 3.7',
+    'Programming Language :: Python :: 3.8',
+]
+
+dependencies = [
+    'attrs==21.4.0',
+    'pytesseract==0.3.6',
+    'opencv-python==4.1.2.30',
+    'beautifulsoup4==4.9.1',
+    'google-cloud-vision==1.0.0',
+    'boto3==1.19.7',
+]
+
+dynamic = ["version"]
+
+[project.urls]
+Source = "https://github.com/maxent-ai/ocrpy"
+
+[tool.hatch.version]
+path = "ocrpy/__init__.py"
