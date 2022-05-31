@@ -51,7 +51,7 @@ class AbstractTextOCR:
         return NotImplementedError
 
     @abc.abstractproperty
-    def full_text(self):
+    def text(self):
         return NotImplemented
 
 

@@ -83,7 +83,7 @@ class GcpTextOCR(AbstractTextOCR):
     def __attrs_post_init__(self):
         with open(self.document, 'rb') as doc:
             image = doc.read()
-            image = vision.Image(content=image)
+            image = vision.types.Image(content=image)
         if self.env_file:
             cred  = service_account.Credentials.from_service_account_file(self.env_file)
             client = vision.ImageAnnotatorClient(credentials=cred)

@@ -17,8 +17,8 @@ class AWSTableOCR(AbstractTableOCR):
     mapper = field(repr=False, init=False)
 
     def __attrs_post_init__(self):
-        with open(self.image, 'rb') as document:
-            image = document.read()
+        with open(self.document, 'rb') as doc:
+            image = doc.read()
         if self.env_file:
             load_dotenv(self.env_file)
         region = os.getenv('region_name')
