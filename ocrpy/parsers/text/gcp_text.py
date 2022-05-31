@@ -5,6 +5,9 @@ from google.oauth2 import service_account
 from ...utils.errors import NotSupportedError
 from ..core import AbstractTextOCR, AbstractLineSegmenter, AbstractBlockSegmenter
 
+__all__ = ['GcpTextOCR']
+
+
 def gcp_region_extractor(block):
     x_points = [v.x for v in block]
     y_points = [v.y for v in block]

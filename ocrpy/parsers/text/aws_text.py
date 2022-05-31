@@ -6,6 +6,8 @@ from typing import List, Dict, Any
 from ...utils.errors import NotSupportedError
 from ..core import AbstractTextOCR, AbstractLineSegmenter, AbstractBlockSegmenter
 
+__all__ = ['AwsTextOCR']
+
 
 def aws_region_extractor(block):
     x1, x2 = block['Geometry']['BoundingBox']['Left'], block['Geometry']['BoundingBox']['Left'] + \

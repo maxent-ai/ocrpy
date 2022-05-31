@@ -7,9 +7,11 @@ from collections import defaultdict
 from ..core import AbstractTableOCR
 from ..text.aws_text import aws_region_extractor
 
+__all__ = ['AWSTableOCR']
+
 
 @define
-class AWSTable(AbstractTableOCR):
+class AWSTableOCR(AbstractTableOCR):
     env_file = field(default=None)
     ocr = field(repr=False, init=False)
     mapper = field(repr=False, init=False)

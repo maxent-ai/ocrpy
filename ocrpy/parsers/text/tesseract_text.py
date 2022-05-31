@@ -6,6 +6,8 @@ from attr import define, field
 from typing import List, Dict, Any
 from ..core import AbstractTextOCR, AbstractLineSegmenter, AbstractBlockSegmenter
 
+__all__ = ['TesseractTextOCR']
+
 
 def tesseract_region_extractor(context):
     x, y, w, h = context.get('hpos'), context.get(
@@ -60,7 +62,7 @@ class TesseractLineSegmenter(AbstractLineSegmenter):
     """
     Implements Line Segmentation using Tesseract OCR Engine. 
     """
-    
+
     @property
     def lines(self) -> List[Dict[str, Any]]:
         line_data = self._extract_lines()
@@ -90,7 +92,7 @@ class TesseractBlockSegmenter(AbstractBlockSegmenter):
 
     @property
     def blocks(self):
-        block_data = self._get_blocks()
+        block_data = self._extract_blocks()
         return block_data
 
     def _extract_blocks(self):
