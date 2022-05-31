@@ -23,7 +23,7 @@ REQUIRES = []
 kwargs = {
     'name': 'ocrpy',
     'version': version,
-    'description': '',
+    'description': 'unified interface to google vision, aws textract, azure, tesseract OCR, EasyOCR tools.',
     'long_description': readme,
     'author': 'Maxentlabs',
     'author_email': 'maxentlabsai@gmail.com',
