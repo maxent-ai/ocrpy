@@ -1,4 +1,6 @@
-attrs==19.1.0
+attrs==21.4.0
 pytesseract==0.3.6
 opencv-python==4.1.2.30
 beautifulsoup4==4.9.1
+google-cloud-vision==1.0.0
+boto3==1.19.7
