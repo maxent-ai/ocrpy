@@ -1,5 +1,4 @@
 import os
-import cv2
 import boto3
 from dotenv import load_dotenv
 from attr import define, field

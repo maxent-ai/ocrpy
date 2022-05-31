@@ -60,7 +60,7 @@ class AbstractTableOCR:
     """
     Abstract class for Table OCR backends.
     """
-    document = field()
+    document: Any = field()
 
     @abc.abstractproperty
     def metadata(self) -> Dict[str, Any]:
