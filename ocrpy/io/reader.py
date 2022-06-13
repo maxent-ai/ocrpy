@@ -1,0 +1,61 @@
+import io
+import os
+import pdf2image
+from dotenv import load_dotenv
+from attr import define, field
+from cloudpathlib import S3Client, GSClient, AnyPath
+
+__all__ = ['DocumentReader']
+
+
+@define
+class DocumentReader:
+    """
+    Read an image file from a given location and returns a byte array.
+    """
+    file = field()
+    credentials = field(default=None)
+
+    def read(self):
+        if self.file.endswith(".png") or self.file.endswith(".jpg"):
+            return self._read_image(self.file)
+
+        elif self.file.endswith(".pdf"):
+            return self._read_pdf(self.file)
+
+        else:
+            raise ValueError("File type not supported")
+
+    def _read_image(self, file):
+        return self._read(file)
+
+    def _read_pdf(self, file):
+        data = self._read(file)
+        images = self._bytes_to_images(data)
+        return images
+
+    def _read(self, file):
+        client = self._get_client(file)
+        file_data = AnyPath(file, client=client)
+        return file_data.read_bytes()
+
+    def _get_client(self, file):
+        if file.startswith("gs://") and self.credentials:
+            client = GSClient(application_credentials=self.credentials)
+
+        elif file.startswith("s3://"):
+            if self.credentials:
+                load_dotenv(self.credentials)
+            client = S3Client(aws_access_key_id=os.getenv(
+                'aws_access_key_id'), aws_secret_access_key=os.getenv('aws_secret_access_key'))
+        else:
+            client = None
+
+        return client
+
+    def _bytes_to_images(self, data):
+        images = pdf2image.convert_from_bytes(data)
+        for image in images:
+            buf = io.BytesIO()
+            image.save(buf, format='PNG')
+            yield buf.getvalue()
