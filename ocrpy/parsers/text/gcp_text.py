@@ -1,3 +1,4 @@
+import numpy as np
 from attr import define, field
 from google.cloud import vision
 from typing import List, Dict, Any
@@ -34,7 +35,7 @@ def gcp_token_formator(symbols):
     word = dict(text=word,
                 region=gcp_region_extractor(symbol.bounding_box.vertices),
                 metadata=metadata)
-    return 
+    return word
 
 
 @define
@@ -78,39 +79,75 @@ class GCPLineSegmenter(AbstractLineSegmenter):
 @define
 class GcpTextOCR(AbstractTextOCR):
     env_file = field(default=None)
-    ocr = field(repr=False, init=False)
+    client = field(repr=False, init=False)
+    document = field(default=None, repr=False)
 
     def __attrs_post_init__(self):
-        with open(self.document, 'rb') as doc:
-            image = doc.read()
-            image = vision.types.Image(content=image)
         if self.env_file:
             cred  = service_account.Credentials.from_service_account_file(self.env_file)
-            client = vision.ImageAnnotatorClient(credentials=cred)
+            self.client = vision.ImageAnnotatorClient(credentials=cred)
         else:
-            client = vision.ImageAnnotatorClient()
-        self.ocr = client.document_text_detection(image=image).full_text_annotation
+            self.client = vision.ImageAnnotatorClient()
 
-
-    @property
-    def blocks(self):
-        blocks = GCPBlockSegmenter(self.ocr).blocks
-        return blocks
+        self.document = self.reader.read()
 
     @property
-    def lines(self):
-        lines = GCPLineSegmenter(self.ocr).lines
-        return lines
+    def parse(self):
+        return self._process_data()
 
-    
-    @property
-    def tokens(self):
-        tokens = []
-        for block in self.blocks:
-            tokens.extend(block.get("tokens"))
-        return tokens
+    def _process_data(self):
+        is_image = False
+        if isinstance(self.document, bytes):
+            self.document = [self.document]
+            is_image = True
 
-    @property
-    def text(self):
-        return self.ocr.text
+        result = {}
+        for index, document in enumerate(self.document):
+
+            ocr = self._get_ocr(document)
+            blocks = self._get_blocks(ocr)
+            data = dict(text=self._get_text(ocr), lines=self._get_lines(
+                ocr), blocks= blocks, tokens=self._get_tokens(blocks))
+            result[index] = data
+
+        if is_image:
+            return result[0]
+        else:
+            return result
+
+
+    def _get_blocks(self, ocr):
+        try:
+            return GCPBlockSegmenter(ocr).blocks
+        except Exception as ex:
+            return ["Error: {}".format(ex)]
+
+
+    def _get_lines(self, ocr):
+        try:
+            return GCPLineSegmenter(ocr).lines
+             
+        except Exception as ex:
+            return ["Error: {}".format(ex)]
+
+    def _get_tokens(self, blocks):
+        try:
+            tokens = []
+            for block in blocks:
+                tokens.extend(block.get("tokens"))
+            return tokens
+        except Exception as ex:
+            return ["Error: {}".format(ex)]
+
+    def _get_text(self, ocr):
+        try:
+            return ocr.text
+        except Exception as ex:
+            return ["Error: {}".format(ex)]
+
+    def _get_ocr(self, image):
+        image = vision.types.Image(content=image)
+        ocr = self.client.document_text_detection(image=image).full_text_annotation
+        return ocr
+
     

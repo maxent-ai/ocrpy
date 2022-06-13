@@ -74,34 +74,66 @@ class AwsBlockSegmenter(AbstractBlockSegmenter):
 @define
 class AwsTextOCR(AbstractTextOCR):
     env_file = field(default=None)
-    ocr = field(repr=False, init=False)
+    textract = field(repr=False, init=False)
+    document = field(default=None, repr=False)
 
     def __attrs_post_init__(self):
-        with open(self.document, 'rb') as doc:
-            image = doc.read()
         if self.env_file:
             load_dotenv(self.env_file)
+        self.document = self.reader.read()
         region = os.getenv('region_name')
         access_key = os.getenv('aws_access_key_id')
         secret_key = os.getenv('aws_secret_access_key')
-        textract = boto3.client('textract', region_name=region,
-                                aws_access_key_id=access_key, aws_secret_access_key=secret_key)
-        self.ocr = textract.detect_document_text(Document={'Bytes': image})
+        self.textract = boto3.client('textract', region_name=region,
+                                     aws_access_key_id=access_key, aws_secret_access_key=secret_key)
+        # self.ocr = textract.detect_document_text(
+        #    Document={'Bytes': self.document})
 
     @property
-    def blocks(self):
-        return AwsBlockSegmenter(self.ocr).blocks
+    def parse(self):
+        return self._process_data()
 
-    @property
-    def lines(self):
-        return AwsLineSegmenter(self.ocr).lines
+    def _process_data(self):
+        is_image = False
+        if isinstance(self.document, bytes):
+            self.document = [self.document]
+            is_image = True
 
-    @property
-    def tokens(self):
-        tokens = [aws_token_formator(
-            i) for i in self.ocr['Blocks'] if i['BlockType'] == 'WORD']
-        return tokens
+        result = {}
+        for index, document in enumerate(self.document):
+            ocr = self.textract.detect_document_text(
+                Document={'Bytes': document})
+            data = dict(text=self._get_text(ocr), lines=self._get_lines(
+                ocr), blocks=self._get_blocks(ocr), tokens=self._get_tokens(ocr))
+            result[index] = data
 
-    @property
-    def text(self):
-        return ' '.join([i.get('Text') for i in self.ocr['Blocks'] if i.get('BlockType') == 'WORD'])
+        if is_image:
+            return result[0]
+        else:
+            return result
+
+    def _get_blocks(self, ocr):
+        try:
+            return AwsBlockSegmenter(ocr).blocks
+        except Exception as ex:
+            return ["Error: {}".format(ex)]
+
+    def _get_lines(self, ocr):
+        try:
+            return AwsLineSegmenter(ocr).lines
+        except Exception as ex:
+            return ["Error: {}".format(ex)]
+
+    def _get_tokens(self, ocr):
+        try:
+            tokens = [aws_token_formator(
+                i) for i in ocr['Blocks'] if i['BlockType'] == 'WORD']
+            return tokens
+        except Exception as ex:
+            return ["Error: {}".format(ex)]
+
+    def _get_text(self, ocr):
+        try:
+            return ' '.join([i.get('Text') for i in ocr['Blocks'] if i.get('BlockType') == 'WORD'])
+        except Exception as ex:
+            return ["Error: {}".format(ex)]
