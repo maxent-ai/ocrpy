@@ -43,9 +43,8 @@ class DocumentReader:
         if file.startswith("gs://") and self.credentials:
             client = GSClient(application_credentials=self.credentials)
 
-        elif file.startswith("s3://"):
-            if self.credentials:
-                load_dotenv(self.credentials)
+        elif file.startswith("s3://") and self.credentials:
+            load_dotenv(self.credentials)
             client = S3Client(aws_access_key_id=os.getenv(
                 'aws_access_key_id'), aws_secret_access_key=os.getenv('aws_secret_access_key'))
         else:

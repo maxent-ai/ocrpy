@@ -140,4 +140,8 @@ nohup.out
 .DS_Store
 .vscode
 
+
+# others
 notebooks/temp
+notebooks/*.env
+
