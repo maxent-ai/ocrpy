@@ -32,26 +32,10 @@ class AbstractTextOCR:
     """
     Abstract class for Text OCR backends.
     """
-    document: Any = field()
+    reader: Any = field()
 
     @abc.abstractproperty
-    def blocks(self) -> List[Dict[str, Any]]:
-        return NotImplementedError
-
-    @abc.abstractproperty
-    def lines(self) -> List[Dict[str, Any]]:
-        return NotImplementedError
-
-    @abc.abstractproperty
-    def tokens(self) -> List[Dict[str, Any]]:
-        return NotImplementedError
-
-    @abc.abstractproperty
-    def metadata(self) -> Dict[str, Any]:
-        return NotImplementedError
-
-    @abc.abstractproperty
-    def text(self):
+    def parse(self):
         return NotImplemented
 
 

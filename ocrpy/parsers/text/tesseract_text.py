@@ -1,5 +1,6 @@
 import cv2
 import pytesseract
+import numpy as np
 from bs4.element import Tag
 from bs4 import BeautifulSoup
 from attr import define, field
@@ -116,33 +117,60 @@ class TesseractBlockSegmenter(AbstractBlockSegmenter):
 
 @define
 class TesseractTextOCR(AbstractTextOCR):
-    ocr = field(repr=False, init=False)
-    ocr_xml = field(repr=False, init=False)
+    document = field(default=None, repr=False)
 
     def __attrs_post_init__(self):
-        img_cv = cv2.imread(self.document)
-        img_cv = cv2.cvtColor(img_cv, cv2.COLOR_BGR2RGB)
-        self.ocr = pytesseract.image_to_alto_xml(img_cv)
-        self.ocr_xml = BeautifulSoup(self.ocr)
+        self.document = self.reader.read()
 
     @property
-    def lines(self):
-        tls = TesseractLineSegmenter(self.ocr_xml)
+    def parse(self):
+        result = self._process_data()
+        return result
+
+    def _process_data(self):
+        is_image = False
+        if isinstance(self.document, bytes):
+            self.document = [self.document]
+            is_image = True
+
+        result = {}
+        for index, document in enumerate(self.document):
+            processed_image = self._image_processing(document)
+            ocr = self._ocr_data(processed_image)
+            data = dict(text=self._get_text(processed_image), lines=self._get_lines(
+                ocr), blocks=self._get_blocks(ocr), tokens=self._get_tokens(ocr))
+            result[index] = data
+
+        if is_image:
+            return result[0]
+        else:
+            return result
+
+    def _get_lines(self, ocr):
+        tls = TesseractLineSegmenter(ocr)
         lines = tls.lines
         return lines
 
-    @property
-    def blocks(self):
-        tbs = TesseractBlockSegmenter(self.ocr_xml)
+    def _get_blocks(self, ocr):
+        tbs = TesseractBlockSegmenter(ocr)
         blocks = tbs.blocks
         return blocks
 
-    @property
-    def tokens(self):
-        token = tesseract_token_extractor(self.ocr_xml)
+    def _get_tokens(self, ocr):
+        token = tesseract_token_extractor(ocr)
         return token
 
-    @property
-    def text(self):
-        text = pytesseract.image_to_string(self.document)
+    def _get_text(self, image):
+        text = pytesseract.image_to_string(image)
         return text
+
+    def _ocr_data(self, document):
+        ocr = pytesseract.image_to_alto_xml(document)
+        ocr_xml = BeautifulSoup(ocr, features="lxml")
+        return ocr_xml
+
+    def _image_processing(self, document):
+        document = np.frombuffer(document, np.uint8)
+        document = cv2.imdecode(document, cv2.IMREAD_COLOR)
+        document = cv2.cvtColor(document, cv2.COLOR_BGR2RGB)
+        return document
