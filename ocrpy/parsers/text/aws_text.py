@@ -1,5 +1,7 @@
 import os
 import boto3
+import time
+from cloudpathlib import AnyPath
 from dotenv import load_dotenv
 from attr import define, field
 from typing import List, Dict, Any
@@ -26,6 +28,36 @@ def aws_token_formator(token):
     return token
 
 
+def is_job_complete(client, job_id):
+    time.sleep(1)
+    response = client.get_document_text_detection(JobId=job_id)
+    status = response["JobStatus"]
+    response = client.get_document_text_detection(JobId=job_id)
+    while(status == "IN_PROGRESS"):
+        time.sleep(1)
+        response = client.get_document_text_detection(JobId=job_id)
+        status = response["JobStatus"]
+    return status
+
+
+def get_job_results(client, job_id):
+    pages = []
+    response = client.get_document_text_detection(JobId=job_id)
+    pages.append(response)
+    next_token = None
+    if 'NextToken' in response:
+        next_token = response['NextToken']
+
+    while next_token:
+        response = client.\
+            get_document_text_detection(JobId=job_id, NextToken=next_token)
+        pages.append(response)
+        next_token = None
+        if 'NextToken' in response:
+            next_token = response['NextToken']
+    return pages
+
+
 @define
 class AwsLineSegmenter(AbstractLineSegmenter):
     """
@@ -41,6 +73,7 @@ class AwsLineSegmenter(AbstractLineSegmenter):
         lines = []
         for line in self.ocr["Blocks"]:
             if line["BlockType"] == "LINE":
+
                 idx = line.get("Id")
                 text = line.get("Text")
                 region = aws_region_extractor(line)
@@ -57,8 +90,9 @@ class AwsLineSegmenter(AbstractLineSegmenter):
         for i in relationship:
             for idx in i.get('Ids'):
                 token = self.mapper.get(idx)
-                token = aws_token_formator(token)
-                tokens.append(token)
+                if token:
+                    token = aws_token_formator(token)
+                    tokens.append(token)
         return tokens
 
 
@@ -80,37 +114,53 @@ class AwsTextOCR(AbstractTextOCR):
     def __attrs_post_init__(self):
         if self.env_file:
             load_dotenv(self.env_file)
-        self.document = self.reader.read()
         region = os.getenv('region_name')
         access_key = os.getenv('aws_access_key_id')
         secret_key = os.getenv('aws_secret_access_key')
         self.textract = boto3.client('textract', region_name=region,
                                      aws_access_key_id=access_key, aws_secret_access_key=secret_key)
-        # self.ocr = textract.detect_document_text(
-        #    Document={'Bytes': self.document})
 
     @property
     def parse(self):
         return self._process_data()
 
     def _process_data(self):
-        is_image = False
-        if isinstance(self.document, bytes):
-            self.document = [self.document]
-            is_image = True
-
         result = {}
-        for index, document in enumerate(self.document):
-            ocr = self.textract.detect_document_text(
-                Document={'Bytes': document})
-            data = dict(text=self._get_text(ocr), lines=self._get_lines(
-                ocr), blocks=self._get_blocks(ocr), tokens=self._get_tokens(ocr))
+        ocr = self._get_ocr()
+        if not isinstance(ocr, list):
+            ocr = [ocr]
+        for index, page in enumerate(ocr):
+            print("Processing page {}".format(index))
+            data = dict(text=self._get_text(page), lines=self._get_lines(
+                page), blocks=self._get_blocks(page), tokens=self._get_tokens(page))
             result[index] = data
+        return result
 
-        if is_image:
-            return result[0]
+    def _get_ocr(self):
+        storage_type = self.reader.get_storage_type()
+
+        if storage_type == 's3':
+            path = AnyPath(self.reader.file)
+
+            response = self.textract.start_document_text_detection(DocumentLocation={
+                'S3Object': {
+                    'Bucket': path.bucket,
+                    'Name': path.key
+                }})
+            job_id = response['JobId']
+            status = is_job_complete(self.textract, job_id)
+            ocr = get_job_results(self.textract, job_id)
+
         else:
-            return result
+            self.document = self.reader.read()
+            if isinstance(self.document, bytes):
+                self.document = [self.document]
+            ocr = []
+            for document in self.document:
+                result = self.textract.detect_document_text(
+                    Document={'Bytes': document})
+                ocr.append(result)
+        return ocr
 
     def _get_blocks(self, ocr):
         try:
