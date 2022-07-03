@@ -33,7 +33,7 @@ class DocumentReader:
 
     file: str = field()
     credentials: str = field(default=None)
-    storage_type = field(default=None, init=False)
+    storage_type: str = field(default=None, init=False)
 
     def __attrs_post_init__(self):
         self.storage_type = guess_storage(self.file)
