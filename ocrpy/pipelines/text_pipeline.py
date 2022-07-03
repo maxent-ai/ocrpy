@@ -6,11 +6,11 @@ from ..io import DocumentReader
 from cloudpathlib import AnyPath, S3Client, GSClient
 from ..parsers import TesseractTextOCR, AwsTextOCR, GcpTextOCR
 
-__all__ = ['TextPipeline']
+__all__ = ['TextOcrPipeline']
 
 
 @define
-class TextPipeline:
+class TextOcrPipeline:
     source = field()
     destination = field()
     parser_type = field()  # aws, gcp, tesseract
@@ -22,10 +22,11 @@ class TextPipeline:
         self.destination = AnyPath(
             self.destination, client=self._get_client(self.destination))
 
-    def process_data(self):
+    def process(self):
         if self.source.is_dir():
             for file in self.source.iterdir():
-                try:  # To remove try catch need write file type validation code
+                # TO-DO: Remove try catch and add file type validation logic.
+                try:
                     result = self._process_file(file)
                     file_name = '.'.join(file.name.split(".")[:-1])
                     file_name = f"{file_name}_{self.parser_type}.json"
