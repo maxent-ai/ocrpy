@@ -8,16 +8,22 @@ from ...utils.exceptions import AttributeNotSupported
 from typing import List, Dict, Any, Union, Generator, ByteString
 from ..core import AbstractTextOCR, AbstractLineSegmenter, AbstractBlockSegmenter
 
-__all__ = ['AwsTextOCR']
+__all__ = ["AwsTextOCR"]
 
 # TO-DO: Add logging and improve the error handling
 
 
 def aws_region_extractor(block):
-    x1, x2 = block['Geometry']['BoundingBox']['Left'], block['Geometry']['BoundingBox']['Left'] + \
-        block['Geometry']['BoundingBox']['Width']
-    y1, y2 = block['Geometry']['BoundingBox']['Top'], block['Geometry']['BoundingBox']['Top'] + \
-        block['Geometry']['BoundingBox']['Height']
+    x1, x2 = (
+        block["Geometry"]["BoundingBox"]["Left"],
+        block["Geometry"]["BoundingBox"]["Left"]
+        + block["Geometry"]["BoundingBox"]["Width"],
+    )
+    y1, y2 = (
+        block["Geometry"]["BoundingBox"]["Top"],
+        block["Geometry"]["BoundingBox"]["Top"]
+        + block["Geometry"]["BoundingBox"]["Height"],
+    )
     return dict(x1=x1, y1=y1, x2=x2, y2=y2)
 
 
@@ -35,7 +41,7 @@ def _job_status(client, job_id):
     response = client.get_document_text_detection(JobId=job_id)
     status = response["JobStatus"]
     response = client.get_document_text_detection(JobId=job_id)
-    while(status == "IN_PROGRESS"):
+    while status == "IN_PROGRESS":
         time.sleep(1)
         response = client.get_document_text_detection(JobId=job_id)
         status = response["JobStatus"]
@@ -47,16 +53,17 @@ def _fetch_job_result(client, job_id):
     response = client.get_document_text_detection(JobId=job_id)
     pages.append(response)
     next_token = None
-    if 'NextToken' in response:
-        next_token = response['NextToken']
+    if "NextToken" in response:
+        next_token = response["NextToken"]
 
     while next_token:
-        response = client.\
-            get_document_text_detection(JobId=job_id, NextToken=next_token)
+        response = client.get_document_text_detection(
+            JobId=job_id, NextToken=next_token
+        )
         pages.append(response)
         next_token = None
-        if 'NextToken' in response:
-            next_token = response['NextToken']
+        if "NextToken" in response:
+            next_token = response["NextToken"]
     return pages
 
 
@@ -65,10 +72,11 @@ class AwsLineSegmenter(AbstractLineSegmenter):
     """
     Implements Line Segmentation using AWS Textract OCR Engine.
     """
+
     mapper = field(repr=False, init=False)
 
     def __attrs_post_init__(self):
-        self.mapper = {i['Id']: i for i in self.ocr['Blocks']}
+        self.mapper = {i["Id"]: i for i in self.ocr["Blocks"]}
 
     @property
     def lines(self) -> List[Dict[str, Any]]:
@@ -80,17 +88,21 @@ class AwsLineSegmenter(AbstractLineSegmenter):
                 text = line.get("Text")
                 region = aws_region_extractor(line)
                 tokens = self._aws_token_extractor(line.get("Relationships"))
-                metadata = dict(token_count=len(tokens), text_length=len(
-                    text), confidence=line.get("Confidence"))
-                line_data = dict(text=text, region=region,
-                                 idx=idx, tokens=tokens, metadata=metadata)
+                metadata = dict(
+                    token_count=len(tokens),
+                    text_length=len(text),
+                    confidence=line.get("Confidence"),
+                )
+                line_data = dict(
+                    text=text, region=region, idx=idx, tokens=tokens, metadata=metadata
+                )
                 lines.append(line_data)
         return lines
 
     def _aws_token_extractor(self, relationship):
         tokens = []
         for i in relationship:
-            for idx in i.get('Ids'):
+            for idx in i.get("Ids"):
                 token = self.mapper.get(idx)
                 if token:
                     token = aws_token_formator(token)
@@ -100,11 +112,11 @@ class AwsLineSegmenter(AbstractLineSegmenter):
 
 @define
 class AwsBlockSegmenter(AbstractBlockSegmenter):
-
     @property
     def blocks(self):
         raise AttributeNotSupported(
-            "AWS Backend does not support block segmentation yet.")
+            "AWS Backend does not support block segmentation yet."
+        )
 
 
 @define
@@ -120,18 +132,24 @@ class AwsTextOCR(AbstractTextOCR):
         Path to credentials file.
         Note: The credentials file must be in .env format.
     """
+
     _client: boto3.client = field(repr=False, init=False)
     _document: Union[Generator, ByteString] = field(
-        default=None, repr=False, init=False)
+        default=None, repr=False, init=False
+    )
 
     def __attrs_post_init__(self):
         if self.credentials:
             load_dotenv(self.credentials)
-        region = os.getenv('region_name')
-        access_key = os.getenv('aws_access_key_id')
-        secret_key = os.getenv('aws_secret_access_key')
-        self._client = boto3.client('textract', region_name=region,
-                                    aws_access_key_id=access_key, aws_secret_access_key=secret_key)
+        region = os.getenv("region_name")
+        access_key = os.getenv("aws_access_key_id")
+        secret_key = os.getenv("aws_secret_access_key")
+        self._client = boto3.client(
+            "textract",
+            region_name=region,
+            aws_access_key_id=access_key,
+            aws_secret_access_key=secret_key,
+        )
 
     def parse(self) -> Dict[int, Dict]:
         """
@@ -150,23 +168,25 @@ class AwsTextOCR(AbstractTextOCR):
         if not isinstance(ocr, list):
             ocr = [ocr]
         for index, page in enumerate(ocr):
-            data = dict(text=self._get_text(page), lines=self._get_lines(
-                page), blocks=self._get_blocks(page), tokens=self._get_tokens(page))
+            data = dict(
+                text=self._get_text(page),
+                lines=self._get_lines(page),
+                blocks=self._get_blocks(page),
+                tokens=self._get_tokens(page),
+            )
             result[index] = data
         return result
 
     def _get_ocr(self):
         storage_type = self.reader.storage_type
 
-        if storage_type == 's3':
+        if storage_type == "s3":
             path = AnyPath(self.reader.file)
 
-            response = self._client.start_document_text_detection(DocumentLocation={
-                'S3Object': {
-                    'Bucket': path.bucket,
-                    'Name': path.key
-                }})
-            job_id = response['JobId']
+            response = self._client.start_document_text_detection(
+                DocumentLocation={"S3Object": {"Bucket": path.bucket, "Name": path.key}}
+            )
+            job_id = response["JobId"]
             status = _job_status(self.textract, job_id)
             ocr = _fetch_job_result(self.textract, job_id)
 
@@ -176,8 +196,7 @@ class AwsTextOCR(AbstractTextOCR):
                 self._document = [self._document]
             ocr = []
             for document in self._document:
-                result = self._client.detect_document_text(
-                    Document={'Bytes': document})
+                result = self._client.detect_document_text(Document={"Bytes": document})
                 ocr.append(result)
         return ocr
 
@@ -195,14 +214,17 @@ class AwsTextOCR(AbstractTextOCR):
 
     def _get_tokens(self, ocr):
         try:
-            tokens = [aws_token_formator(
-                i) for i in ocr['Blocks'] if i['BlockType'] == 'WORD']
+            tokens = [
+                aws_token_formator(i) for i in ocr["Blocks"] if i["BlockType"] == "WORD"
+            ]
             return tokens
         except Exception as ex:
             return ["Error: {}".format(ex)]
 
     def _get_text(self, ocr):
         try:
-            return ' '.join([i.get('Text') for i in ocr['Blocks'] if i.get('BlockType') == 'WORD'])
+            return " ".join(
+                [i.get("Text") for i in ocr["Blocks"] if i.get("BlockType") == "WORD"]
+            )
         except Exception as ex:
             return ["Error: {}".format(ex)]

@@ -6,9 +6,10 @@ from google.oauth2 import service_account
 from ...utils.exceptions import AttributeNotSupported
 from ..core import AbstractTextOCR, AbstractLineSegmenter, AbstractBlockSegmenter
 
-__all__ = ['GcpTextOCR']
+__all__ = ["GcpTextOCR"]
 
 # TO-DO: Add logging and improve the error handling
+
 
 def gcp_region_extractor(block):
     x_points = [v.x for v in block]
@@ -20,46 +21,55 @@ def gcp_region_extractor(block):
 
 
 def gcp_token_formator(symbols):
-    word = ''
+    word = ""
     confidence = []
     for symbol in symbols:
         word += symbol.text
         confidence.append(symbol.confidence)
         if symbol.property.detected_break.type in (3, 5):
-            word += '\n'
+            word += "\n"
         elif symbol.property.detected_break.type == 4:
-            word += '-'
+            word += "-"
         elif symbol.property.detected_break.type != 0:
-            word += ' '
+            word += " "
 
     metadata = dict(text_length=len(word), confidence=np.mean(confidence))
-    word = dict(text=word,
-                region=gcp_region_extractor(symbol.bounding_box.vertices),
-                metadata=metadata)
+    word = dict(
+        text=word,
+        region=gcp_region_extractor(symbol.bounding_box.vertices),
+        metadata=metadata,
+    )
     return word
 
 
 @define
 class GCPBlockSegmenter(AbstractBlockSegmenter):
-
     @property
     def blocks(self) -> List[Dict[str, Any]]:
         blocks = []
         pages = self.ocr.pages
-        
+
         for page in pages:
             for block_idx, block in enumerate(page.blocks):
                 vertices = block.bounding_box.vertices
                 region = gcp_region_extractor(vertices)
                 tokens = self._extract_block_tokens(block)
-                block_text = ' '.join([i.get("text") for i in tokens])
-                meta_data = dict(token_count=len(tokens), text_length=len(
-                    block_text), confidence= block.confidence)
-                _ = dict(text=block_text, region=region, idx=block_idx, tokens=tokens, metadata=meta_data)
+                block_text = " ".join([i.get("text") for i in tokens])
+                meta_data = dict(
+                    token_count=len(tokens),
+                    text_length=len(block_text),
+                    confidence=block.confidence,
+                )
+                _ = dict(
+                    text=block_text,
+                    region=region,
+                    idx=block_idx,
+                    tokens=tokens,
+                    metadata=meta_data,
+                )
                 blocks.append(_)
 
-        return  blocks
-
+        return blocks
 
     def _extract_block_tokens(self, block) -> List[Dict[str, Any]]:
 
@@ -72,10 +82,10 @@ class GCPBlockSegmenter(AbstractBlockSegmenter):
 
 @define
 class GCPLineSegmenter(AbstractLineSegmenter):
-
     @property
     def lines(self):
         AttributeNotSupported("GCP Backend does not support line segmentation yet.")
+
 
 @define
 class GcpTextOCR(AbstractTextOCR):
@@ -90,12 +100,15 @@ class GcpTextOCR(AbstractTextOCR):
         Path to credentials file.
         Note: The credentials file must be in .json format.
     """
+
     _client = field(repr=False, init=False)
     _document = field(default=None, repr=False, init=False)
 
     def __attrs_post_init__(self):
         if self.credentials:
-            cred  = service_account.Credentials.from_service_account_file(self.credentials)
+            cred = service_account.Credentials.from_service_account_file(
+                self.credentials
+            )
             self._client = vision.ImageAnnotatorClient(credentials=cred)
         else:
             self._client = vision.ImageAnnotatorClient()
@@ -124,8 +137,12 @@ class GcpTextOCR(AbstractTextOCR):
 
             ocr = self._get_ocr(document)
             blocks = self._get_blocks(ocr)
-            data = dict(text=self._get_text(ocr), lines=self._get_lines(
-                ocr), blocks= blocks, tokens=self._get_tokens(blocks))
+            data = dict(
+                text=self._get_text(ocr),
+                lines=self._get_lines(ocr),
+                blocks=blocks,
+                tokens=self._get_tokens(blocks),
+            )
             result[index] = data
 
         if is_image:
@@ -133,18 +150,16 @@ class GcpTextOCR(AbstractTextOCR):
         else:
             return result
 
-
     def _get_blocks(self, ocr):
         try:
             return GCPBlockSegmenter(ocr).blocks
         except Exception as ex:
             return ["Error: {}".format(ex)]
 
-
     def _get_lines(self, ocr):
         try:
             return GCPLineSegmenter(ocr).lines
-             
+
         except Exception as ex:
             return ["Error: {}".format(ex)]
 
@@ -167,5 +182,3 @@ class GcpTextOCR(AbstractTextOCR):
         image = vision.types.Image(content=image)
         ocr = self._client.document_text_detection(image=image).full_text_annotation
         return ocr
-
-    

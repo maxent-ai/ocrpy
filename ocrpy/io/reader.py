@@ -9,7 +9,7 @@ from typing import Union, Generator, ByteString
 from ..utils import guess_extension, guess_storage
 from cloudpathlib import S3Client, GSClient, AnyPath
 
-__all__ = ['DocumentReader']
+__all__ = ["DocumentReader"]
 
 # TO-DO: Add logging and improve the error handling
 
@@ -25,11 +25,12 @@ class DocumentReader:
     file : str
         The path to the file to be read.
     credentials : str
-        The path to the credentials file. 
-        Note: 
+        The path to the credentials file.
+        Note:
             If the Remote storage is AWS S3, the credentials file must be in the .env format.
             If the Remote storage is Google Storage, the credentials file must be in the .json format.
     """
+
     file: str = field()
     credentials: str = field(default=None)
     storage_type = field(default=None, init=False)
@@ -39,8 +40,8 @@ class DocumentReader:
 
     def read(self) -> Union[Generator, ByteString]:
         """
-        Reads the file from a local or remote location and 
-        returns the data in byte-string for an image or as a 
+        Reads the file from a local or remote location and
+        returns the data in byte-string for an image or as a
         generator of byte-strings for a pdf.
 
         Returns
@@ -51,9 +52,14 @@ class DocumentReader:
         """
 
         file_type = guess_extension(self.file)
-        reader_methods = {'IMAGE': self._read_image, 'PDF': self._read_pdf}
-        return reader_methods[file_type](self.file) if file_type in reader_methods else FileTypeNotSupported(
-            f"""We failed to understand the file type of {self.file}. The supported file-types are .png, .jpg or .pdf files. Please check the file type and try again.""")
+        reader_methods = {"IMAGE": self._read_image, "PDF": self._read_pdf}
+        return (
+            reader_methods[file_type](self.file)
+            if file_type in reader_methods
+            else FileTypeNotSupported(
+                f"""We failed to understand the file type of {self.file}. The supported file-types are .png, .jpg or .pdf files. Please check the file type and try again."""
+            )
+        )
 
     def _read_image(self, file):
         return self._read(file)
@@ -73,10 +79,12 @@ class DocumentReader:
         if storage_type == "GS" and self.credentials:
             client = GSClient(application_credentials=self.credentials)
 
-        elif storage_type == 'S3' and self.credentials:
+        elif storage_type == "S3" and self.credentials:
             load_dotenv(self.credentials)
-            client = S3Client(aws_access_key_id=os.getenv(
-                'aws_access_key_id'), aws_secret_access_key=os.getenv('aws_secret_access_key'))
+            client = S3Client(
+                aws_access_key_id=os.getenv("aws_access_key_id"),
+                aws_secret_access_key=os.getenv("aws_secret_access_key"),
+            )
         else:
             client = None
         return client
@@ -85,5 +93,5 @@ class DocumentReader:
         images = convert_from_bytes(data)
         for image in images:
             buf = BytesIO()
-            image.save(buf, format='PNG')
+            image.save(buf, format="PNG")
             yield buf.getvalue()

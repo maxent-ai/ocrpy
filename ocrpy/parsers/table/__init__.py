@@ -1,1 +1,1 @@
-from .aws_table import * 
+from .aws_table import *
