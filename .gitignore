@@ -142,6 +142,7 @@ nohup.out
 
 
 # others
+notebooks/local/*
 notebooks/temp
 notebooks/*.env
 
