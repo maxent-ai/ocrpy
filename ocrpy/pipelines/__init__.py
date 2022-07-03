@@ -1,1 +1,1 @@
-from .text_pipeline import TextPipeline
+from .text_pipeline import TextOcrPipeline

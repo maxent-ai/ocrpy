@@ -3,11 +3,12 @@ from attr import define, field
 from google.cloud import vision
 from typing import List, Dict, Any
 from google.oauth2 import service_account
-from ...utils.errors import NotSupportedError
+from ...utils.exceptions import AttributeNotSupported
 from ..core import AbstractTextOCR, AbstractLineSegmenter, AbstractBlockSegmenter
 
 __all__ = ['GcpTextOCR']
 
+# TO-DO: Add logging and improve the error handling
 
 def gcp_region_extractor(block):
     x_points = [v.x for v in block]
@@ -74,35 +75,52 @@ class GCPLineSegmenter(AbstractLineSegmenter):
 
     @property
     def lines(self):
-        NotSupportedError("GCP Backend does not support line segmentation yet.")
+        AttributeNotSupported("GCP Backend does not support line segmentation yet.")
 
 @define
 class GcpTextOCR(AbstractTextOCR):
-    env_file = field(default=None)
-    client = field(repr=False, init=False)
-    document = field(default=None, repr=False)
+    """
+    Google Cloud Vision  OCR Engine
+
+    Attributes
+    ----------
+    reader : Any
+        Reader object that can be used to read the document.
+    credentials : str
+        Path to credentials file.
+        Note: The credentials file must be in .json format.
+    """
+    _client = field(repr=False, init=False)
+    _document = field(default=None, repr=False, init=False)
 
     def __attrs_post_init__(self):
-        if self.env_file:
-            cred  = service_account.Credentials.from_service_account_file(self.env_file)
-            self.client = vision.ImageAnnotatorClient(credentials=cred)
+        if self.credentials:
+            cred  = service_account.Credentials.from_service_account_file(self.credentials)
+            self._client = vision.ImageAnnotatorClient(credentials=cred)
         else:
-            self.client = vision.ImageAnnotatorClient()
+            self._client = vision.ImageAnnotatorClient()
 
-        self.document = self.reader.read()
+        self._document = self.reader.read()
 
-    @property
     def parse(self):
+        """
+        Parses the document and returns the ocr data as a dictionary of pages along with additional metadata.
+
+        Returns
+        -------
+        parsed_data : dict
+            Dictionary of pages.
+        """
         return self._process_data()
 
     def _process_data(self):
         is_image = False
-        if isinstance(self.document, bytes):
-            self.document = [self.document]
+        if isinstance(self._document, bytes):
+            self._document = [self._document]
             is_image = True
 
         result = {}
-        for index, document in enumerate(self.document):
+        for index, document in enumerate(self._document):
 
             ocr = self._get_ocr(document)
             blocks = self._get_blocks(ocr)
@@ -147,7 +165,7 @@ class GcpTextOCR(AbstractTextOCR):
 
     def _get_ocr(self, image):
         image = vision.types.Image(content=image)
-        ocr = self.client.document_text_detection(image=image).full_text_annotation
+        ocr = self._client.document_text_detection(image=image).full_text_annotation
         return ocr
 
     

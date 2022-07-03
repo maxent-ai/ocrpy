@@ -9,6 +9,8 @@ from ..core import AbstractTextOCR, AbstractLineSegmenter, AbstractBlockSegmente
 
 __all__ = ['TesseractTextOCR']
 
+# TO-DO: Add logging and improve the error handling
+
 
 def tesseract_region_extractor(context):
     x, y, w, h = context.get('hpos'), context.get(
@@ -117,34 +119,54 @@ class TesseractBlockSegmenter(AbstractBlockSegmenter):
 
 @define
 class TesseractTextOCR(AbstractTextOCR):
-    document = field(default=None, repr=False)
+    """
+    PyTesseract OCR Engine
+
+    Attributes
+    ----------
+    reader: Any
+        Reader object that can be used to read the document.
+    credentials : None
+        Credentials for the OCR engine (if any).
+    """
+    credentials: None = field(default=None)
+    _document = field(default=None, repr=False, init=False)
 
     def __attrs_post_init__(self):
-        self.document = self.reader.read()
+        self._document = self.reader.read()
 
-    @property
     def parse(self):
+        """
+        Parses the document and returns the ocr data as a dictionary of pages along with additional metadata.
+
+        Returns
+        -------
+        parsed_data : dict
+            Dictionary of pages.
+        """
         result = self._process_data()
         return result
 
     def _process_data(self):
         is_image = False
-        if isinstance(self.document, bytes):
-            self.document = [self.document]
+        if isinstance(self._document, bytes):
+            self._document = [self._document]
             is_image = True
 
         result = {}
-        for index, document in enumerate(self.document):
-            processed_image = self._image_processing(document)
+        for index, document in enumerate(self._document):
+            processed_image = self._image_preprocessor(document)
             ocr = self._ocr_data(processed_image)
             data = dict(text=self._get_text(processed_image), lines=self._get_lines(
                 ocr), blocks=self._get_blocks(ocr), tokens=self._get_tokens(ocr))
             result[index] = data
 
-        if is_image:
-            return result[0]
-        else:
-            return result
+        return result
+
+        # if is_image:
+        #     return result[0]
+        # else:
+        #     return result
 
     def _get_lines(self, ocr):
         tls = TesseractLineSegmenter(ocr)
@@ -169,7 +191,7 @@ class TesseractTextOCR(AbstractTextOCR):
         ocr_xml = BeautifulSoup(ocr, features="lxml")
         return ocr_xml
 
-    def _image_processing(self, document):
+    def _image_preprocessor(self, document):
         document = np.frombuffer(document, np.uint8)
         document = cv2.imdecode(document, cv2.IMREAD_COLOR)
         document = cv2.cvtColor(document, cv2.COLOR_BGR2RGB)

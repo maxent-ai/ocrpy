@@ -33,8 +33,9 @@ class AbstractTextOCR:
     Abstract class for Text OCR backends.
     """
     reader: Any = field()
+    credentials: str = field()
 
-    @abc.abstractproperty
+    @abc.abstractmethod
     def parse(self):
         return NotImplemented
 
