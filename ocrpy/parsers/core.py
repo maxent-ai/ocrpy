@@ -8,6 +8,7 @@ class AbstractLineSegmenter:
     """
     Abstract class for line segmentation backends.
     """
+
     ocr: Any = field()
 
     @abc.abstractproperty
@@ -20,6 +21,7 @@ class AbstractBlockSegmenter:
     """
     Abstract class for block segmentation backends.
     """
+
     ocr: Any = field()
 
     @abc.abstractproperty
@@ -32,6 +34,7 @@ class AbstractTextOCR:
     """
     Abstract class for Text OCR backends.
     """
+
     reader: Any = field()
     credentials: str = field()
 
@@ -45,6 +48,7 @@ class AbstractTableOCR:
     """
     Abstract class for Table OCR backends.
     """
+
     document: Any = field()
 
     @abc.abstractproperty
