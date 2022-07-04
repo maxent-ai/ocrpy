@@ -20,6 +20,7 @@ class TableParser:
     credentials : str
         The credentials to use for the selected backend.
     """
+
     credentials: Optional[str] = field(default=None)
     backend: str = field(default="aws-textract")
 
@@ -38,7 +39,9 @@ class TableParser:
 
         return parser_registry[self.backend]
 
-    def parse(self, document:str, attempt_csv_conversion: bool=False) -> Union[List, Dict]:
+    def parse(
+        self, document: str, attempt_csv_conversion: bool = False
+    ) -> Union[List, Dict]:
         """
         Parse the document and extract the tables.
 
@@ -49,7 +52,7 @@ class TableParser:
         attempt_csv_conversion : bool
             If True, attempt to convert the table to CSV.
             default: False
-        
+
         Returns
         -------
         tables : Union[List, Dict]
