@@ -1,7 +1,6 @@
 import cv2
 import pytesseract
 import numpy as np
-from bs4.element import Tag
 from bs4 import BeautifulSoup
 from attr import define, field
 from typing import List, Dict, Any

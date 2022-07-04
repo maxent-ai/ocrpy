@@ -1,6 +1,6 @@
 import abc
 from attr import define, field
-from typing import List, Dict, Any
+from typing import List, Dict, Any, Optional
 
 
 @define
@@ -49,12 +49,8 @@ class AbstractTableOCR:
     Abstract class for Table OCR backends.
     """
 
-    document: Any = field()
+    credentials: Optional[str] = field(default=None)
 
-    @abc.abstractproperty
-    def metadata(self) -> Dict[str, Any]:
-        return NotImplementedError
-
-    @abc.abstractproperty
-    def tables(self) -> List[List]:
+    @abc.abstractmethod
+    def parse(self) -> List[List]:
         return NotImplemented
