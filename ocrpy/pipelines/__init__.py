@@ -1,1 +1,2 @@
-from .text_pipeline import TextOcrPipeline
+from .text_pipeline import *
+from .config import *
