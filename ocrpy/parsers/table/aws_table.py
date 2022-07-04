@@ -1,5 +1,6 @@
 import os
 import boto3
+import pandas as pd
 from dotenv import load_dotenv
 from attr import define, field
 from typing import List, Dict, Any
@@ -7,20 +8,26 @@ from collections import defaultdict
 from ..core import AbstractTableOCR
 from ..text.aws_text import aws_region_extractor
 
-__all__ = ["AWSTableOCR"]
+__all__ = ["AwsTableOCR", "table_to_csv"]
 
 
 @define
-class AWSTableOCR(AbstractTableOCR):
-    env_file = field(default=None)
-    ocr = field(repr=False, init=False)
-    mapper = field(repr=False, init=False)
+class AwsTableOCR(AbstractTableOCR):
+    """
+    AWS Table Parser - This parser uses AWS Textract to analyze the document 
+    and extract the tables.
 
-    def __attrs_post_init__(self):
-        with open(self.document, "rb") as doc:
-            image = doc.read()
-        if self.env_file:
-            load_dotenv(self.env_file)
+    Parameters
+    ----------
+    credentials : str
+        Path to credentials file.
+        Note: The credentials file must be in .env format.
+
+    """
+
+    def _client(self):
+        if self.credentials:
+            load_dotenv(self.credentials)
         region = os.getenv("region_name")
         access_key = os.getenv("aws_access_key_id")
         secret_key = os.getenv("aws_secret_access_key")
@@ -30,30 +37,48 @@ class AWSTableOCR(AbstractTableOCR):
             aws_access_key_id=access_key,
             aws_secret_access_key=secret_key,
         )
+        return textract
 
-        self.ocr = textract.analyze_document(
-            Document={"Bytes": image}, FeatureTypes=["TABLES"]
-        )
-        self.mapper = {b["Id"]: b for b in self.ocr.get("Blocks")}
+    def _read(self, document):
+        with open(document, "rb") as doc:
+            image = doc.read()
+        return image
 
-    @property
-    def tables(self) -> List[List]:
-        tables = [i for i in self.ocr["Blocks"] if i.get("BlockType") == "TABLE"]
-        return [self._extract_table_data(i) for i in tables]
+    def parse(self, document: str) -> List[List]:
+        """
+        Parse the document and extract the tables.
 
-    def _extract_table_data(self, table):
+        Parameters
+        ----------
+        document : str
+            Path to the document to be parsed.
+        
+        Returns
+        -------
+        tables : List[List]
+            List of list of tabular data.
+        """
+        textract = self._client()
+        image = self._read(document)
+        ocr = textract.analyze_document(Document={"Bytes": image}, FeatureTypes=["TABLES"])
+        mapper = {b["Id"]: b for b in ocr.get("Blocks")}
+        tables = [i for i in ocr["Blocks"] if i.get("BlockType") == "TABLE"]
+        output = [self._extract_table_data(i, mapper) for i in tables]
+        return output
+
+    def _extract_table_data(self, table, mapper):
         relationships = table["Relationships"]
         if len(relationships) == 0:
             return []
 
         table_data = defaultdict(list)
         for i in relationships[0]["Ids"]:
-            cell_data = self._extract_cell(self.mapper.get(i))
+            cell_data = self._extract_cell(mapper.get(i), mapper)
             table_data[cell_data["row_index"]].append(cell_data)
 
         return list(table_data.values())
 
-    def _cell_text(self, cell):
+    def _cell_text(self, cell, mapper):
         if cell.get("Relationships") is None:
             return ""
 
@@ -62,13 +87,13 @@ class AWSTableOCR(AbstractTableOCR):
             if rel["Type"] != "CHILD":
                 continue
             for child_id in rel["Ids"]:
-                child = self.mapper.get(child_id)
+                child = mapper.get(child_id)
                 if child["BlockType"] == "WORD":
                     text.append(child["Text"])
         return " ".join(text)
 
-    def _extract_cell(self, cell):
-        text = self._cell_text(cell)
+    def _extract_cell(self, cell, mapper):
+        text = self._cell_text(cell, mapper)
         region = aws_region_extractor(cell)
         metadata = dict(
             row_span=cell.get("RowSpan"),
@@ -83,3 +108,25 @@ class AWSTableOCR(AbstractTableOCR):
             region=region,
             metadata=metadata,
         )
+
+
+def table_to_csv(table_data: List[List]) -> Dict[int, pd.DataFrame]:
+    """
+    Convert the table data to CSV.
+
+    Parameters
+    ----------
+    table_data : List[List]
+        Table data extracted from the document using the parser.
+    
+    Returns
+    -------
+    table_data : Dict[int, pd.DataFrame]
+        Table data in CSV format.
+    """
+    data = {}
+    for index, page in enumerate(table_data):
+        df = pd.DataFrame([[j['text'] for j in i]for i in page])
+        data[index] = df
+    return data
+
