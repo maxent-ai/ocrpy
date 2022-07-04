@@ -7,19 +7,14 @@ unified interface to google vision, aws textract, azure and tesseract OCR tools.
 ### Sample Usage
 
 ```python
-from ocrpy import TextPipeline
+from ocrpy import TextOcrPipeline
 
-SOURCE_DIR = 'source-dir-to-read-data'
-DESTINATION_DIR = 'destination-path-to-write'
+# running pipeline from pipeline config.
+ocr_pipeline = TextOcrPipeline.from_config("ocrpy_config.yaml")
+ocr_pipeline.process()
 
-#optional: if using aws or gcp for ocr - pass the env file
-#env-file need to contain `region_name`, `aws_access_key_id` and `aws_secret_access_key` vars
-AWS_ENV_FILE = 'path-to-aws-credentials-env-file'
-CREDENTIALS = {'aws': AWS_ENV_FILE}
-PARSER_TYPE = 'aws'
-
-ocr_pipe = TextPipeline(SOURCE_DIR, DESTINATION_DIR, PARSER_TYPE, CREDENTIALS) 
-ocr_pipe.process_data()
-
+# alternatively you can also run a pipeline like this:
+pipeline = TextOcrPipeline(source_dir='s3://document_bucket/', destination_dir="gs://processed_document_bucket/outputs/", parser_backend='aws-textract')
+pipeline.process()
 ```
 
