@@ -25,6 +25,7 @@ class TextParser:
         The credentials to use for the selected backend.
         default: None
     """
+
     credentials: Optional[str] = field(default=None)
     backend: str = field(default="pytesseract")
 
@@ -54,7 +55,7 @@ class TextParser:
         ----------
         reader : DocumentReader
             The reader to parse the data from.
-        
+
         Returns
         -------
         data : Dict
