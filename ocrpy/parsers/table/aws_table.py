@@ -14,7 +14,7 @@ __all__ = ["AwsTableOCR", "table_to_csv"]
 @define
 class AwsTableOCR(AbstractTableOCR):
     """
-    AWS Table Parser - This parser uses AWS Textract to analyze the document 
+    AWS Table Parser - This parser uses AWS Textract to analyze the document
     and extract the tables.
 
     Parameters
@@ -52,7 +52,7 @@ class AwsTableOCR(AbstractTableOCR):
         ----------
         document : str
             Path to the document to be parsed.
-        
+
         Returns
         -------
         tables : List[List]
@@ -60,7 +60,9 @@ class AwsTableOCR(AbstractTableOCR):
         """
         textract = self._client()
         image = self._read(document)
-        ocr = textract.analyze_document(Document={"Bytes": image}, FeatureTypes=["TABLES"])
+        ocr = textract.analyze_document(
+            Document={"Bytes": image}, FeatureTypes=["TABLES"]
+        )
         mapper = {b["Id"]: b for b in ocr.get("Blocks")}
         tables = [i for i in ocr["Blocks"] if i.get("BlockType") == "TABLE"]
         output = [self._extract_table_data(i, mapper) for i in tables]
@@ -118,7 +120,7 @@ def table_to_csv(table_data: List[List]) -> Dict[int, pd.DataFrame]:
     ----------
     table_data : List[List]
         Table data extracted from the document using the parser.
-    
+
     Returns
     -------
     table_data : Dict[int, pd.DataFrame]
@@ -126,7 +128,6 @@ def table_to_csv(table_data: List[List]) -> Dict[int, pd.DataFrame]:
     """
     data = {}
     for index, page in enumerate(table_data):
-        df = pd.DataFrame([[j['text'] for j in i]for i in page])
+        df = pd.DataFrame([[j["text"] for j in i] for i in page])
         data[index] = df
     return data
-
