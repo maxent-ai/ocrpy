@@ -4,3 +4,6 @@ opencv-python==4.1.2.30
 beautifulsoup4==4.9.1
 google-cloud-vision==1.0.0
 boto3==1.19.7
+pdf2image==1.14.0
+numpy==1.21.1
+beautifulsoup4==4.11.1
