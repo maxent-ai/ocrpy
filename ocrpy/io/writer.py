@@ -19,12 +19,13 @@ class DocumentWriter:
         default: None
         The credentials to use for the selected storage location.
 
-        Note: If the storage location is AWS S3, the credentials file must be in the .env format and 
+        Note: If the storage location is AWS S3, the credentials file must be in the .env format and
         If the storage location is Google Storage, the credentials file must be in the .json format.
     """
-    credentials:Optional[str] = field(default=None)
 
-    def write(self, data:Dict, file:str) -> None:
+    credentials: Optional[str] = field(default=None)
+
+    def write(self, data: Dict, file: str) -> None:
         """
         Write the parser output to a given location (supports write to local storage, S3 and GS).
 
