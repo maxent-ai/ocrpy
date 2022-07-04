@@ -1,9 +1,10 @@
 from attrs import define, field
-from typing import Any, Optional
 from .aws_text import AwsTextOCR
 from .gcp_text import GcpTextOCR
-from .tesseract_text import TesseractTextOCR
+from ...io import DocumentReader
+from typing import Any, Dict, Optional
 from ...utils import BackendNotSupported
+from .tesseract_text import TesseractTextOCR
 
 __all__ = ["TextParser"]
 
@@ -20,14 +21,10 @@ class TextParser:
         The name of the backend to use.
         default: "pytesseract"
         alternative options: "pytesseract", "aws-textract", "google-cloud-vision"
-    reader : Any
-        The reader object to use.
     credentials : Optional[str]
         The credentials to use for the selected backend.
         default: None
     """
-
-    reader: Any = field()
     credentials: Optional[str] = field(default=None)
     backend: str = field(default="pytesseract")
 
@@ -48,7 +45,22 @@ class TextParser:
 
         return parser_registry[self.backend]
 
-    def parse(self):
-        parser = self._dispatch_parser()(self.reader, self.credentials)
+    def parse(self, reader: DocumentReader) -> Dict:
+        """
+        Parse the data from a given reader. The reader should be an instance of
+        `ocrpy.io.reader.DocumentReader`.
+
+        Parameters
+        ----------
+        reader : DocumentReader
+            The reader to parse the data from.
+        
+        Returns
+        -------
+        data : Dict
+            The parsed data.
+
+        """
+        parser = self._dispatch_parser()(reader, self.credentials)
         parsed_doc = parser.parse()
         return parsed_doc

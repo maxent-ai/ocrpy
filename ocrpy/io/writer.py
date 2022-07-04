@@ -1,5 +1,6 @@
 import os
 import json
+from typing import Dict, Optional
 from attr import define, field
 from dotenv import load_dotenv
 from cloudpathlib import S3Client, GSClient, AnyPath
@@ -11,18 +12,37 @@ __all__ = ["DocumentWriter"]
 class DocumentWriter:
     """
     Write a parser output to a given location (supports write to local storage, S3 and GS).
+
+    Attributes
+    ----------
+    credentials : Optional[str]
+        default: None
+        The credentials to use for the selected storage location.
+
+        Note: If the storage location is AWS S3, the credentials file must be in the .env format and 
+        If the storage location is Google Storage, the credentials file must be in the .json format.
     """
+    credentials:Optional[str] = field(default=None)
 
-    data = field()
-    file = field()
-    credentials = field(default=None)
+    def write(self, data:Dict, file:str) -> None:
+        """
+        Write the parser output to a given location (supports write to local storage, S3 and GS).
 
-    @property
-    def write(self):
-        client = self._get_client(self.file)
-        file_data = AnyPath(self.file, client=client)
-        data = self._dict_to_json(self.data)
-        file_data.write_text(data)
+        Parameters
+        ----------
+        data : Dict
+            The data to be written.
+        file : str
+            filename/path to the file to be written.
+
+        Returns
+        -------
+        None
+        """
+        client = self._get_client(file)
+        file_data = AnyPath(file, client=client)
+        _data = self._dict_to_json(data)
+        file_data.write_text(_data)
         return None
 
     def _dict_to_json(self, data):
