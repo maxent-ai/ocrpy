@@ -14,7 +14,11 @@ ocr_pipeline = TextOcrPipeline.from_config("ocrpy_config.yaml")
 ocr_pipeline.process()
 
 # alternatively you can also run a pipeline like this:
-pipeline = TextOcrPipeline(source_dir='s3://document_bucket/', destination_dir="gs://processed_document_bucket/outputs/", parser_backend='aws-textract')
+pipeline = TextOcrPipeline(source_dir='s3://document_bucket/', 
+                           destination_dir="gs://processed_document_bucket/outputs/", 
+                           parser_backend='aws-textract', 
+                           credentials={"AWS": "path/to/aws-credentials.env/file", 
+                                        "GCP": "path/to/gcp-credentials.json/file"})
 pipeline.process()
 ```
 
