@@ -25,7 +25,6 @@ jobs:
       run: |
         cd docs
         make html
-        sphinx-apidoc -o . ../ocrpy
     # https://github.com/peaceiris/actions-gh-pages
     - name: Deploy
       if: success()
