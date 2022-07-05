@@ -10,7 +10,7 @@ Welcome to ocrpy's documentation!
    :maxdepth: 2
    :caption: Contents:
 
-   modules.rst
+   modules
 
 
 
