@@ -19,6 +19,7 @@ jobs:
 
     - name: Install requirements
       run: |
+        pip install .
         pip install furo
     
     - name: Build docs
