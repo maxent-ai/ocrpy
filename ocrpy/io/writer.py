@@ -5,11 +5,11 @@ from attr import define, field
 from dotenv import load_dotenv
 from cloudpathlib import S3Client, GSClient, AnyPath
 
-__all__ = ["DocumentWriter"]
+__all__ = ["StorageWriter"]
 
 
 @define
-class DocumentWriter:
+class StorageWriter:
     """
     Write a parser output to a given location (supports write to local storage, S3 and GS).
 
