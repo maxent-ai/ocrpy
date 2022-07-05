@@ -1,7 +1,7 @@
 # ocrpy
 [![Downloads](https://static.pepy.tech/personalized-badge/ocrpy?period=total&units=abbreviation&left_color=black&right_color=blue&left_text=Downloads)](https://pepy.tech/project/ocrpy)
 
-unified interface to google vision, aws textract, azure and tesseract OCR tools.
+Unified interface to google vision, aws textract, azure and tesseract OCR tools.
 
 
 ### Sample Usage
