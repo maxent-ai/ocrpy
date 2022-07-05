@@ -15,11 +15,11 @@ jobs:
     - name: Install Python
       uses: actions/setup-python@v1
       with:
-        python-version: 3.8
+        python-version: 3.8.12
 
     - name: Install requirements
       run: |
-        pip3 install furo
+        pip install furo
     
     - name: Build docs
       run: |
