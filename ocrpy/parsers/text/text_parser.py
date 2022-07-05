@@ -2,7 +2,7 @@ from attrs import define, field
 from .aws_text import AwsTextOCR
 from .gcp_text import GcpTextOCR
 from ...io import DocumentReader
-from typing import Any, Dict, Optional
+from typing import Dict, Optional
 from ...utils import BackendNotSupported
 from .tesseract_text import TesseractTextOCR
 

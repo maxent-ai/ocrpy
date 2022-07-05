@@ -1,9 +1,9 @@
 import os
 import boto3
 import pandas as pd
+from attr import define
+from typing import List, Dict
 from dotenv import load_dotenv
-from attr import define, field
-from typing import List, Dict, Any
 from collections import defaultdict
 from ..core import AbstractTableOCR
 from ..text.aws_text import aws_region_extractor

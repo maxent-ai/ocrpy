@@ -1,16 +1,15 @@
 import os
 import json
-import yaml
 import warnings
 from tqdm import tqdm
 from dotenv import load_dotenv
 from attr import field, define
+from ..io import DocumentReader
+from ..parsers import TextParser
 from typing import Dict, Optional
 from .config import PipelineConfig
-from ..parsers import TableParser, TextParser
-from ..io import DocumentReader, DocumentWriter
+from ..utils import guess_storage, guess_extension
 from cloudpathlib import AnyPath, S3Client, GSClient
-from ..utils import BackendNotSupported, guess_storage, guess_extension
 
 __all__ = ["TextOcrPipeline"]
 
