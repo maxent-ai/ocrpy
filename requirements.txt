@@ -7,3 +7,5 @@ boto3==1.19.7
 pdf2image==1.14.0
 numpy==1.22.0
 beautifulsoup4==4.11.1
+transformers==4.20.1
+tqdm==4.64.0
