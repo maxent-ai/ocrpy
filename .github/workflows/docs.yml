@@ -19,12 +19,12 @@ jobs:
 
     - name: Install requirements
       run: |
-        pip3 install sphinx-rtd-theme furo
+        pip3 install furo
     
     - name: Build docs
       run: |
         cd docs
-        make html
+        make clean html
     # https://github.com/peaceiris/actions-gh-pages
     - name: Deploy
       if: success()
