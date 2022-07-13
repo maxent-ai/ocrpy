@@ -13,6 +13,7 @@ from ocrpy import TextOcrPipeline
 ocr_pipeline = TextOcrPipeline.from_config("ocrpy_config.yaml")
 ocr_pipeline.process()
 
+
 # alternatively you can also run a pipeline like this:
 pipeline = TextOcrPipeline(source_dir='s3://document_bucket/', 
                            destination_dir="gs://processed_document_bucket/outputs/", 
