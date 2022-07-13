@@ -1,3 +1,7 @@
+"""
+Exceptions raised by various modules in the ocrpy package.
+"""
+
 __all__ = ["FileTypeNotSupported", "AttributeNotSupported", "BackendNotSupported"]
 
 
@@ -14,4 +18,5 @@ class AttributeNotSupported(Exception):
 
 
 class BackendNotSupported(Exception):
+    """Raise when a backend is not supported by the parser module."""
     pass
