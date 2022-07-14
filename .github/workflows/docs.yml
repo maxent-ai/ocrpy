@@ -24,6 +24,7 @@ jobs:
         pip install cloudpathlib==0.9.0
         pip install attrs==21.4.0
         pip install python-dotenv==0.17.1
+        pip install pandas==1.3.3
     
     - name: Build docs
       run: |
