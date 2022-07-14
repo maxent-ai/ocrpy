@@ -214,14 +214,138 @@
 <section id="submodules">
 <h2>Submodules<a class="headerlink" href="#submodules" title="Permalink to this heading">#</a></h2>
 </section>
-<section id="ocrpy-pipelines-config-module">
-<h2>ocrpy.pipelines.config module<a class="headerlink" href="#ocrpy-pipelines-config-module" title="Permalink to this heading">#</a></h2>
+<section id="module-ocrpy.pipelines.config">
+<span id="ocrpy-pipelines-config-module"></span><h2>ocrpy.pipelines.config module<a class="headerlink" href="#module-ocrpy.pipelines.config" title="Permalink to this heading">#</a></h2>
+<dl class="py class">
+<dt class="sig sig-object py" id="ocrpy.pipelines.config.PipelineConfig">
+<em class="property"><span class="pre">class</span><span class="w"> </span></em><span class="sig-prename descclassname"><span class="pre">ocrpy.pipelines.config.</span></span><span class="sig-name descname"><span class="pre">PipelineConfig</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">config_path</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#ocrpy.pipelines.config.PipelineConfig" title="Permalink to this definition">#</a></dt>
+<dd><p>Bases: <code class="xref py py-class docutils literal notranslate"><span class="pre">object</span></code></p>
+<p>OCR Pipeline Configuration container.</p>
+<dl class="simple">
+<dt>config_path<span class="classifier">str</span></dt><dd><p>Path to the ocrpy config file.</p>
+</dd>
+</dl>
+<dl class="simple">
+<dt>storage_config:</dt><dd><p>source_dir: /path/to/source/dir
+destination_dir: /path/to/destination/dir</p>
+</dd>
+<dt>parser_config:</dt><dd><p>parser_backend: pytesseract</p>
+</dd>
+<dt>cloud_credentials:</dt><dd><p>aws: /path/to/aws-credentials.env
+gcp: /path/to/gcp-credentials.json</p>
+</dd>
+</dl>
+<dl class="py attribute">
+<dt class="sig sig-object py" id="ocrpy.pipelines.config.PipelineConfig.config_path">
+<span class="sig-name descname"><span class="pre">config_path</span></span><a class="headerlink" href="#ocrpy.pipelines.config.PipelineConfig.config_path" title="Permalink to this definition">#</a></dt>
+<dd></dd></dl>
+
+<dl class="py attribute">
+<dt class="sig sig-object py" id="ocrpy.pipelines.config.PipelineConfig.pipeline_configuration">
+<span class="sig-name descname"><span class="pre">pipeline_configuration</span></span><a class="headerlink" href="#ocrpy.pipelines.config.PipelineConfig.pipeline_configuration" title="Permalink to this definition">#</a></dt>
+<dd></dd></dl>
+
+</dd></dl>
+
 </section>
-<section id="ocrpy-pipelines-text-pipeline-module">
-<h2>ocrpy.pipelines.text_pipeline module<a class="headerlink" href="#ocrpy-pipelines-text-pipeline-module" title="Permalink to this heading">#</a></h2>
+<section id="module-ocrpy.pipelines.text_pipeline">
+<span id="ocrpy-pipelines-text-pipeline-module"></span><h2>ocrpy.pipelines.text_pipeline module<a class="headerlink" href="#module-ocrpy.pipelines.text_pipeline" title="Permalink to this heading">#</a></h2>
+<dl class="py class">
+<dt class="sig sig-object py" id="ocrpy.pipelines.text_pipeline.TextOcrPipeline">
+<em class="property"><span class="pre">class</span><span class="w"> </span></em><span class="sig-prename descclassname"><span class="pre">ocrpy.pipelines.text_pipeline.</span></span><span class="sig-name descname"><span class="pre">TextOcrPipeline</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">source_dir</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">str</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">destination_dir</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">str</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">parser_backend</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">str</span></span><span class="w"> </span><span class="o"><span class="pre">=</span></span><span class="w"> </span><span class="default_value"><span class="pre">'pytesseract'</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">credentials_config</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#ocrpy.pipelines.text_pipeline.TextOcrPipeline" title="Permalink to this definition">#</a></dt>
+<dd><p>Bases: <code class="xref py py-class docutils literal notranslate"><span class="pre">object</span></code></p>
+<p>TextOCRPipeline provides a high level interface to run ocr on PDFs, JPGs, and PNGs
+in either local or cloud storage(AWS S3 or Google Cloud Storage) with a configurable parser backend.</p>
+<p>Note: Supported parser backends are - aws-textract, google-cloud-vision, pytesseract.</p>
+<dl class="simple">
+<dt>source_dir<span class="classifier">str</span></dt><dd><p>Path to the directory containing the documents to be processed.</p>
+</dd>
+<dt>destination_dir<span class="classifier">str</span></dt><dd><p>Path to the directory where the processed documents will be stored.</p>
+</dd>
+<dt>parser_backend<span class="classifier">str</span></dt><dd><p>The parser backend to be used for processing.
+default: “pytesseract”
+options: “aws-textract”, “google-cloud-vision”, “pytesseract”</p>
+</dd>
+<dt>credentials_config<span class="classifier">dict</span></dt><dd><p>A dictionary containing the credentials for the parser or cloud storage backends.
+default: None
+example: {“AWS”: “aws-credentials.env”, “GCP”: “gcp-credentials.json”}</p>
+</dd>
+</dl>
+<dl class="py attribute">
+<dt class="sig sig-object py" id="ocrpy.pipelines.text_pipeline.TextOcrPipeline.credentials_config">
+<span class="sig-name descname"><span class="pre">credentials_config</span></span><em class="property"><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="pre">Optional</span><span class="p"><span class="pre">[</span></span><span class="pre">Dict</span><span class="p"><span class="pre">]</span></span></em><a class="headerlink" href="#ocrpy.pipelines.text_pipeline.TextOcrPipeline.credentials_config" title="Permalink to this definition">#</a></dt>
+<dd></dd></dl>
+
+<dl class="py attribute">
+<dt class="sig sig-object py" id="ocrpy.pipelines.text_pipeline.TextOcrPipeline.destination_dir">
+<span class="sig-name descname"><span class="pre">destination_dir</span></span><em class="property"><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="pre">str</span></em><a class="headerlink" href="#ocrpy.pipelines.text_pipeline.TextOcrPipeline.destination_dir" title="Permalink to this definition">#</a></dt>
+<dd></dd></dl>
+
+<dl class="py attribute">
+<dt class="sig sig-object py" id="ocrpy.pipelines.text_pipeline.TextOcrPipeline.destination_storage_type">
+<span class="sig-name descname"><span class="pre">destination_storage_type</span></span><em class="property"><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="pre">AnyPath</span></em><a class="headerlink" href="#ocrpy.pipelines.text_pipeline.TextOcrPipeline.destination_storage_type" title="Permalink to this definition">#</a></dt>
+<dd></dd></dl>
+
+<dl class="py method">
+<dt class="sig sig-object py" id="ocrpy.pipelines.text_pipeline.TextOcrPipeline.from_config">
+<em class="property"><span class="pre">classmethod</span><span class="w"> </span></em><span class="sig-name descname"><span class="pre">from_config</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">config_path</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">str</span></span></em><span class="sig-paren">)</span> <span class="sig-return"><span class="sig-return-icon">&#x2192;</span> <span class="sig-return-typehint"><a class="reference internal" href="#ocrpy.pipelines.text_pipeline.TextOcrPipeline" title="ocrpy.pipelines.text_pipeline.TextOcrPipeline"><span class="pre">TextOcrPipeline</span></a></span></span><a class="headerlink" href="#ocrpy.pipelines.text_pipeline.TextOcrPipeline.from_config" title="Permalink to this definition">#</a></dt>
+<dd><p>Allows you to create a TextOcrPipeline from a config file (config file format: yaml).</p>
+<dl class="simple">
+<dt>config_path<span class="classifier">str</span></dt><dd><p>Path to the config file.</p>
+</dd>
+</dl>
+<dl class="simple">
+<dt>TextOcrPipeline</dt><dd><p>A TextOcrPipeline object.</p>
+</dd>
+</dl>
+<dl class="simple">
+<dt>storage_config:</dt><dd><p>source_dir: /path/to/source/dir
+destination_dir: /path/to/destination/dir</p>
+</dd>
+<dt>parser_config:</dt><dd><p>parser_backend: pytesseract</p>
+</dd>
+<dt>cloud_credentials:</dt><dd><p>aws: /path/to/aws-credentials.env
+gcp: /path/to/gcp-credentials.json</p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="py attribute">
+<dt class="sig sig-object py" id="ocrpy.pipelines.text_pipeline.TextOcrPipeline.parser_backend">
+<span class="sig-name descname"><span class="pre">parser_backend</span></span><em class="property"><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="pre">str</span></em><a class="headerlink" href="#ocrpy.pipelines.text_pipeline.TextOcrPipeline.parser_backend" title="Permalink to this definition">#</a></dt>
+<dd></dd></dl>
+
+<dl class="py property">
+<dt class="sig sig-object py" id="ocrpy.pipelines.text_pipeline.TextOcrPipeline.pipeline_config">
+<em class="property"><span class="pre">property</span><span class="w"> </span></em><span class="sig-name descname"><span class="pre">pipeline_config</span></span><a class="headerlink" href="#ocrpy.pipelines.text_pipeline.TextOcrPipeline.pipeline_config" title="Permalink to this definition">#</a></dt>
+<dd></dd></dl>
+
+<dl class="py method">
+<dt class="sig sig-object py" id="ocrpy.pipelines.text_pipeline.TextOcrPipeline.process">
+<span class="sig-name descname"><span class="pre">process</span></span><span class="sig-paren">(</span><span class="sig-paren">)</span> <span class="sig-return"><span class="sig-return-icon">&#x2192;</span> <span class="sig-return-typehint"><span class="pre">None</span></span></span><a class="headerlink" href="#ocrpy.pipelines.text_pipeline.TextOcrPipeline.process" title="Permalink to this definition">#</a></dt>
+<dd><p>Runs the pipeline with the given configuration and
+writes the output to the destination directory.</p>
+<dl class="simple">
+<dt>Returns:</dt><dd><p>None</p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="py attribute">
+<dt class="sig sig-object py" id="ocrpy.pipelines.text_pipeline.TextOcrPipeline.source_dir">
+<span class="sig-name descname"><span class="pre">source_dir</span></span><em class="property"><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="pre">str</span></em><a class="headerlink" href="#ocrpy.pipelines.text_pipeline.TextOcrPipeline.source_dir" title="Permalink to this definition">#</a></dt>
+<dd></dd></dl>
+
+<dl class="py attribute">
+<dt class="sig sig-object py" id="ocrpy.pipelines.text_pipeline.TextOcrPipeline.source_storage_type">
+<span class="sig-name descname"><span class="pre">source_storage_type</span></span><em class="property"><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="pre">AnyPath</span></em><a class="headerlink" href="#ocrpy.pipelines.text_pipeline.TextOcrPipeline.source_storage_type" title="Permalink to this definition">#</a></dt>
+<dd></dd></dl>
+
+</dd></dl>
+
 </section>
-<section id="module-contents">
-<h2>Module contents<a class="headerlink" href="#module-contents" title="Permalink to this heading">#</a></h2>
+<section id="module-ocrpy.pipelines">
+<span id="module-contents"></span><h2>Module contents<a class="headerlink" href="#module-ocrpy.pipelines" title="Permalink to this heading">#</a></h2>
 </section>
 </section>
 
@@ -284,9 +408,9 @@
             <ul>
 <li><a class="reference internal" href="#">ocrpy.pipelines package</a><ul>
 <li><a class="reference internal" href="#submodules">Submodules</a></li>
-<li><a class="reference internal" href="#ocrpy-pipelines-config-module">ocrpy.pipelines.config module</a></li>
-<li><a class="reference internal" href="#ocrpy-pipelines-text-pipeline-module">ocrpy.pipelines.text_pipeline module</a></li>
-<li><a class="reference internal" href="#module-contents">Module contents</a></li>
+<li><a class="reference internal" href="#module-ocrpy.pipelines.config">ocrpy.pipelines.config module</a></li>
+<li><a class="reference internal" href="#module-ocrpy.pipelines.text_pipeline">ocrpy.pipelines.text_pipeline module</a></li>
+<li><a class="reference internal" href="#module-ocrpy.pipelines">Module contents</a></li>
 </ul>
 </li>
 </ul>

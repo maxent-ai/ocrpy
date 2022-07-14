@@ -214,11 +214,69 @@
 <section id="submodules">
 <h2>Submodules<a class="headerlink" href="#submodules" title="Permalink to this heading">#</a></h2>
 </section>
-<section id="ocrpy-experimental-document-classifier-module">
-<h2>ocrpy.experimental.document_classifier module<a class="headerlink" href="#ocrpy-experimental-document-classifier-module" title="Permalink to this heading">#</a></h2>
+<section id="module-ocrpy.experimental.document_classifier">
+<span id="ocrpy-experimental-document-classifier-module"></span><h2>ocrpy.experimental.document_classifier module<a class="headerlink" href="#module-ocrpy.experimental.document_classifier" title="Permalink to this heading">#</a></h2>
+<dl class="py class">
+<dt class="sig sig-object py" id="ocrpy.experimental.document_classifier.DocumentClassifier">
+<em class="property"><span class="pre">class</span><span class="w"> </span></em><span class="sig-prename descclassname"><span class="pre">ocrpy.experimental.document_classifier.</span></span><span class="sig-name descname"><span class="pre">DocumentClassifier</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">model_name</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">str</span></span><span class="w"> </span><span class="o"><span class="pre">=</span></span><span class="w"> </span><span class="default_value"><span class="pre">'microsoft/dit-base-finetuned-rvlcdip'</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#ocrpy.experimental.document_classifier.DocumentClassifier" title="Permalink to this definition">#</a></dt>
+<dd><p>Bases: <code class="xref py py-class docutils literal notranslate"><span class="pre">object</span></code></p>
+<p>DocumentClassifier utilises a fine tuned Document image classifier (DiT) model
+to predict the document type.
+The default model is a dit-base model trained on the rvlcdip dataset.</p>
+<p>You can also choose alternate models available on HuggingFace modelshub
+at <a class="reference external" href="https://huggingface.co/models">https://huggingface.co/models</a>.</p>
+<dl>
+<dt>model_name<span class="classifier">str</span></dt><dd><p>The name of the model to use.
+Should be a valid model name from HuggingFace modelshub.</p>
+<p>default: “microsoft/dit-base-finetuned-rvlcdip”</p>
+</dd>
+</dl>
+<ul class="simple">
+<li><p>The model is trained on the rvlcdip dataset and can identify the following document types:</p></li>
+</ul>
+<p>letter, form, email, handwritten, advertisement, scientific report, scientific publication,
+specification, file folder, news article, budget, invoice, presentation, questionnaire, resume, memo</p>
+<ul class="simple">
+<li><p>For more information on the model please refer this paper: <a class="reference external" href="https://arxiv.org/abs/2203.02378">https://arxiv.org/abs/2203.02378</a></p></li>
+<li><p>For more information on the document types, see this link: <a class="reference external" href="https://www.cs.cmu.edu/~aharley/rvl-cdip/">https://www.cs.cmu.edu/~aharley/rvl-cdip/</a></p></li>
+</ul>
+<dl class="py attribute">
+<dt class="sig sig-object py" id="ocrpy.experimental.document_classifier.DocumentClassifier.classifier">
+<span class="sig-name descname"><span class="pre">classifier</span></span><em class="property"><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="pre">AutoModelForImageClassification</span></em><a class="headerlink" href="#ocrpy.experimental.document_classifier.DocumentClassifier.classifier" title="Permalink to this definition">#</a></dt>
+<dd></dd></dl>
+
+<dl class="py attribute">
+<dt class="sig sig-object py" id="ocrpy.experimental.document_classifier.DocumentClassifier.feature_extractor">
+<span class="sig-name descname"><span class="pre">feature_extractor</span></span><em class="property"><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="pre">AutoFeatureExtractor</span></em><a class="headerlink" href="#ocrpy.experimental.document_classifier.DocumentClassifier.feature_extractor" title="Permalink to this definition">#</a></dt>
+<dd></dd></dl>
+
+<dl class="py attribute">
+<dt class="sig sig-object py" id="ocrpy.experimental.document_classifier.DocumentClassifier.model_name">
+<span class="sig-name descname"><span class="pre">model_name</span></span><em class="property"><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="pre">str</span></em><a class="headerlink" href="#ocrpy.experimental.document_classifier.DocumentClassifier.model_name" title="Permalink to this definition">#</a></dt>
+<dd></dd></dl>
+
+<dl class="py method">
+<dt class="sig sig-object py" id="ocrpy.experimental.document_classifier.DocumentClassifier.predict">
+<span class="sig-name descname"><span class="pre">predict</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">reader</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><a class="reference internal" href="ocrpy.io.html#ocrpy.io.reader.DocumentReader" title="ocrpy.io.reader.DocumentReader"><span class="pre">DocumentReader</span></a></span></em><span class="sig-paren">)</span> <span class="sig-return"><span class="sig-return-icon">&#x2192;</span> <span class="sig-return-typehint"><span class="pre">List</span></span></span><a class="headerlink" href="#ocrpy.experimental.document_classifier.DocumentClassifier.predict" title="Permalink to this definition">#</a></dt>
+<dd><p>Predict the document type of the document in the reader.</p>
+<dl class="simple">
+<dt>reader<span class="classifier">DocumentReader</span></dt><dd><p>The reader containing the document to predict.</p>
+</dd>
+</dl>
+<dl class="simple">
+<dt>predicted_labels: List</dt><dd><p>A list of predicted document types.</p>
+</dd>
+</dl>
+<p>document types can be one of the following:
+letter, form, email, handwritten, advertisement, scientific report, scientific publication,
+specification, file folder, news article, budget, invoice, presentation, questionnaire, resume, memo</p>
+</dd></dl>
+
+</dd></dl>
+
 </section>
-<section id="module-contents">
-<h2>Module contents<a class="headerlink" href="#module-contents" title="Permalink to this heading">#</a></h2>
+<section id="module-ocrpy.experimental">
+<span id="module-contents"></span><h2>Module contents<a class="headerlink" href="#module-ocrpy.experimental" title="Permalink to this heading">#</a></h2>
 </section>
 </section>
 
@@ -281,8 +339,8 @@
             <ul>
 <li><a class="reference internal" href="#">ocrpy.experimental package</a><ul>
 <li><a class="reference internal" href="#submodules">Submodules</a></li>
-<li><a class="reference internal" href="#ocrpy-experimental-document-classifier-module">ocrpy.experimental.document_classifier module</a></li>
-<li><a class="reference internal" href="#module-contents">Module contents</a></li>
+<li><a class="reference internal" href="#module-ocrpy.experimental.document_classifier">ocrpy.experimental.document_classifier module</a></li>
+<li><a class="reference internal" href="#module-ocrpy.experimental">Module contents</a></li>
 </ul>
 </li>
 </ul>

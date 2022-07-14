@@ -228,6 +228,8 @@
 </li>
         <li><a href="ocrpy.utils.html#ocrpy.utils.exceptions.AttributeNotSupported">AttributeNotSupported</a>
 </li>
+        <li><a href="ocrpy.parsers.table.html#ocrpy.parsers.table.aws_table.AwsTableOCR">AwsTableOCR (class in ocrpy.parsers.table.aws_table)</a>
+</li>
         <li><a href="ocrpy.parsers.text.html#ocrpy.parsers.text.aws_text.AwsTextOCR">AwsTextOCR (class in ocrpy.parsers.text.aws_text)</a>
 </li>
     </ul></td>
@@ -238,8 +240,12 @@
   <h2>B</h2>
   <table style="width: 100%" class="indextable genindextable"><tr>
     <td style="width: 33%; vertical-align: top;"><ul>
-        <li><a href="ocrpy.parsers.text.html#ocrpy.parsers.text.text_parser.TextParser.backend">backend (ocrpy.parsers.text.text_parser.TextParser attribute)</a>
+        <li><a href="ocrpy.parsers.table.html#ocrpy.parsers.table.table_parser.TableParser.backend">backend (ocrpy.parsers.table.table_parser.TableParser attribute)</a>
+
+        <ul>
+          <li><a href="ocrpy.parsers.text.html#ocrpy.parsers.text.text_parser.TextParser.backend">(ocrpy.parsers.text.text_parser.TextParser attribute)</a>
 </li>
+        </ul></li>
     </ul></td>
     <td style="width: 33%; vertical-align: top;"><ul>
         <li><a href="ocrpy.utils.html#ocrpy.utils.exceptions.BackendNotSupported">BackendNotSupported</a>
@@ -254,6 +260,10 @@
   <h2>C</h2>
   <table style="width: 100%" class="indextable genindextable"><tr>
     <td style="width: 33%; vertical-align: top;"><ul>
+        <li><a href="api.html#ocrpy.experimental.document_classifier.DocumentClassifier.classifier">classifier (ocrpy.experimental.document_classifier.DocumentClassifier attribute)</a>, <a href="ocrpy.experimental.html#ocrpy.experimental.document_classifier.DocumentClassifier.classifier">[1]</a>
+</li>
+        <li><a href="ocrpy.pipelines.html#ocrpy.pipelines.config.PipelineConfig.config_path">config_path (ocrpy.pipelines.config.PipelineConfig attribute)</a>
+</li>
         <li><a href="ocrpy.io.html#ocrpy.io.reader.DocumentReader.credentials">credentials (ocrpy.io.reader.DocumentReader attribute)</a>
 
         <ul>
@@ -263,11 +273,17 @@
 </li>
           <li><a href="ocrpy.parsers.html#ocrpy.parsers.core.AbstractTextOCR.credentials">(ocrpy.parsers.core.AbstractTextOCR attribute)</a>
 </li>
+          <li><a href="ocrpy.parsers.table.html#ocrpy.parsers.table.table_parser.TableParser.credentials">(ocrpy.parsers.table.table_parser.TableParser attribute)</a>
+</li>
           <li><a href="ocrpy.parsers.text.html#ocrpy.parsers.text.tesseract_text.TesseractTextOCR.credentials">(ocrpy.parsers.text.tesseract_text.TesseractTextOCR attribute)</a>
 </li>
           <li><a href="ocrpy.parsers.text.html#ocrpy.parsers.text.text_parser.TextParser.credentials">(ocrpy.parsers.text.text_parser.TextParser attribute)</a>
 </li>
         </ul></li>
+    </ul></td>
+    <td style="width: 33%; vertical-align: top;"><ul>
+        <li><a href="ocrpy.pipelines.html#ocrpy.pipelines.text_pipeline.TextOcrPipeline.credentials_config">credentials_config (ocrpy.pipelines.text_pipeline.TextOcrPipeline attribute)</a>
+</li>
     </ul></td>
   </tr></table>
 </section>
@@ -276,6 +292,14 @@
   <h2>D</h2>
   <table style="width: 100%" class="indextable genindextable"><tr>
     <td style="width: 33%; vertical-align: top;"><ul>
+        <li><a href="ocrpy.pipelines.html#ocrpy.pipelines.text_pipeline.TextOcrPipeline.destination_dir">destination_dir (ocrpy.pipelines.text_pipeline.TextOcrPipeline attribute)</a>
+</li>
+        <li><a href="ocrpy.pipelines.html#ocrpy.pipelines.text_pipeline.TextOcrPipeline.destination_storage_type">destination_storage_type (ocrpy.pipelines.text_pipeline.TextOcrPipeline attribute)</a>
+</li>
+    </ul></td>
+    <td style="width: 33%; vertical-align: top;"><ul>
+        <li><a href="api.html#ocrpy.experimental.document_classifier.DocumentClassifier">DocumentClassifier (class in ocrpy.experimental.document_classifier)</a>, <a href="ocrpy.experimental.html#ocrpy.experimental.document_classifier.DocumentClassifier">[1]</a>
+</li>
         <li><a href="ocrpy.io.html#ocrpy.io.reader.DocumentReader">DocumentReader (class in ocrpy.io.reader)</a>
 </li>
     </ul></td>
@@ -286,11 +310,15 @@
   <h2>F</h2>
   <table style="width: 100%" class="indextable genindextable"><tr>
     <td style="width: 33%; vertical-align: top;"><ul>
+        <li><a href="api.html#ocrpy.experimental.document_classifier.DocumentClassifier.feature_extractor">feature_extractor (ocrpy.experimental.document_classifier.DocumentClassifier attribute)</a>, <a href="ocrpy.experimental.html#ocrpy.experimental.document_classifier.DocumentClassifier.feature_extractor">[1]</a>
+</li>
         <li><a href="ocrpy.io.html#ocrpy.io.reader.DocumentReader.file">file (ocrpy.io.reader.DocumentReader attribute)</a>
 </li>
     </ul></td>
     <td style="width: 33%; vertical-align: top;"><ul>
         <li><a href="ocrpy.utils.html#ocrpy.utils.exceptions.FileTypeNotSupported">FileTypeNotSupported</a>
+</li>
+        <li><a href="ocrpy.pipelines.html#ocrpy.pipelines.text_pipeline.TextOcrPipeline.from_config">from_config() (ocrpy.pipelines.text_pipeline.TextOcrPipeline class method)</a>
 </li>
     </ul></td>
   </tr></table>
@@ -326,17 +354,33 @@
   <h2>M</h2>
   <table style="width: 100%" class="indextable genindextable"><tr>
     <td style="width: 33%; vertical-align: top;"><ul>
+        <li><a href="api.html#ocrpy.experimental.document_classifier.DocumentClassifier.model_name">model_name (ocrpy.experimental.document_classifier.DocumentClassifier attribute)</a>, <a href="ocrpy.experimental.html#ocrpy.experimental.document_classifier.DocumentClassifier.model_name">[1]</a>
+</li>
         <li>
     module
 
         <ul>
+          <li><a href="ocrpy.html#module-ocrpy">ocrpy</a>
+</li>
+          <li><a href="ocrpy.experimental.html#module-ocrpy.experimental">ocrpy.experimental</a>
+</li>
+          <li><a href="ocrpy.experimental.html#module-ocrpy.experimental.document_classifier">ocrpy.experimental.document_classifier</a>
+</li>
           <li><a href="ocrpy.io.html#module-ocrpy.io">ocrpy.io</a>
 </li>
           <li><a href="ocrpy.io.html#module-ocrpy.io.reader">ocrpy.io.reader</a>
 </li>
           <li><a href="ocrpy.io.html#module-ocrpy.io.writer">ocrpy.io.writer</a>
 </li>
+          <li><a href="ocrpy.parsers.html#module-ocrpy.parsers">ocrpy.parsers</a>
+</li>
           <li><a href="ocrpy.parsers.html#module-ocrpy.parsers.core">ocrpy.parsers.core</a>
+</li>
+          <li><a href="ocrpy.parsers.table.html#module-ocrpy.parsers.table">ocrpy.parsers.table</a>
+</li>
+          <li><a href="ocrpy.parsers.table.html#module-ocrpy.parsers.table.aws_table">ocrpy.parsers.table.aws_table</a>
+</li>
+          <li><a href="ocrpy.parsers.table.html#module-ocrpy.parsers.table.table_parser">ocrpy.parsers.table.table_parser</a>
 </li>
           <li><a href="ocrpy.parsers.text.html#module-ocrpy.parsers.text">ocrpy.parsers.text</a>
 </li>
@@ -347,6 +391,12 @@
           <li><a href="ocrpy.parsers.text.html#module-ocrpy.parsers.text.tesseract_text">ocrpy.parsers.text.tesseract_text</a>
 </li>
           <li><a href="ocrpy.parsers.text.html#module-ocrpy.parsers.text.text_parser">ocrpy.parsers.text.text_parser</a>
+</li>
+          <li><a href="ocrpy.pipelines.html#module-ocrpy.pipelines">ocrpy.pipelines</a>
+</li>
+          <li><a href="ocrpy.pipelines.html#module-ocrpy.pipelines.config">ocrpy.pipelines.config</a>
+</li>
+          <li><a href="ocrpy.pipelines.html#module-ocrpy.pipelines.text_pipeline">ocrpy.pipelines.text_pipeline</a>
 </li>
           <li><a href="ocrpy.utils.html#module-ocrpy.utils">ocrpy.utils</a>
 </li>
@@ -372,6 +422,27 @@
 </li>
         </ul></li>
         <li>
+    ocrpy
+
+        <ul>
+          <li><a href="ocrpy.html#module-ocrpy">module</a>
+</li>
+        </ul></li>
+        <li>
+    ocrpy.experimental
+
+        <ul>
+          <li><a href="ocrpy.experimental.html#module-ocrpy.experimental">module</a>
+</li>
+        </ul></li>
+        <li>
+    ocrpy.experimental.document_classifier
+
+        <ul>
+          <li><a href="ocrpy.experimental.html#module-ocrpy.experimental.document_classifier">module</a>
+</li>
+        </ul></li>
+        <li>
     ocrpy.io
 
         <ul>
@@ -393,12 +464,42 @@
 </li>
         </ul></li>
         <li>
+    ocrpy.parsers
+
+        <ul>
+          <li><a href="ocrpy.parsers.html#module-ocrpy.parsers">module</a>
+</li>
+        </ul></li>
+        <li>
     ocrpy.parsers.core
 
         <ul>
           <li><a href="ocrpy.parsers.html#module-ocrpy.parsers.core">module</a>
 </li>
         </ul></li>
+        <li>
+    ocrpy.parsers.table
+
+        <ul>
+          <li><a href="ocrpy.parsers.table.html#module-ocrpy.parsers.table">module</a>
+</li>
+        </ul></li>
+        <li>
+    ocrpy.parsers.table.aws_table
+
+        <ul>
+          <li><a href="ocrpy.parsers.table.html#module-ocrpy.parsers.table.aws_table">module</a>
+</li>
+        </ul></li>
+        <li>
+    ocrpy.parsers.table.table_parser
+
+        <ul>
+          <li><a href="ocrpy.parsers.table.html#module-ocrpy.parsers.table.table_parser">module</a>
+</li>
+        </ul></li>
+    </ul></td>
+    <td style="width: 33%; vertical-align: top;"><ul>
         <li>
     ocrpy.parsers.text
 
@@ -413,8 +514,6 @@
           <li><a href="ocrpy.parsers.text.html#module-ocrpy.parsers.text.aws_text">module</a>
 </li>
         </ul></li>
-    </ul></td>
-    <td style="width: 33%; vertical-align: top;"><ul>
         <li>
     ocrpy.parsers.text.gcp_text
 
@@ -434,6 +533,27 @@
 
         <ul>
           <li><a href="ocrpy.parsers.text.html#module-ocrpy.parsers.text.text_parser">module</a>
+</li>
+        </ul></li>
+        <li>
+    ocrpy.pipelines
+
+        <ul>
+          <li><a href="ocrpy.pipelines.html#module-ocrpy.pipelines">module</a>
+</li>
+        </ul></li>
+        <li>
+    ocrpy.pipelines.config
+
+        <ul>
+          <li><a href="ocrpy.pipelines.html#module-ocrpy.pipelines.config">module</a>
+</li>
+        </ul></li>
+        <li>
+    ocrpy.pipelines.text_pipeline
+
+        <ul>
+          <li><a href="ocrpy.pipelines.html#module-ocrpy.pipelines.text_pipeline">module</a>
 </li>
         </ul></li>
         <li>
@@ -477,6 +597,10 @@
         <ul>
           <li><a href="ocrpy.parsers.html#ocrpy.parsers.core.AbstractTextOCR.parse">(ocrpy.parsers.core.AbstractTextOCR method)</a>
 </li>
+          <li><a href="ocrpy.parsers.table.html#ocrpy.parsers.table.aws_table.AwsTableOCR.parse">(ocrpy.parsers.table.aws_table.AwsTableOCR method)</a>
+</li>
+          <li><a href="ocrpy.parsers.table.html#ocrpy.parsers.table.table_parser.TableParser.parse">(ocrpy.parsers.table.table_parser.TableParser method)</a>
+</li>
           <li><a href="ocrpy.parsers.text.html#ocrpy.parsers.text.aws_text.AwsTextOCR.parse">(ocrpy.parsers.text.aws_text.AwsTextOCR method)</a>
 </li>
           <li><a href="ocrpy.parsers.text.html#ocrpy.parsers.text.gcp_text.GcpTextOCR.parse">(ocrpy.parsers.text.gcp_text.GcpTextOCR method)</a>
@@ -486,6 +610,20 @@
           <li><a href="ocrpy.parsers.text.html#ocrpy.parsers.text.text_parser.TextParser.parse">(ocrpy.parsers.text.text_parser.TextParser method)</a>
 </li>
         </ul></li>
+    </ul></td>
+    <td style="width: 33%; vertical-align: top;"><ul>
+        <li><a href="ocrpy.pipelines.html#ocrpy.pipelines.text_pipeline.TextOcrPipeline.parser_backend">parser_backend (ocrpy.pipelines.text_pipeline.TextOcrPipeline attribute)</a>
+</li>
+        <li><a href="ocrpy.pipelines.html#ocrpy.pipelines.text_pipeline.TextOcrPipeline.pipeline_config">pipeline_config (ocrpy.pipelines.text_pipeline.TextOcrPipeline property)</a>
+</li>
+        <li><a href="ocrpy.pipelines.html#ocrpy.pipelines.config.PipelineConfig.pipeline_configuration">pipeline_configuration (ocrpy.pipelines.config.PipelineConfig attribute)</a>
+</li>
+        <li><a href="ocrpy.pipelines.html#ocrpy.pipelines.config.PipelineConfig">PipelineConfig (class in ocrpy.pipelines.config)</a>
+</li>
+        <li><a href="api.html#ocrpy.experimental.document_classifier.DocumentClassifier.predict">predict() (ocrpy.experimental.document_classifier.DocumentClassifier method)</a>, <a href="ocrpy.experimental.html#ocrpy.experimental.document_classifier.DocumentClassifier.predict">[1]</a>
+</li>
+        <li><a href="ocrpy.pipelines.html#ocrpy.pipelines.text_pipeline.TextOcrPipeline.process">process() (ocrpy.pipelines.text_pipeline.TextOcrPipeline method)</a>
+</li>
     </ul></td>
   </tr></table>
 </section>
@@ -508,14 +646,22 @@
   <h2>S</h2>
   <table style="width: 100%" class="indextable genindextable"><tr>
     <td style="width: 33%; vertical-align: top;"><ul>
+        <li><a href="ocrpy.pipelines.html#ocrpy.pipelines.text_pipeline.TextOcrPipeline.source_dir">source_dir (ocrpy.pipelines.text_pipeline.TextOcrPipeline attribute)</a>
+</li>
+        <li><a href="ocrpy.pipelines.html#ocrpy.pipelines.text_pipeline.TextOcrPipeline.source_storage_type">source_storage_type (ocrpy.pipelines.text_pipeline.TextOcrPipeline attribute)</a>
+</li>
         <li><a href="ocrpy.io.html#ocrpy.io.reader.DocumentReader.storage_type">storage_type (ocrpy.io.reader.DocumentReader attribute)</a>
 </li>
     </ul></td>
     <td style="width: 33%; vertical-align: top;"><ul>
         <li><a href="ocrpy.io.html#ocrpy.io.writer.StorageWriter">StorageWriter (class in ocrpy.io.writer)</a>
 </li>
-        <li><a href="ocrpy.parsers.text.html#ocrpy.parsers.text.text_parser.TextParser.supported_backends">supported_backends() (ocrpy.parsers.text.text_parser.TextParser method)</a>
+        <li><a href="ocrpy.parsers.table.html#ocrpy.parsers.table.table_parser.TableParser.supported_backends">supported_backends() (ocrpy.parsers.table.table_parser.TableParser method)</a>
+
+        <ul>
+          <li><a href="ocrpy.parsers.text.html#ocrpy.parsers.text.text_parser.TextParser.supported_backends">(ocrpy.parsers.text.text_parser.TextParser method)</a>
 </li>
+        </ul></li>
     </ul></td>
   </tr></table>
 </section>
@@ -524,10 +670,16 @@
   <h2>T</h2>
   <table style="width: 100%" class="indextable genindextable"><tr>
     <td style="width: 33%; vertical-align: top;"><ul>
-        <li><a href="ocrpy.parsers.text.html#ocrpy.parsers.text.tesseract_text.TesseractTextOCR">TesseractTextOCR (class in ocrpy.parsers.text.tesseract_text)</a>
+        <li><a href="ocrpy.parsers.table.html#ocrpy.parsers.table.aws_table.table_to_csv">table_to_csv() (in module ocrpy.parsers.table.aws_table)</a>
+</li>
+        <li><a href="ocrpy.parsers.table.html#ocrpy.parsers.table.table_parser.TableParser">TableParser (class in ocrpy.parsers.table.table_parser)</a>
 </li>
     </ul></td>
     <td style="width: 33%; vertical-align: top;"><ul>
+        <li><a href="ocrpy.parsers.text.html#ocrpy.parsers.text.tesseract_text.TesseractTextOCR">TesseractTextOCR (class in ocrpy.parsers.text.tesseract_text)</a>
+</li>
+        <li><a href="ocrpy.pipelines.html#ocrpy.pipelines.text_pipeline.TextOcrPipeline">TextOcrPipeline (class in ocrpy.pipelines.text_pipeline)</a>
+</li>
         <li><a href="ocrpy.parsers.text.html#ocrpy.parsers.text.text_parser.TextParser">TextParser (class in ocrpy.parsers.text.text_parser)</a>
 </li>
     </ul></td>

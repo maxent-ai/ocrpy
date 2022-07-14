@@ -214,14 +214,101 @@
 <section id="submodules">
 <h2>Submodules<a class="headerlink" href="#submodules" title="Permalink to this heading">#</a></h2>
 </section>
-<section id="ocrpy-parsers-table-aws-table-module">
-<h2>ocrpy.parsers.table.aws_table module<a class="headerlink" href="#ocrpy-parsers-table-aws-table-module" title="Permalink to this heading">#</a></h2>
+<section id="module-ocrpy.parsers.table.aws_table">
+<span id="ocrpy-parsers-table-aws-table-module"></span><h2>ocrpy.parsers.table.aws_table module<a class="headerlink" href="#module-ocrpy.parsers.table.aws_table" title="Permalink to this heading">#</a></h2>
+<dl class="py class">
+<dt class="sig sig-object py" id="ocrpy.parsers.table.aws_table.AwsTableOCR">
+<em class="property"><span class="pre">class</span><span class="w"> </span></em><span class="sig-prename descclassname"><span class="pre">ocrpy.parsers.table.aws_table.</span></span><span class="sig-name descname"><span class="pre">AwsTableOCR</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">credentials</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">Optional</span><span class="p"><span class="pre">[</span></span><span class="pre">str</span><span class="p"><span class="pre">]</span></span></span><span class="w"> </span><span class="o"><span class="pre">=</span></span><span class="w"> </span><span class="default_value"><span class="pre">None</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#ocrpy.parsers.table.aws_table.AwsTableOCR" title="Permalink to this definition">#</a></dt>
+<dd><p>Bases: <a class="reference internal" href="ocrpy.parsers.html#ocrpy.parsers.core.AbstractTableOCR" title="ocrpy.parsers.core.AbstractTableOCR"><code class="xref py py-class docutils literal notranslate"><span class="pre">AbstractTableOCR</span></code></a></p>
+<p>AWS Table Parser - This parser uses AWS Textract to analyze the document
+and extract the tables.</p>
+<dl class="simple">
+<dt>credentials<span class="classifier">str</span></dt><dd><p>Path to credentials file.
+Note: The credentials file must be in .env format.</p>
+</dd>
+</dl>
+<dl class="py method">
+<dt class="sig sig-object py" id="ocrpy.parsers.table.aws_table.AwsTableOCR.parse">
+<span class="sig-name descname"><span class="pre">parse</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">document</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">str</span></span></em><span class="sig-paren">)</span> <span class="sig-return"><span class="sig-return-icon">&#x2192;</span> <span class="sig-return-typehint"><span class="pre">List</span><span class="p"><span class="pre">[</span></span><span class="pre">List</span><span class="p"><span class="pre">]</span></span></span></span><a class="headerlink" href="#ocrpy.parsers.table.aws_table.AwsTableOCR.parse" title="Permalink to this definition">#</a></dt>
+<dd><p>Parse the document and extract the tables.</p>
+<dl class="simple">
+<dt>document<span class="classifier">str</span></dt><dd><p>Path to the document to be parsed.</p>
+</dd>
+</dl>
+<dl class="simple">
+<dt>tables<span class="classifier">List[List]</span></dt><dd><p>List of list of tabular data.</p>
+</dd>
+</dl>
+</dd></dl>
+
+</dd></dl>
+
+<dl class="py function">
+<dt class="sig sig-object py" id="ocrpy.parsers.table.aws_table.table_to_csv">
+<span class="sig-prename descclassname"><span class="pre">ocrpy.parsers.table.aws_table.</span></span><span class="sig-name descname"><span class="pre">table_to_csv</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">table_data</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">List</span><span class="p"><span class="pre">[</span></span><span class="pre">List</span><span class="p"><span class="pre">]</span></span></span></em><span class="sig-paren">)</span> <span class="sig-return"><span class="sig-return-icon">&#x2192;</span> <span class="sig-return-typehint"><span class="pre">Dict</span><span class="p"><span class="pre">[</span></span><span class="pre">int</span><span class="p"><span class="pre">,</span></span><span class="w"> </span><span class="pre">DataFrame</span><span class="p"><span class="pre">]</span></span></span></span><a class="headerlink" href="#ocrpy.parsers.table.aws_table.table_to_csv" title="Permalink to this definition">#</a></dt>
+<dd><p>Convert the table data to CSV.</p>
+<dl class="simple">
+<dt>table_data<span class="classifier">List[List]</span></dt><dd><p>Table data extracted from the document using the parser.</p>
+</dd>
+</dl>
+<dl class="simple">
+<dt>table_data<span class="classifier">Dict[int, pd.DataFrame]</span></dt><dd><p>Table data in CSV format.</p>
+</dd>
+</dl>
+</dd></dl>
+
 </section>
-<section id="ocrpy-parsers-table-table-parser-module">
-<h2>ocrpy.parsers.table.table_parser module<a class="headerlink" href="#ocrpy-parsers-table-table-parser-module" title="Permalink to this heading">#</a></h2>
+<section id="module-ocrpy.parsers.table.table_parser">
+<span id="ocrpy-parsers-table-table-parser-module"></span><h2>ocrpy.parsers.table.table_parser module<a class="headerlink" href="#module-ocrpy.parsers.table.table_parser" title="Permalink to this heading">#</a></h2>
+<dl class="py class">
+<dt class="sig sig-object py" id="ocrpy.parsers.table.table_parser.TableParser">
+<em class="property"><span class="pre">class</span><span class="w"> </span></em><span class="sig-prename descclassname"><span class="pre">ocrpy.parsers.table.table_parser.</span></span><span class="sig-name descname"><span class="pre">TableParser</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">credentials</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">Optional</span><span class="p"><span class="pre">[</span></span><span class="pre">str</span><span class="p"><span class="pre">]</span></span></span><span class="w"> </span><span class="o"><span class="pre">=</span></span><span class="w"> </span><span class="default_value"><span class="pre">None</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">backend</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">str</span></span><span class="w"> </span><span class="o"><span class="pre">=</span></span><span class="w"> </span><span class="default_value"><span class="pre">'aws-textract'</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#ocrpy.parsers.table.table_parser.TableParser" title="Permalink to this definition">#</a></dt>
+<dd><p>Bases: <code class="xref py py-class docutils literal notranslate"><span class="pre">object</span></code></p>
+<p>High level interface for multiple table ocr backends.
+Note: Currently only supports Amazon Textract.</p>
+<dl class="simple">
+<dt>backend<span class="classifier">str</span></dt><dd><p>The name of the backend to use.
+default: “aws-textract”</p>
+</dd>
+<dt>credentials<span class="classifier">str</span></dt><dd><p>The credentials to use for the selected backend.</p>
+</dd>
+</dl>
+<dl class="py attribute">
+<dt class="sig sig-object py" id="ocrpy.parsers.table.table_parser.TableParser.backend">
+<span class="sig-name descname"><span class="pre">backend</span></span><em class="property"><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="pre">str</span></em><a class="headerlink" href="#ocrpy.parsers.table.table_parser.TableParser.backend" title="Permalink to this definition">#</a></dt>
+<dd></dd></dl>
+
+<dl class="py attribute">
+<dt class="sig sig-object py" id="ocrpy.parsers.table.table_parser.TableParser.credentials">
+<span class="sig-name descname"><span class="pre">credentials</span></span><em class="property"><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="pre">Optional</span><span class="p"><span class="pre">[</span></span><span class="pre">str</span><span class="p"><span class="pre">]</span></span></em><a class="headerlink" href="#ocrpy.parsers.table.table_parser.TableParser.credentials" title="Permalink to this definition">#</a></dt>
+<dd></dd></dl>
+
+<dl class="py method">
+<dt class="sig sig-object py" id="ocrpy.parsers.table.table_parser.TableParser.parse">
+<span class="sig-name descname"><span class="pre">parse</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">document</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">str</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">attempt_csv_conversion</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">bool</span></span><span class="w"> </span><span class="o"><span class="pre">=</span></span><span class="w"> </span><span class="default_value"><span class="pre">False</span></span></em><span class="sig-paren">)</span> <span class="sig-return"><span class="sig-return-icon">&#x2192;</span> <span class="sig-return-typehint"><span class="pre">Union</span><span class="p"><span class="pre">[</span></span><span class="pre">List</span><span class="p"><span class="pre">,</span></span><span class="w"> </span><span class="pre">Dict</span><span class="p"><span class="pre">]</span></span></span></span><a class="headerlink" href="#ocrpy.parsers.table.table_parser.TableParser.parse" title="Permalink to this definition">#</a></dt>
+<dd><p>Parse the document and extract the tables.</p>
+<dl class="simple">
+<dt>document<span class="classifier">str</span></dt><dd><p>Path to the document to be parsed.</p>
+</dd>
+<dt>attempt_csv_conversion<span class="classifier">bool</span></dt><dd><p>If True, attempt to convert the table to CSV.
+default: False</p>
+</dd>
+</dl>
+<p>tables : Union[List, Dict]</p>
+<p>Note: returns a list of lists if attempt_csv_conversion is False.
+Otherwise, returns a dictionary of pandas dataframes. (each item represents an individual table in a pdf document)</p>
+</dd></dl>
+
+<dl class="py method">
+<dt class="sig sig-object py" id="ocrpy.parsers.table.table_parser.TableParser.supported_backends">
+<span class="sig-name descname"><span class="pre">supported_backends</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">attribute</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">value</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#ocrpy.parsers.table.table_parser.TableParser.supported_backends" title="Permalink to this definition">#</a></dt>
+<dd></dd></dl>
+
+</dd></dl>
+
 </section>
-<section id="module-contents">
-<h2>Module contents<a class="headerlink" href="#module-contents" title="Permalink to this heading">#</a></h2>
+<section id="module-ocrpy.parsers.table">
+<span id="module-contents"></span><h2>Module contents<a class="headerlink" href="#module-ocrpy.parsers.table" title="Permalink to this heading">#</a></h2>
 </section>
 </section>
 
@@ -284,9 +371,9 @@
             <ul>
 <li><a class="reference internal" href="#">ocrpy.parsers.table package</a><ul>
 <li><a class="reference internal" href="#submodules">Submodules</a></li>
-<li><a class="reference internal" href="#ocrpy-parsers-table-aws-table-module">ocrpy.parsers.table.aws_table module</a></li>
-<li><a class="reference internal" href="#ocrpy-parsers-table-table-parser-module">ocrpy.parsers.table.table_parser module</a></li>
-<li><a class="reference internal" href="#module-contents">Module contents</a></li>
+<li><a class="reference internal" href="#module-ocrpy.parsers.table.aws_table">ocrpy.parsers.table.aws_table module</a></li>
+<li><a class="reference internal" href="#module-ocrpy.parsers.table.table_parser">ocrpy.parsers.table.table_parser module</a></li>
+<li><a class="reference internal" href="#module-ocrpy.parsers.table">Module contents</a></li>
 </ul>
 </li>
 </ul>
