@@ -8,3 +8,6 @@ pdf2image==1.14.0
 numpy==1.22.0
 transformers==4.20.1
 tqdm==4.64.0
+pandas==1.3.3
+python-dotenv==0.17.1
+cloudpathlib==0.9.0
