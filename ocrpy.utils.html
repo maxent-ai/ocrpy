@@ -214,17 +214,51 @@
 <section id="submodules">
 <h2>Submodules<a class="headerlink" href="#submodules" title="Permalink to this heading">#</a></h2>
 </section>
-<section id="ocrpy-utils-exceptions-module">
-<h2>ocrpy.utils.exceptions module<a class="headerlink" href="#ocrpy-utils-exceptions-module" title="Permalink to this heading">#</a></h2>
+<section id="module-ocrpy.utils.exceptions">
+<span id="ocrpy-utils-exceptions-module"></span><h2>ocrpy.utils.exceptions module<a class="headerlink" href="#module-ocrpy.utils.exceptions" title="Permalink to this heading">#</a></h2>
+<p>Exceptions raised by various modules in the ocrpy package.</p>
+<dl class="py exception">
+<dt class="sig sig-object py" id="ocrpy.utils.exceptions.AttributeNotSupported">
+<em class="property"><span class="pre">exception</span><span class="w"> </span></em><span class="sig-prename descclassname"><span class="pre">ocrpy.utils.exceptions.</span></span><span class="sig-name descname"><span class="pre">AttributeNotSupported</span></span><a class="headerlink" href="#ocrpy.utils.exceptions.AttributeNotSupported" title="Permalink to this definition">#</a></dt>
+<dd><p>Bases: <code class="xref py py-class docutils literal notranslate"><span class="pre">Exception</span></code></p>
+<p>Raise when an Attribute like block or line extraction is not supported by the backends.</p>
+</dd></dl>
+
+<dl class="py exception">
+<dt class="sig sig-object py" id="ocrpy.utils.exceptions.BackendNotSupported">
+<em class="property"><span class="pre">exception</span><span class="w"> </span></em><span class="sig-prename descclassname"><span class="pre">ocrpy.utils.exceptions.</span></span><span class="sig-name descname"><span class="pre">BackendNotSupported</span></span><a class="headerlink" href="#ocrpy.utils.exceptions.BackendNotSupported" title="Permalink to this definition">#</a></dt>
+<dd><p>Bases: <code class="xref py py-class docutils literal notranslate"><span class="pre">Exception</span></code></p>
+<p>Raise when a backend is not supported by the parser module.</p>
+</dd></dl>
+
+<dl class="py exception">
+<dt class="sig sig-object py" id="ocrpy.utils.exceptions.FileTypeNotSupported">
+<em class="property"><span class="pre">exception</span><span class="w"> </span></em><span class="sig-prename descclassname"><span class="pre">ocrpy.utils.exceptions.</span></span><span class="sig-name descname"><span class="pre">FileTypeNotSupported</span></span><a class="headerlink" href="#ocrpy.utils.exceptions.FileTypeNotSupported" title="Permalink to this definition">#</a></dt>
+<dd><p>Bases: <code class="xref py py-class docutils literal notranslate"><span class="pre">Exception</span></code></p>
+<p>Raise when processing a file type is not supported by the backends.</p>
+</dd></dl>
+
 </section>
-<section id="ocrpy-utils-logger-module">
-<h2>ocrpy.utils.logger module<a class="headerlink" href="#ocrpy-utils-logger-module" title="Permalink to this heading">#</a></h2>
+<section id="module-ocrpy.utils.logger">
+<span id="ocrpy-utils-logger-module"></span><h2>ocrpy.utils.logger module<a class="headerlink" href="#module-ocrpy.utils.logger" title="Permalink to this heading">#</a></h2>
 </section>
-<section id="ocrpy-utils-utils-module">
-<h2>ocrpy.utils.utils module<a class="headerlink" href="#ocrpy-utils-utils-module" title="Permalink to this heading">#</a></h2>
+<section id="module-ocrpy.utils.utils">
+<span id="ocrpy-utils-utils-module"></span><h2>ocrpy.utils.utils module<a class="headerlink" href="#module-ocrpy.utils.utils" title="Permalink to this heading">#</a></h2>
+<dl class="py function">
+<dt class="sig sig-object py" id="ocrpy.utils.utils.guess_extension">
+<span class="sig-prename descclassname"><span class="pre">ocrpy.utils.utils.</span></span><span class="sig-name descname"><span class="pre">guess_extension</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">file_path</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">str</span></span></em><span class="sig-paren">)</span> <span class="sig-return"><span class="sig-return-icon">&#x2192;</span> <span class="sig-return-typehint"><span class="pre">str</span></span></span><a class="headerlink" href="#ocrpy.utils.utils.guess_extension" title="Permalink to this definition">#</a></dt>
+<dd><p>Guesses the file extension of the file.</p>
+</dd></dl>
+
+<dl class="py function">
+<dt class="sig sig-object py" id="ocrpy.utils.utils.guess_storage">
+<span class="sig-prename descclassname"><span class="pre">ocrpy.utils.utils.</span></span><span class="sig-name descname"><span class="pre">guess_storage</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">file_path</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">str</span></span></em><span class="sig-paren">)</span> <span class="sig-return"><span class="sig-return-icon">&#x2192;</span> <span class="sig-return-typehint"><span class="pre">str</span></span></span><a class="headerlink" href="#ocrpy.utils.utils.guess_storage" title="Permalink to this definition">#</a></dt>
+<dd><p>Guesses the storage type of the file.</p>
+</dd></dl>
+
 </section>
-<section id="module-contents">
-<h2>Module contents<a class="headerlink" href="#module-contents" title="Permalink to this heading">#</a></h2>
+<section id="module-ocrpy.utils">
+<span id="module-contents"></span><h2>Module contents<a class="headerlink" href="#module-ocrpy.utils" title="Permalink to this heading">#</a></h2>
 </section>
 </section>
 
@@ -287,10 +321,10 @@
             <ul>
 <li><a class="reference internal" href="#">ocrpy.utils package</a><ul>
 <li><a class="reference internal" href="#submodules">Submodules</a></li>
-<li><a class="reference internal" href="#ocrpy-utils-exceptions-module">ocrpy.utils.exceptions module</a></li>
-<li><a class="reference internal" href="#ocrpy-utils-logger-module">ocrpy.utils.logger module</a></li>
-<li><a class="reference internal" href="#ocrpy-utils-utils-module">ocrpy.utils.utils module</a></li>
-<li><a class="reference internal" href="#module-contents">Module contents</a></li>
+<li><a class="reference internal" href="#module-ocrpy.utils.exceptions">ocrpy.utils.exceptions module</a></li>
+<li><a class="reference internal" href="#module-ocrpy.utils.logger">ocrpy.utils.logger module</a></li>
+<li><a class="reference internal" href="#module-ocrpy.utils.utils">ocrpy.utils.utils module</a></li>
+<li><a class="reference internal" href="#module-ocrpy.utils">Module contents</a></li>
 </ul>
 </li>
 </ul>
