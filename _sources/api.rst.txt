@@ -10,12 +10,3 @@ API Reference
     :members:
     :undoc-members:
     :show-inheritance:
-    
-    
-
-.. autodata:: ocrpy.io
-
-.. autoclass:: ocrpy.io.reader.DocumentReader
-    :members:
-    :undoc-members:
-    :show-inheritance:
