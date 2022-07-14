@@ -12,7 +12,6 @@ Welcome to ocrpy's documentation
 
    overview
    modules
-   api 
 
 
 
