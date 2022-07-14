@@ -18,16 +18,7 @@ with open('ocrpy/__init__.py', 'r') as f:
 with open('README.md', 'r', encoding='utf-8') as f:
     readme = f.read()
 
-REQUIRES = ['attrs==21.4.0',
- 'pytesseract==0.3.6',
- 'opencv-python==4.2.0.32',
- 'beautifulsoup4==4.9.1',
- 'google-cloud-vision==1.0.0',
- 'boto3==1.19.7',
- 'pdf2image==1.14.0',
- 'numpy==1.22.0',
- 'transformers==4.20.1',
- 'tqdm==4.64.0']
+REQUIRES = []
 
 kwargs = {
     'name': 'ocrpy',
