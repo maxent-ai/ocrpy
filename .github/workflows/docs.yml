@@ -21,6 +21,8 @@ jobs:
       run: |
         pip install .
         pip install furo
+        pip install cloudpathlib==0.9.0
+        pip install attrs
     
     - name: Build docs
       run: |
