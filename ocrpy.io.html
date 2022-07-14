@@ -214,14 +214,93 @@
 <section id="submodules">
 <h2>Submodules<a class="headerlink" href="#submodules" title="Permalink to this heading">#</a></h2>
 </section>
-<section id="ocrpy-io-reader-module">
-<h2>ocrpy.io.reader module<a class="headerlink" href="#ocrpy-io-reader-module" title="Permalink to this heading">#</a></h2>
+<section id="module-ocrpy.io.reader">
+<span id="ocrpy-io-reader-module"></span><h2>ocrpy.io.reader module<a class="headerlink" href="#module-ocrpy.io.reader" title="Permalink to this heading">#</a></h2>
+<dl class="py class">
+<dt class="sig sig-object py" id="ocrpy.io.reader.DocumentReader">
+<em class="property"><span class="pre">class</span><span class="w"> </span></em><span class="sig-prename descclassname"><span class="pre">ocrpy.io.reader.</span></span><span class="sig-name descname"><span class="pre">DocumentReader</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">file</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">str</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">credentials</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">Optional</span><span class="p"><span class="pre">[</span></span><span class="pre">str</span><span class="p"><span class="pre">]</span></span></span><span class="w"> </span><span class="o"><span class="pre">=</span></span><span class="w"> </span><span class="default_value"><span class="pre">None</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#ocrpy.io.reader.DocumentReader" title="Permalink to this definition">#</a></dt>
+<dd><p>Bases: <code class="xref py py-class docutils literal notranslate"><span class="pre">object</span></code></p>
+<p>Reads an image or a pdf file from a local or remote location.
+Note: Currently supports Google Storage and Amazon S3 Remote Files.</p>
+<dl>
+<dt>file<span class="classifier">str</span></dt><dd><p>The path to the file to be read.</p>
+</dd>
+<dt>credentials<span class="classifier">str</span></dt><dd><p>The path to the credentials file.
+Note:</p>
+<blockquote>
+<div><p>If the Remote storage is AWS S3, the credentials file must be in the .env format.
+If the Remote storage is Google Storage, the credentials file must be in the .json format.</p>
+</div></blockquote>
+</dd>
+</dl>
+<dl class="py attribute">
+<dt class="sig sig-object py" id="ocrpy.io.reader.DocumentReader.credentials">
+<span class="sig-name descname"><span class="pre">credentials</span></span><em class="property"><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="pre">str</span></em><a class="headerlink" href="#ocrpy.io.reader.DocumentReader.credentials" title="Permalink to this definition">#</a></dt>
+<dd></dd></dl>
+
+<dl class="py attribute">
+<dt class="sig sig-object py" id="ocrpy.io.reader.DocumentReader.file">
+<span class="sig-name descname"><span class="pre">file</span></span><em class="property"><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="pre">str</span></em><a class="headerlink" href="#ocrpy.io.reader.DocumentReader.file" title="Permalink to this definition">#</a></dt>
+<dd></dd></dl>
+
+<dl class="py method">
+<dt class="sig sig-object py" id="ocrpy.io.reader.DocumentReader.read">
+<span class="sig-name descname"><span class="pre">read</span></span><span class="sig-paren">(</span><span class="sig-paren">)</span> <span class="sig-return"><span class="sig-return-icon">&#x2192;</span> <span class="sig-return-typehint"><span class="pre">Union</span><span class="p"><span class="pre">[</span></span><span class="pre">Generator</span><span class="p"><span class="pre">,</span></span><span class="w"> </span><span class="pre">ByteString</span><span class="p"><span class="pre">]</span></span></span></span><a class="headerlink" href="#ocrpy.io.reader.DocumentReader.read" title="Permalink to this definition">#</a></dt>
+<dd><p>Reads the file from a local or remote location and
+returns the data in byte-string for an image or as a
+generator of byte-strings for a pdf.</p>
+<dl class="simple">
+<dt>data<span class="classifier">Union[bytes, List[bytes]]</span></dt><dd><p>The data in byte-string for an image or as a
+generator of byte-strings for a pdf.</p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="py attribute">
+<dt class="sig sig-object py" id="ocrpy.io.reader.DocumentReader.storage_type">
+<span class="sig-name descname"><span class="pre">storage_type</span></span><em class="property"><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="pre">str</span></em><a class="headerlink" href="#ocrpy.io.reader.DocumentReader.storage_type" title="Permalink to this definition">#</a></dt>
+<dd></dd></dl>
+
+</dd></dl>
+
 </section>
-<section id="ocrpy-io-writer-module">
-<h2>ocrpy.io.writer module<a class="headerlink" href="#ocrpy-io-writer-module" title="Permalink to this heading">#</a></h2>
+<section id="module-ocrpy.io.writer">
+<span id="ocrpy-io-writer-module"></span><h2>ocrpy.io.writer module<a class="headerlink" href="#module-ocrpy.io.writer" title="Permalink to this heading">#</a></h2>
+<dl class="py class">
+<dt class="sig sig-object py" id="ocrpy.io.writer.StorageWriter">
+<em class="property"><span class="pre">class</span><span class="w"> </span></em><span class="sig-prename descclassname"><span class="pre">ocrpy.io.writer.</span></span><span class="sig-name descname"><span class="pre">StorageWriter</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">credentials</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">Optional</span><span class="p"><span class="pre">[</span></span><span class="pre">str</span><span class="p"><span class="pre">]</span></span></span><span class="w"> </span><span class="o"><span class="pre">=</span></span><span class="w"> </span><span class="default_value"><span class="pre">None</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#ocrpy.io.writer.StorageWriter" title="Permalink to this definition">#</a></dt>
+<dd><p>Bases: <code class="xref py py-class docutils literal notranslate"><span class="pre">object</span></code></p>
+<p>Write a parser output to a given location (supports write to local storage, S3 and GS).</p>
+<dl>
+<dt>credentials<span class="classifier">Optional[str]</span></dt><dd><p>default: None
+The credentials to use for the selected storage location.</p>
+<p>Note: If the storage location is AWS S3, the credentials file must be in the .env format and
+If the storage location is Google Storage, the credentials file must be in the .json format.</p>
+</dd>
+</dl>
+<dl class="py attribute">
+<dt class="sig sig-object py" id="ocrpy.io.writer.StorageWriter.credentials">
+<span class="sig-name descname"><span class="pre">credentials</span></span><em class="property"><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="pre">Optional</span><span class="p"><span class="pre">[</span></span><span class="pre">str</span><span class="p"><span class="pre">]</span></span></em><a class="headerlink" href="#ocrpy.io.writer.StorageWriter.credentials" title="Permalink to this definition">#</a></dt>
+<dd></dd></dl>
+
+<dl class="py method">
+<dt class="sig sig-object py" id="ocrpy.io.writer.StorageWriter.write">
+<span class="sig-name descname"><span class="pre">write</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">data</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">Dict</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">file</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">str</span></span></em><span class="sig-paren">)</span> <span class="sig-return"><span class="sig-return-icon">&#x2192;</span> <span class="sig-return-typehint"><span class="pre">None</span></span></span><a class="headerlink" href="#ocrpy.io.writer.StorageWriter.write" title="Permalink to this definition">#</a></dt>
+<dd><p>Write the parser output to a given location (supports write to local storage, S3 and GS).</p>
+<dl class="simple">
+<dt>data<span class="classifier">Dict</span></dt><dd><p>The data to be written.</p>
+</dd>
+<dt>file<span class="classifier">str</span></dt><dd><p>filename/path to the file to be written.</p>
+</dd>
+</dl>
+<p>None</p>
+</dd></dl>
+
+</dd></dl>
+
 </section>
-<section id="module-contents">
-<h2>Module contents<a class="headerlink" href="#module-contents" title="Permalink to this heading">#</a></h2>
+<section id="module-ocrpy.io">
+<span id="module-contents"></span><h2>Module contents<a class="headerlink" href="#module-ocrpy.io" title="Permalink to this heading">#</a></h2>
 </section>
 </section>
 
@@ -284,9 +363,9 @@
             <ul>
 <li><a class="reference internal" href="#">ocrpy.io package</a><ul>
 <li><a class="reference internal" href="#submodules">Submodules</a></li>
-<li><a class="reference internal" href="#ocrpy-io-reader-module">ocrpy.io.reader module</a></li>
-<li><a class="reference internal" href="#ocrpy-io-writer-module">ocrpy.io.writer module</a></li>
-<li><a class="reference internal" href="#module-contents">Module contents</a></li>
+<li><a class="reference internal" href="#module-ocrpy.io.reader">ocrpy.io.reader module</a></li>
+<li><a class="reference internal" href="#module-ocrpy.io.writer">ocrpy.io.writer module</a></li>
+<li><a class="reference internal" href="#module-ocrpy.io">Module contents</a></li>
 </ul>
 </li>
 </ul>

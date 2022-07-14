@@ -214,20 +214,143 @@
 <section id="submodules">
 <h2>Submodules<a class="headerlink" href="#submodules" title="Permalink to this heading">#</a></h2>
 </section>
-<section id="ocrpy-parsers-text-aws-text-module">
-<h2>ocrpy.parsers.text.aws_text module<a class="headerlink" href="#ocrpy-parsers-text-aws-text-module" title="Permalink to this heading">#</a></h2>
+<section id="module-ocrpy.parsers.text.aws_text">
+<span id="ocrpy-parsers-text-aws-text-module"></span><h2>ocrpy.parsers.text.aws_text module<a class="headerlink" href="#module-ocrpy.parsers.text.aws_text" title="Permalink to this heading">#</a></h2>
+<dl class="py class">
+<dt class="sig sig-object py" id="ocrpy.parsers.text.aws_text.AwsTextOCR">
+<em class="property"><span class="pre">class</span><span class="w"> </span></em><span class="sig-prename descclassname"><span class="pre">ocrpy.parsers.text.aws_text.</span></span><span class="sig-name descname"><span class="pre">AwsTextOCR</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">reader</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">Any</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">credentials</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">str</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#ocrpy.parsers.text.aws_text.AwsTextOCR" title="Permalink to this definition">#</a></dt>
+<dd><p>Bases: <a class="reference internal" href="ocrpy.parsers.html#ocrpy.parsers.core.AbstractTextOCR" title="ocrpy.parsers.core.AbstractTextOCR"><code class="xref py py-class docutils literal notranslate"><span class="pre">AbstractTextOCR</span></code></a></p>
+<p>AWS Textract OCR Engine</p>
+<dl class="simple">
+<dt>reader: Any</dt><dd><p>Reader object that can be used to read the document.</p>
+</dd>
+<dt>credentials<span class="classifier">str</span></dt><dd><p>Path to credentials file.
+Note: The credentials file must be in .env format.</p>
+</dd>
+</dl>
+<dl class="py method">
+<dt class="sig sig-object py" id="ocrpy.parsers.text.aws_text.AwsTextOCR.parse">
+<span class="sig-name descname"><span class="pre">parse</span></span><span class="sig-paren">(</span><span class="sig-paren">)</span> <span class="sig-return"><span class="sig-return-icon">&#x2192;</span> <span class="sig-return-typehint"><span class="pre">Dict</span><span class="p"><span class="pre">[</span></span><span class="pre">int</span><span class="p"><span class="pre">,</span></span><span class="w"> </span><span class="pre">Dict</span><span class="p"><span class="pre">]</span></span></span></span><a class="headerlink" href="#ocrpy.parsers.text.aws_text.AwsTextOCR.parse" title="Permalink to this definition">#</a></dt>
+<dd><p>Parses the document and returns the ocr data as a dictionary of pages along with additional metadata.</p>
+<dl class="simple">
+<dt>parsed_data<span class="classifier">dict</span></dt><dd><p>Dictionary of pages.</p>
+</dd>
+</dl>
+</dd></dl>
+
+</dd></dl>
+
 </section>
-<section id="ocrpy-parsers-text-gcp-text-module">
-<h2>ocrpy.parsers.text.gcp_text module<a class="headerlink" href="#ocrpy-parsers-text-gcp-text-module" title="Permalink to this heading">#</a></h2>
+<section id="module-ocrpy.parsers.text.gcp_text">
+<span id="ocrpy-parsers-text-gcp-text-module"></span><h2>ocrpy.parsers.text.gcp_text module<a class="headerlink" href="#module-ocrpy.parsers.text.gcp_text" title="Permalink to this heading">#</a></h2>
+<dl class="py class">
+<dt class="sig sig-object py" id="ocrpy.parsers.text.gcp_text.GcpTextOCR">
+<em class="property"><span class="pre">class</span><span class="w"> </span></em><span class="sig-prename descclassname"><span class="pre">ocrpy.parsers.text.gcp_text.</span></span><span class="sig-name descname"><span class="pre">GcpTextOCR</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">reader</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">Any</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">credentials</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">str</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#ocrpy.parsers.text.gcp_text.GcpTextOCR" title="Permalink to this definition">#</a></dt>
+<dd><p>Bases: <a class="reference internal" href="ocrpy.parsers.html#ocrpy.parsers.core.AbstractTextOCR" title="ocrpy.parsers.core.AbstractTextOCR"><code class="xref py py-class docutils literal notranslate"><span class="pre">AbstractTextOCR</span></code></a></p>
+<p>Google Cloud Vision  OCR Engine</p>
+<dl class="simple">
+<dt>reader<span class="classifier">Any</span></dt><dd><p>Reader object that can be used to read the document.</p>
+</dd>
+<dt>credentials<span class="classifier">str</span></dt><dd><p>Path to credentials file.
+Note: The credentials file must be in .json format.</p>
+</dd>
+</dl>
+<dl class="py method">
+<dt class="sig sig-object py" id="ocrpy.parsers.text.gcp_text.GcpTextOCR.parse">
+<span class="sig-name descname"><span class="pre">parse</span></span><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="headerlink" href="#ocrpy.parsers.text.gcp_text.GcpTextOCR.parse" title="Permalink to this definition">#</a></dt>
+<dd><p>Parses the document and returns the ocr data as a dictionary of pages along with additional metadata.</p>
+<dl class="simple">
+<dt>parsed_data<span class="classifier">dict</span></dt><dd><p>Dictionary of pages.</p>
+</dd>
+</dl>
+</dd></dl>
+
+</dd></dl>
+
 </section>
-<section id="ocrpy-parsers-text-tesseract-text-module">
-<h2>ocrpy.parsers.text.tesseract_text module<a class="headerlink" href="#ocrpy-parsers-text-tesseract-text-module" title="Permalink to this heading">#</a></h2>
+<section id="module-ocrpy.parsers.text.tesseract_text">
+<span id="ocrpy-parsers-text-tesseract-text-module"></span><h2>ocrpy.parsers.text.tesseract_text module<a class="headerlink" href="#module-ocrpy.parsers.text.tesseract_text" title="Permalink to this heading">#</a></h2>
+<dl class="py class">
+<dt class="sig sig-object py" id="ocrpy.parsers.text.tesseract_text.TesseractTextOCR">
+<em class="property"><span class="pre">class</span><span class="w"> </span></em><span class="sig-prename descclassname"><span class="pre">ocrpy.parsers.text.tesseract_text.</span></span><span class="sig-name descname"><span class="pre">TesseractTextOCR</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">reader</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">Any</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">credentials</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#ocrpy.parsers.text.tesseract_text.TesseractTextOCR" title="Permalink to this definition">#</a></dt>
+<dd><p>Bases: <a class="reference internal" href="ocrpy.parsers.html#ocrpy.parsers.core.AbstractTextOCR" title="ocrpy.parsers.core.AbstractTextOCR"><code class="xref py py-class docutils literal notranslate"><span class="pre">AbstractTextOCR</span></code></a></p>
+<p>PyTesseract OCR Engine</p>
+<dl class="simple">
+<dt>reader: Any</dt><dd><p>Reader object that can be used to read the document.</p>
+</dd>
+<dt>credentials<span class="classifier">None</span></dt><dd><p>Credentials for the OCR engine (if any).</p>
+</dd>
+</dl>
+<dl class="py attribute">
+<dt class="sig sig-object py" id="ocrpy.parsers.text.tesseract_text.TesseractTextOCR.credentials">
+<span class="sig-name descname"><span class="pre">credentials</span></span><em class="property"><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="pre">None</span></em><a class="headerlink" href="#ocrpy.parsers.text.tesseract_text.TesseractTextOCR.credentials" title="Permalink to this definition">#</a></dt>
+<dd></dd></dl>
+
+<dl class="py method">
+<dt class="sig sig-object py" id="ocrpy.parsers.text.tesseract_text.TesseractTextOCR.parse">
+<span class="sig-name descname"><span class="pre">parse</span></span><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="headerlink" href="#ocrpy.parsers.text.tesseract_text.TesseractTextOCR.parse" title="Permalink to this definition">#</a></dt>
+<dd><p>Parses the document and returns the ocr data as a dictionary of pages along with additional metadata.</p>
+<dl class="simple">
+<dt>parsed_data<span class="classifier">dict</span></dt><dd><p>Dictionary of pages.</p>
+</dd>
+</dl>
+</dd></dl>
+
+</dd></dl>
+
 </section>
-<section id="ocrpy-parsers-text-text-parser-module">
-<h2>ocrpy.parsers.text.text_parser module<a class="headerlink" href="#ocrpy-parsers-text-text-parser-module" title="Permalink to this heading">#</a></h2>
+<section id="module-ocrpy.parsers.text.text_parser">
+<span id="ocrpy-parsers-text-text-parser-module"></span><h2>ocrpy.parsers.text.text_parser module<a class="headerlink" href="#module-ocrpy.parsers.text.text_parser" title="Permalink to this heading">#</a></h2>
+<dl class="py class">
+<dt class="sig sig-object py" id="ocrpy.parsers.text.text_parser.TextParser">
+<em class="property"><span class="pre">class</span><span class="w"> </span></em><span class="sig-prename descclassname"><span class="pre">ocrpy.parsers.text.text_parser.</span></span><span class="sig-name descname"><span class="pre">TextParser</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">credentials</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">Optional</span><span class="p"><span class="pre">[</span></span><span class="pre">str</span><span class="p"><span class="pre">]</span></span></span><span class="w"> </span><span class="o"><span class="pre">=</span></span><span class="w"> </span><span class="default_value"><span class="pre">None</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">backend</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">str</span></span><span class="w"> </span><span class="o"><span class="pre">=</span></span><span class="w"> </span><span class="default_value"><span class="pre">'pytesseract'</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#ocrpy.parsers.text.text_parser.TextParser" title="Permalink to this definition">#</a></dt>
+<dd><p>Bases: <code class="xref py py-class docutils literal notranslate"><span class="pre">object</span></code></p>
+<p>High level interface for multiple text ocr backends.
+Note: Currently only supports Pytesseract, Google Cloud Vision and Amazon Textract.</p>
+<dl class="simple">
+<dt>backend<span class="classifier">str</span></dt><dd><p>The name of the backend to use.
+default: “pytesseract”
+alternative options: “pytesseract”, “aws-textract”, “google-cloud-vision”</p>
+</dd>
+<dt>credentials<span class="classifier">Optional[str]</span></dt><dd><p>The credentials to use for the selected backend.
+default: None</p>
+</dd>
+</dl>
+<dl class="py attribute">
+<dt class="sig sig-object py" id="ocrpy.parsers.text.text_parser.TextParser.backend">
+<span class="sig-name descname"><span class="pre">backend</span></span><em class="property"><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="pre">str</span></em><a class="headerlink" href="#ocrpy.parsers.text.text_parser.TextParser.backend" title="Permalink to this definition">#</a></dt>
+<dd></dd></dl>
+
+<dl class="py attribute">
+<dt class="sig sig-object py" id="ocrpy.parsers.text.text_parser.TextParser.credentials">
+<span class="sig-name descname"><span class="pre">credentials</span></span><em class="property"><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="pre">Optional</span><span class="p"><span class="pre">[</span></span><span class="pre">str</span><span class="p"><span class="pre">]</span></span></em><a class="headerlink" href="#ocrpy.parsers.text.text_parser.TextParser.credentials" title="Permalink to this definition">#</a></dt>
+<dd></dd></dl>
+
+<dl class="py method">
+<dt class="sig sig-object py" id="ocrpy.parsers.text.text_parser.TextParser.parse">
+<span class="sig-name descname"><span class="pre">parse</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">reader</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><a class="reference internal" href="ocrpy.io.html#ocrpy.io.reader.DocumentReader" title="ocrpy.io.reader.DocumentReader"><span class="pre">DocumentReader</span></a></span></em><span class="sig-paren">)</span> <span class="sig-return"><span class="sig-return-icon">&#x2192;</span> <span class="sig-return-typehint"><span class="pre">Dict</span></span></span><a class="headerlink" href="#ocrpy.parsers.text.text_parser.TextParser.parse" title="Permalink to this definition">#</a></dt>
+<dd><p>Parse the data from a given reader. The reader should be an instance of
+<cite>ocrpy.io.reader.DocumentReader</cite>.</p>
+<dl class="simple">
+<dt>reader<span class="classifier">DocumentReader</span></dt><dd><p>The reader to parse the data from.</p>
+</dd>
+</dl>
+<dl class="simple">
+<dt>data<span class="classifier">Dict</span></dt><dd><p>The parsed data.</p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="py method">
+<dt class="sig sig-object py" id="ocrpy.parsers.text.text_parser.TextParser.supported_backends">
+<span class="sig-name descname"><span class="pre">supported_backends</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">attribute</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">value</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#ocrpy.parsers.text.text_parser.TextParser.supported_backends" title="Permalink to this definition">#</a></dt>
+<dd></dd></dl>
+
+</dd></dl>
+
 </section>
-<section id="module-contents">
-<h2>Module contents<a class="headerlink" href="#module-contents" title="Permalink to this heading">#</a></h2>
+<section id="module-ocrpy.parsers.text">
+<span id="module-contents"></span><h2>Module contents<a class="headerlink" href="#module-ocrpy.parsers.text" title="Permalink to this heading">#</a></h2>
 </section>
 </section>
 
@@ -290,11 +413,11 @@
             <ul>
 <li><a class="reference internal" href="#">ocrpy.parsers.text package</a><ul>
 <li><a class="reference internal" href="#submodules">Submodules</a></li>
-<li><a class="reference internal" href="#ocrpy-parsers-text-aws-text-module">ocrpy.parsers.text.aws_text module</a></li>
-<li><a class="reference internal" href="#ocrpy-parsers-text-gcp-text-module">ocrpy.parsers.text.gcp_text module</a></li>
-<li><a class="reference internal" href="#ocrpy-parsers-text-tesseract-text-module">ocrpy.parsers.text.tesseract_text module</a></li>
-<li><a class="reference internal" href="#ocrpy-parsers-text-text-parser-module">ocrpy.parsers.text.text_parser module</a></li>
-<li><a class="reference internal" href="#module-contents">Module contents</a></li>
+<li><a class="reference internal" href="#module-ocrpy.parsers.text.aws_text">ocrpy.parsers.text.aws_text module</a></li>
+<li><a class="reference internal" href="#module-ocrpy.parsers.text.gcp_text">ocrpy.parsers.text.gcp_text module</a></li>
+<li><a class="reference internal" href="#module-ocrpy.parsers.text.tesseract_text">ocrpy.parsers.text.tesseract_text module</a></li>
+<li><a class="reference internal" href="#module-ocrpy.parsers.text.text_parser">ocrpy.parsers.text.text_parser module</a></li>
+<li><a class="reference internal" href="#module-ocrpy.parsers.text">Module contents</a></li>
 </ul>
 </li>
 </ul>
