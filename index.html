@@ -157,24 +157,15 @@
   <input type="hidden" name="area" value="default">
 </form>
 <div id="searchbox"></div><div class="sidebar-scroll"><div class="sidebar-tree">
-  <p class="caption" role="heading"><span class="caption-text">Contents:</span></p>
-<ul>
+  <ul>
 <li class="toctree-l1"><a class="reference internal" href="overview.html">Overview</a></li>
-<li class="toctree-l1 has-children"><a class="reference internal" href="modules.html">ocrpy</a><input class="toctree-checkbox" id="toctree-checkbox-1" name="toctree-checkbox-1" role="switch" type="checkbox"/><label for="toctree-checkbox-1"><div class="visually-hidden">Toggle child pages in navigation</div><i class="icon"><svg><use href="#svg-arrow-right"></use></svg></i></label><ul>
-<li class="toctree-l2 has-children"><a class="reference internal" href="ocrpy.html">ocrpy package</a><input class="toctree-checkbox" id="toctree-checkbox-2" name="toctree-checkbox-2" role="switch" type="checkbox"/><label for="toctree-checkbox-2"><div class="visually-hidden">Toggle child pages in navigation</div><i class="icon"><svg><use href="#svg-arrow-right"></use></svg></i></label><ul>
-<li class="toctree-l3"><a class="reference internal" href="ocrpy.experimental.html">ocrpy.experimental package</a></li>
-<li class="toctree-l3"><a class="reference internal" href="ocrpy.io.html">ocrpy.io package</a></li>
-<li class="toctree-l3 has-children"><a class="reference internal" href="ocrpy.parsers.html">ocrpy.parsers package</a><input class="toctree-checkbox" id="toctree-checkbox-3" name="toctree-checkbox-3" role="switch" type="checkbox"/><label for="toctree-checkbox-3"><div class="visually-hidden">Toggle child pages in navigation</div><i class="icon"><svg><use href="#svg-arrow-right"></use></svg></i></label><ul>
-<li class="toctree-l4"><a class="reference internal" href="ocrpy.parsers.table.html">ocrpy.parsers.table package</a></li>
-<li class="toctree-l4"><a class="reference internal" href="ocrpy.parsers.text.html">ocrpy.parsers.text package</a></li>
+<li class="toctree-l1"><a class="reference internal" href="examples.html">Examples</a></li>
+<li class="toctree-l1"><a class="reference internal" href="tutorials.html">Tutorials</a></li>
+<li class="toctree-l1"><a class="reference internal" href="api-reference.html">API Reference</a></li>
+<li class="toctree-l1"><a class="reference internal" href="system-design.html">System Design</a></li>
 </ul>
-</li>
-<li class="toctree-l3"><a class="reference internal" href="ocrpy.pipelines.html">ocrpy.pipelines package</a></li>
-<li class="toctree-l3"><a class="reference internal" href="ocrpy.utils.html">ocrpy.utils package</a></li>
-</ul>
-</li>
-</ul>
-</li>
+<ul>
+<li class="toctree-l1"><a class="reference internal" href="license-and-credits.html">License and Credits</a></li>
 </ul>
 
 </div>
@@ -208,26 +199,76 @@
           </label>
         </div>
         <article role="main">
-          <section id="welcome-to-ocrpy-s-documentation">
-<h1>Welcome to ocrpy’s documentation<a class="headerlink" href="#welcome-to-ocrpy-s-documentation" title="Permalink to this heading">#</a></h1>
-<div class="toctree-wrapper compound">
-<p class="caption" role="heading"><span class="caption-text">Contents:</span></p>
-<ul>
-<li class="toctree-l1"><a class="reference internal" href="overview.html">Overview</a></li>
-<li class="toctree-l1"><a class="reference internal" href="modules.html">ocrpy</a><ul>
-<li class="toctree-l2"><a class="reference internal" href="ocrpy.html">ocrpy package</a></li>
-</ul>
-</li>
-</ul>
+          <span class="target" id="module-ocrpy"></span><section id="ocrpy-documentation">
+<h1>OcrPy Documentation<a class="headerlink" href="#ocrpy-documentation" title="Permalink to this heading">#</a></h1>
+<p>The Core mission of OcrPy is to let users OCR, Archive, Index and Search any documents with ease,
+with a simple and intuitive interface and a powerful Pipeline API.</p>
+<p><cite>ocrpy</cite>  achieves this by wrapping around various OCR engines like <a class="reference external" href="https://tesseract-ocr.github.io/">Tesseract OCR</a>, <a class="reference external" href="https://aws.amazon.com/textract/">Aws Textract</a>,
+<a class="reference external" href="https://cloud.google.com/vision/docs/ocr">Google Cloud Vision</a> and <a class="reference external" href="https://azure.microsoft.com/en-in/services/cognitive-services/computer-vision/#features">Azure Computer Vision</a>.
+It unifies the multitude of interfaces provided by a wide range of cloud tools &amp; other open-source libraries
+and provides a simple, easy-to-use interface for the user.</p>
+</section>
+<section id="getting-started">
+<h1>Getting Started<a class="headerlink" href="#getting-started" title="Permalink to this heading">#</a></h1>
+<p><code class="docutils literal notranslate"><span class="pre">ocrpy</span></code> is a Python-only package <a class="reference external" href="https://pypi.org/project/ocrpy/">hosted on PyPI</a>.
+The recommended installation method is <a class="reference external" href="https://pip.pypa.io/en/stable/">pip</a></p>
+<div class="highlight-console notranslate"><div class="highlight"><pre><span></span><span class="gp">$ </span>python -m pip install ocrpy
+</pre></div>
 </div>
 </section>
-<section id="indices-and-tables">
-<h1>Indices and tables<a class="headerlink" href="#indices-and-tables" title="Permalink to this heading">#</a></h1>
-<ul class="simple">
-<li><p><a class="reference internal" href="genindex.html"><span class="std std-ref">Index</span></a></p></li>
-<li><p><a class="reference internal" href="py-modindex.html"><span class="std std-ref">Module Index</span></a></p></li>
-<li><p><a class="reference internal" href="search.html"><span class="std std-ref">Search Page</span></a></p></li>
+<section id="day-to-day-usage">
+<h1>Day-to-Day Usage<a class="headerlink" href="#day-to-day-usage" title="Permalink to this heading">#</a></h1>
+<p>Ocrpy Provides various levels of abstraction for the user to perform OCR on various types of documents.
+The recommended and the best way to use Ocrpy is to use it through it’s <cite>pipelines</cite> API as shown below.</p>
+<p>The Pipeline API can be invoked in two ways. The first method is to define the config for running the
+pipeline as a yaml file and and then run the pipeline by loading it as follows:</p>
+<div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="kn">from</span> <span class="nn">ocrpy</span> <span class="kn">import</span> <span class="n">TextOcrPipeline</span>
+
+<span class="n">ocr_pipeline</span> <span class="o">=</span> <span class="n">TextOcrPipeline</span><span class="o">.</span><span class="n">from_config</span><span class="p">(</span><span class="s2">&quot;ocrpy_config.yaml&quot;</span><span class="p">)</span>
+<span class="n">ocr_pipeline</span><span class="o">.</span><span class="n">process</span><span class="p">()</span>
+</pre></div>
+</div>
+<p>alternatively you can also run a pipeline by directly instantiating the pipeline class as follows:</p>
+<div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="kn">from</span> <span class="nn">ocrpy</span> <span class="kn">import</span> <span class="n">TextOcrPipeline</span>
+
+<span class="n">pipeline</span> <span class="o">=</span> <span class="n">TextOcrPipeline</span><span class="p">(</span><span class="n">source_dir</span><span class="o">=</span><span class="s1">&#39;s3://document_bucket/&#39;</span><span class="p">,</span>
+                           <span class="n">destination_dir</span><span class="o">=</span><span class="s2">&quot;gs://processed_document_bucket/outputs/&quot;</span><span class="p">,</span>
+                           <span class="n">parser_backend</span><span class="o">=</span><span class="s1">&#39;aws-textract&#39;</span><span class="p">,</span>
+                           <span class="n">credentials</span><span class="o">=</span><span class="p">{</span><span class="s2">&quot;AWS&quot;</span><span class="p">:</span> <span class="s2">&quot;path/to/aws-credentials.env/file&quot;</span><span class="p">,</span>
+                                        <span class="s2">&quot;GCP&quot;</span><span class="p">:</span> <span class="s2">&quot;path/to/gcp-credentials.json/file&quot;</span><span class="p">})</span>
+<span class="n">pipeline</span><span class="o">.</span><span class="n">process</span><span class="p">()</span>
+</pre></div>
+</div>
+</section>
+<section id="full-table-of-contents">
+<h1>Full Table of Contents<a class="headerlink" href="#full-table-of-contents" title="Permalink to this heading">#</a></h1>
+<div class="toctree-wrapper compound">
+<ul>
+<li class="toctree-l1"><a class="reference internal" href="overview.html">Overview</a></li>
+<li class="toctree-l1"><a class="reference internal" href="examples.html">Examples</a></li>
+<li class="toctree-l1"><a class="reference internal" href="tutorials.html">Tutorials</a></li>
+<li class="toctree-l1"><a class="reference internal" href="api-reference.html">API Reference</a><ul>
+<li class="toctree-l2"><a class="reference internal" href="api-reference.html#ocrpy-io"><code class="docutils literal notranslate"><span class="pre">ocrpy.io</span></code></a></li>
+<li class="toctree-l2"><a class="reference internal" href="api-reference.html#ocrpy-parsers"><code class="docutils literal notranslate"><span class="pre">ocrpy.parsers</span></code></a></li>
+<li class="toctree-l2"><a class="reference internal" href="api-reference.html#ocrpy-parsers-text"><code class="docutils literal notranslate"><span class="pre">ocrpy.parsers.text</span></code></a></li>
+<li class="toctree-l2"><a class="reference internal" href="api-reference.html#ocrpy-parsers-table"><code class="docutils literal notranslate"><span class="pre">ocrpy.parsers.table</span></code></a></li>
+<li class="toctree-l2"><a class="reference internal" href="api-reference.html#ocrpy-pipelines"><code class="docutils literal notranslate"><span class="pre">ocrpy.pipelines</span></code></a></li>
+<li class="toctree-l2"><a class="reference internal" href="api-reference.html#ocrpy-experimental"><code class="docutils literal notranslate"><span class="pre">ocrpy.experimental</span></code></a></li>
+<li class="toctree-l2"><a class="reference internal" href="api-reference.html#ocrpy-utils"><code class="docutils literal notranslate"><span class="pre">ocrpy.utils</span></code></a></li>
 </ul>
+</li>
+<li class="toctree-l1"><a class="reference internal" href="system-design.html">System Design</a></li>
+</ul>
+</div>
+<div class="toctree-wrapper compound">
+<ul>
+<li class="toctree-l1"><a class="reference internal" href="license-and-credits.html">License and Credits</a></li>
+</ul>
+</div>
+<div class="admonition note">
+<p class="admonition-title">Note</p>
+<p>For a full index of all the functionalities, see the <a class="reference internal" href="genindex.html"><span class="std std-ref">Index</span></a></p>
+</div>
 </section>
 
         </article>

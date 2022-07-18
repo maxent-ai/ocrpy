@@ -1,0 +1,704 @@
+<!doctype html>
+<html class="no-js" lang="en">
+  <head><meta charset="utf-8"/>
+    <meta name="viewport" content="width=device-width,initial-scale=1"/>
+    <meta name="color-scheme" content="light dark"><meta name="generator" content="Docutils 0.18.1: http://docutils.sourceforge.net/" />
+<link rel="index" title="Index" href="genindex.html" /><link rel="search" title="Search" href="search.html" /><link rel="next" title="System Design" href="system-design.html" /><link rel="prev" title="Tutorials" href="tutorials.html" />
+
+    <meta name="generator" content="sphinx-5.0.2, furo 2022.06.21"/>
+        <title>API Reference - ocrpy 0.3.6 documentation</title>
+      <link rel="stylesheet" type="text/css" href="_static/pygments.css" />
+    <link rel="stylesheet" type="text/css" href="_static/styles/furo.css?digest=40978830699223671f4072448e654b5958f38b89" />
+    <link rel="stylesheet" type="text/css" href="_static/styles/furo-extensions.css?digest=30d1aed668e5c3a91c3e3bf6a60b675221979f0e" />
+    
+    
+
+
+<style>
+  body {
+    --color-code-background: #f8f8f8;
+  --color-code-foreground: black;
+  
+  }
+  @media not print {
+    body[data-theme="dark"] {
+      --color-code-background: #202020;
+  --color-code-foreground: #d0d0d0;
+  
+    }
+    @media (prefers-color-scheme: dark) {
+      body:not([data-theme="light"]) {
+        --color-code-background: #202020;
+  --color-code-foreground: #d0d0d0;
+  
+      }
+    }
+  }
+</style></head>
+  <body>
+    
+    <script>
+      document.body.dataset.theme = localStorage.getItem("theme") || "auto";
+    </script>
+    
+
+<svg xmlns="http://www.w3.org/2000/svg" style="display: none;">
+  <symbol id="svg-toc" viewBox="0 0 24 24">
+    <title>Contents</title>
+    <svg stroke="currentColor" fill="currentColor" stroke-width="0" viewBox="0 0 1024 1024">
+      <path d="M408 442h480c4.4 0 8-3.6 8-8v-56c0-4.4-3.6-8-8-8H408c-4.4 0-8 3.6-8 8v56c0 4.4 3.6 8 8 8zm-8 204c0 4.4 3.6 8 8 8h480c4.4 0 8-3.6 8-8v-56c0-4.4-3.6-8-8-8H408c-4.4 0-8 3.6-8 8v56zm504-486H120c-4.4 0-8 3.6-8 8v56c0 4.4 3.6 8 8 8h784c4.4 0 8-3.6 8-8v-56c0-4.4-3.6-8-8-8zm0 632H120c-4.4 0-8 3.6-8 8v56c0 4.4 3.6 8 8 8h784c4.4 0 8-3.6 8-8v-56c0-4.4-3.6-8-8-8zM115.4 518.9L271.7 642c5.8 4.6 14.4.5 14.4-6.9V388.9c0-7.4-8.5-11.5-14.4-6.9L115.4 505.1a8.74 8.74 0 0 0 0 13.8z"/>
+    </svg>
+  </symbol>
+  <symbol id="svg-menu" viewBox="0 0 24 24">
+    <title>Menu</title>
+    <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="currentColor"
+      stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="feather-menu">
+      <line x1="3" y1="12" x2="21" y2="12"></line>
+      <line x1="3" y1="6" x2="21" y2="6"></line>
+      <line x1="3" y1="18" x2="21" y2="18"></line>
+    </svg>
+  </symbol>
+  <symbol id="svg-arrow-right" viewBox="0 0 24 24">
+    <title>Expand</title>
+    <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="currentColor"
+      stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="feather-chevron-right">
+      <polyline points="9 18 15 12 9 6"></polyline>
+    </svg>
+  </symbol>
+  <symbol id="svg-sun" viewBox="0 0 24 24">
+    <title>Light mode</title>
+    <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="currentColor"
+      stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round" class="feather-sun">
+      <circle cx="12" cy="12" r="5"></circle>
+      <line x1="12" y1="1" x2="12" y2="3"></line>
+      <line x1="12" y1="21" x2="12" y2="23"></line>
+      <line x1="4.22" y1="4.22" x2="5.64" y2="5.64"></line>
+      <line x1="18.36" y1="18.36" x2="19.78" y2="19.78"></line>
+      <line x1="1" y1="12" x2="3" y2="12"></line>
+      <line x1="21" y1="12" x2="23" y2="12"></line>
+      <line x1="4.22" y1="19.78" x2="5.64" y2="18.36"></line>
+      <line x1="18.36" y1="5.64" x2="19.78" y2="4.22"></line>
+    </svg>
+  </symbol>
+  <symbol id="svg-moon" viewBox="0 0 24 24">
+    <title>Dark mode</title>
+    <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="currentColor"
+      stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round" class="icon-tabler-moon">
+      <path stroke="none" d="M0 0h24v24H0z" fill="none" />
+      <path d="M12 3c.132 0 .263 0 .393 0a7.5 7.5 0 0 0 7.92 12.446a9 9 0 1 1 -8.313 -12.454z" />
+    </svg>
+  </symbol>
+  <symbol id="svg-sun-half" viewBox="0 0 24 24">
+    <title>Auto light/dark mode</title>
+    <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="currentColor"
+      stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round" class="icon-tabler-shadow">
+      <path stroke="none" d="M0 0h24v24H0z" fill="none"/>
+      <circle cx="12" cy="12" r="9" />
+      <path d="M13 12h5" />
+      <path d="M13 15h4" />
+      <path d="M13 18h1" />
+      <path d="M13 9h4" />
+      <path d="M13 6h1" />
+    </svg>
+  </symbol>
+</svg>
+
+<input type="checkbox" class="sidebar-toggle" name="__navigation" id="__navigation">
+<input type="checkbox" class="sidebar-toggle" name="__toc" id="__toc">
+<label class="overlay sidebar-overlay" for="__navigation">
+  <div class="visually-hidden">Hide navigation sidebar</div>
+</label>
+<label class="overlay toc-overlay" for="__toc">
+  <div class="visually-hidden">Hide table of contents sidebar</div>
+</label>
+
+
+
+<div class="page">
+  <header class="mobile-header">
+    <div class="header-left">
+      <label class="nav-overlay-icon" for="__navigation">
+        <div class="visually-hidden">Toggle site navigation sidebar</div>
+        <i class="icon"><svg><use href="#svg-menu"></use></svg></i>
+      </label>
+    </div>
+    <div class="header-center">
+      <a href="index.html"><div class="brand">ocrpy 0.3.6 documentation</div></a>
+    </div>
+    <div class="header-right">
+      <div class="theme-toggle-container theme-toggle-header">
+        <button class="theme-toggle">
+          <div class="visually-hidden">Toggle Light / Dark / Auto color theme</div>
+          <svg class="theme-icon-when-auto"><use href="#svg-sun-half"></use></svg>
+          <svg class="theme-icon-when-dark"><use href="#svg-moon"></use></svg>
+          <svg class="theme-icon-when-light"><use href="#svg-sun"></use></svg>
+        </button>
+      </div>
+      <label class="toc-overlay-icon toc-header-icon" for="__toc">
+        <div class="visually-hidden">Toggle table of contents sidebar</div>
+        <i class="icon"><svg><use href="#svg-toc"></use></svg></i>
+      </label>
+    </div>
+  </header>
+  <aside class="sidebar-drawer">
+    <div class="sidebar-container">
+      
+      <div class="sidebar-sticky"><a class="sidebar-brand" href="index.html">
+  
+  <div class="sidebar-logo-container">
+    <img class="sidebar-logo only-light" src="_static/logo-l-no-bg.png" alt="Light Logo"/>
+    <img class="sidebar-logo only-dark" src="_static/logo-d-no-bg.png" alt="Dark Logo"/>
+  </div>
+  
+  
+</a><form class="sidebar-search-container" method="get" action="search.html" role="search">
+  <input class="sidebar-search" placeholder=Search name="q" aria-label="Search">
+  <input type="hidden" name="check_keywords" value="yes">
+  <input type="hidden" name="area" value="default">
+</form>
+<div id="searchbox"></div><div class="sidebar-scroll"><div class="sidebar-tree">
+  <ul class="current">
+<li class="toctree-l1"><a class="reference internal" href="overview.html">Overview</a></li>
+<li class="toctree-l1"><a class="reference internal" href="examples.html">Examples</a></li>
+<li class="toctree-l1"><a class="reference internal" href="tutorials.html">Tutorials</a></li>
+<li class="toctree-l1 current current-page"><a class="current reference internal" href="#">API Reference</a></li>
+<li class="toctree-l1"><a class="reference internal" href="system-design.html">System Design</a></li>
+</ul>
+<ul>
+<li class="toctree-l1"><a class="reference internal" href="license-and-credits.html">License and Credits</a></li>
+</ul>
+
+</div>
+</div>
+
+      </div>
+      
+    </div>
+  </aside>
+  <div class="main">
+    <div class="content">
+      <div class="article-container">
+        <a href="#" class="back-to-top muted-link">
+          <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24">
+            <path d="M13 20h-2V8l-5.5 5.5-1.42-1.42L12 4.16l7.92 7.92-1.42 1.42L13 8v12z"></path>
+          </svg>
+          <span>Back to top</span>
+        </a>
+        <div class="content-icon-container">
+          <div class="theme-toggle-container theme-toggle-content">
+            <button class="theme-toggle">
+              <div class="visually-hidden">Toggle Light / Dark / Auto color theme</div>
+              <svg class="theme-icon-when-auto"><use href="#svg-sun-half"></use></svg>
+              <svg class="theme-icon-when-dark"><use href="#svg-moon"></use></svg>
+              <svg class="theme-icon-when-light"><use href="#svg-sun"></use></svg>
+            </button>
+          </div>
+          <label class="toc-overlay-icon toc-content-icon" for="__toc">
+            <div class="visually-hidden">Toggle table of contents sidebar</div>
+            <i class="icon"><svg><use href="#svg-toc"></use></svg></i>
+          </label>
+        </div>
+        <article role="main">
+          <section id="api-reference">
+<h1>API Reference<a class="headerlink" href="#api-reference" title="Permalink to this heading">#</a></h1>
+<section id="ocrpy-io">
+<h2><code class="docutils literal notranslate"><span class="pre">ocrpy.io</span></code><a class="headerlink" href="#ocrpy-io" title="Permalink to this heading">#</a></h2>
+<dl class="py class">
+<dt class="sig sig-object py" id="ocrpy.io.reader.DocumentReader">
+<em class="property"><span class="pre">class</span><span class="w"> </span></em><span class="sig-prename descclassname"><span class="pre">ocrpy.io.reader.</span></span><span class="sig-name descname"><span class="pre">DocumentReader</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">file</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">str</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">credentials</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">Optional</span><span class="p"><span class="pre">[</span></span><span class="pre">str</span><span class="p"><span class="pre">]</span></span></span><span class="w"> </span><span class="o"><span class="pre">=</span></span><span class="w"> </span><span class="default_value"><span class="pre">None</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#ocrpy.io.reader.DocumentReader" title="Permalink to this definition">#</a></dt>
+<dd><p>Reads an image or a pdf file from a local or remote location.
+Note: Currently supports Google Storage and Amazon S3 Remote Files.</p>
+<dl>
+<dt>file<span class="classifier">str</span></dt><dd><p>The path to the file to be read.</p>
+</dd>
+<dt>credentials<span class="classifier">str</span></dt><dd><p>The path to the credentials file.
+Note:</p>
+<blockquote>
+<div><p>If the Remote storage is AWS S3, the credentials file must be in the .env format.
+If the Remote storage is Google Storage, the credentials file must be in the .json format.</p>
+</div></blockquote>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="py class">
+<dt class="sig sig-object py" id="ocrpy.io.writer.StorageWriter">
+<em class="property"><span class="pre">class</span><span class="w"> </span></em><span class="sig-prename descclassname"><span class="pre">ocrpy.io.writer.</span></span><span class="sig-name descname"><span class="pre">StorageWriter</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">credentials</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">Optional</span><span class="p"><span class="pre">[</span></span><span class="pre">str</span><span class="p"><span class="pre">]</span></span></span><span class="w"> </span><span class="o"><span class="pre">=</span></span><span class="w"> </span><span class="default_value"><span class="pre">None</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#ocrpy.io.writer.StorageWriter" title="Permalink to this definition">#</a></dt>
+<dd><p>Write a parser output to a given location (supports write to local storage, S3 and GS).</p>
+<dl>
+<dt>credentials<span class="classifier">Optional[str]</span></dt><dd><p>default: None
+The credentials to use for the selected storage location.</p>
+<p>Note: If the storage location is AWS S3, the credentials file must be in the .env format and
+If the storage location is Google Storage, the credentials file must be in the .json format.</p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="py method">
+<dt class="sig sig-object py" id="ocrpy.io.writer.StorageWriter.write">
+<span class="sig-prename descclassname"><span class="pre">StorageWriter.</span></span><span class="sig-name descname"><span class="pre">write</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">data</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">Dict</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">file</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">str</span></span></em><span class="sig-paren">)</span> <span class="sig-return"><span class="sig-return-icon">&#x2192;</span> <span class="sig-return-typehint"><span class="pre">None</span></span></span><a class="headerlink" href="#ocrpy.io.writer.StorageWriter.write" title="Permalink to this definition">#</a></dt>
+<dd><p>Write the parser output to a given location (supports write to local storage, S3 and GS).</p>
+<dl class="simple">
+<dt>data<span class="classifier">Dict</span></dt><dd><p>The data to be written.</p>
+</dd>
+<dt>file<span class="classifier">str</span></dt><dd><p>filename/path to the file to be written.</p>
+</dd>
+</dl>
+<p>None</p>
+</dd></dl>
+
+</section>
+<section id="ocrpy-parsers">
+<h2><code class="docutils literal notranslate"><span class="pre">ocrpy.parsers</span></code><a class="headerlink" href="#ocrpy-parsers" title="Permalink to this heading">#</a></h2>
+<dl class="py class">
+<dt class="sig sig-object py" id="ocrpy.parsers.text.text_parser.TextParser">
+<em class="property"><span class="pre">class</span><span class="w"> </span></em><span class="sig-prename descclassname"><span class="pre">ocrpy.parsers.text.text_parser.</span></span><span class="sig-name descname"><span class="pre">TextParser</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">credentials</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">Optional</span><span class="p"><span class="pre">[</span></span><span class="pre">str</span><span class="p"><span class="pre">]</span></span></span><span class="w"> </span><span class="o"><span class="pre">=</span></span><span class="w"> </span><span class="default_value"><span class="pre">None</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">backend</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">str</span></span><span class="w"> </span><span class="o"><span class="pre">=</span></span><span class="w"> </span><span class="default_value"><span class="pre">'pytesseract'</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#ocrpy.parsers.text.text_parser.TextParser" title="Permalink to this definition">#</a></dt>
+<dd><p>High level interface for multiple text ocr backends.
+Note: Currently only supports Pytesseract, Google Cloud Vision and Amazon Textract.</p>
+<dl class="simple">
+<dt>backend<span class="classifier">str</span></dt><dd><p>The name of the backend to use.
+default: “pytesseract”
+alternative options: “pytesseract”, “aws-textract”, “google-cloud-vision”</p>
+</dd>
+<dt>credentials<span class="classifier">Optional[str]</span></dt><dd><p>The credentials to use for the selected backend.
+default: None</p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="py class">
+<dt class="sig sig-object py" id="ocrpy.parsers.table.table_parser.TableParser">
+<em class="property"><span class="pre">class</span><span class="w"> </span></em><span class="sig-prename descclassname"><span class="pre">ocrpy.parsers.table.table_parser.</span></span><span class="sig-name descname"><span class="pre">TableParser</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">credentials</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">Optional</span><span class="p"><span class="pre">[</span></span><span class="pre">str</span><span class="p"><span class="pre">]</span></span></span><span class="w"> </span><span class="o"><span class="pre">=</span></span><span class="w"> </span><span class="default_value"><span class="pre">None</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">backend</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">str</span></span><span class="w"> </span><span class="o"><span class="pre">=</span></span><span class="w"> </span><span class="default_value"><span class="pre">'aws-textract'</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#ocrpy.parsers.table.table_parser.TableParser" title="Permalink to this definition">#</a></dt>
+<dd><p>High level interface for multiple table ocr backends.
+Note: Currently only supports Amazon Textract.</p>
+<dl class="simple">
+<dt>backend<span class="classifier">str</span></dt><dd><p>The name of the backend to use.
+default: “aws-textract”</p>
+</dd>
+<dt>credentials<span class="classifier">str</span></dt><dd><p>The credentials to use for the selected backend.</p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="py method">
+<dt class="sig sig-object py" id="ocrpy.parsers.table.table_parser.TableParser.parse">
+<span class="sig-prename descclassname"><span class="pre">TableParser.</span></span><span class="sig-name descname"><span class="pre">parse</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">document</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">str</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">attempt_csv_conversion</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">bool</span></span><span class="w"> </span><span class="o"><span class="pre">=</span></span><span class="w"> </span><span class="default_value"><span class="pre">False</span></span></em><span class="sig-paren">)</span> <span class="sig-return"><span class="sig-return-icon">&#x2192;</span> <span class="sig-return-typehint"><span class="pre">Union</span><span class="p"><span class="pre">[</span></span><span class="pre">List</span><span class="p"><span class="pre">,</span></span><span class="w"> </span><span class="pre">Dict</span><span class="p"><span class="pre">]</span></span></span></span><a class="headerlink" href="#ocrpy.parsers.table.table_parser.TableParser.parse" title="Permalink to this definition">#</a></dt>
+<dd><p>Parse the document and extract the tables.</p>
+<dl class="simple">
+<dt>document<span class="classifier">str</span></dt><dd><p>Path to the document to be parsed.</p>
+</dd>
+<dt>attempt_csv_conversion<span class="classifier">bool</span></dt><dd><p>If True, attempt to convert the table to CSV.
+default: False</p>
+</dd>
+</dl>
+<p>tables : Union[List, Dict]</p>
+<p>Note: returns a list of lists if attempt_csv_conversion is False.
+Otherwise, returns a dictionary of pandas dataframes. (each item represents an individual table in a pdf document)</p>
+</dd></dl>
+
+</section>
+<section id="ocrpy-parsers-text">
+<h2><code class="docutils literal notranslate"><span class="pre">ocrpy.parsers.text</span></code><a class="headerlink" href="#ocrpy-parsers-text" title="Permalink to this heading">#</a></h2>
+<dl class="py class">
+<dt class="sig sig-object py" id="ocrpy.parsers.text.aws_text.AwsTextOCR">
+<em class="property"><span class="pre">class</span><span class="w"> </span></em><span class="sig-prename descclassname"><span class="pre">ocrpy.parsers.text.aws_text.</span></span><span class="sig-name descname"><span class="pre">AwsTextOCR</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">reader</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">Any</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">credentials</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">str</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#ocrpy.parsers.text.aws_text.AwsTextOCR" title="Permalink to this definition">#</a></dt>
+<dd><p>AWS Textract OCR Engine</p>
+<dl class="simple">
+<dt>reader: Any</dt><dd><p>Reader object that can be used to read the document.</p>
+</dd>
+<dt>credentials<span class="classifier">str</span></dt><dd><p>Path to credentials file.
+Note: The credentials file must be in .env format.</p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="py method">
+<dt class="sig sig-object py" id="ocrpy.parsers.text.aws_text.AwsTextOCR.parse">
+<span class="sig-prename descclassname"><span class="pre">AwsTextOCR.</span></span><span class="sig-name descname"><span class="pre">parse</span></span><span class="sig-paren">(</span><span class="sig-paren">)</span> <span class="sig-return"><span class="sig-return-icon">&#x2192;</span> <span class="sig-return-typehint"><span class="pre">Dict</span><span class="p"><span class="pre">[</span></span><span class="pre">int</span><span class="p"><span class="pre">,</span></span><span class="w"> </span><span class="pre">Dict</span><span class="p"><span class="pre">]</span></span></span></span><a class="headerlink" href="#ocrpy.parsers.text.aws_text.AwsTextOCR.parse" title="Permalink to this definition">#</a></dt>
+<dd><p>Parses the document and returns the ocr data as a dictionary of pages along with additional metadata.</p>
+<dl class="simple">
+<dt>parsed_data<span class="classifier">dict</span></dt><dd><p>Dictionary of pages.</p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="py class">
+<dt class="sig sig-object py" id="ocrpy.parsers.text.gcp_text.GcpTextOCR">
+<em class="property"><span class="pre">class</span><span class="w"> </span></em><span class="sig-prename descclassname"><span class="pre">ocrpy.parsers.text.gcp_text.</span></span><span class="sig-name descname"><span class="pre">GcpTextOCR</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">reader</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">Any</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">credentials</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">str</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#ocrpy.parsers.text.gcp_text.GcpTextOCR" title="Permalink to this definition">#</a></dt>
+<dd><p>Google Cloud Vision  OCR Engine</p>
+<dl class="simple">
+<dt>reader<span class="classifier">Any</span></dt><dd><p>Reader object that can be used to read the document.</p>
+</dd>
+<dt>credentials<span class="classifier">str</span></dt><dd><p>Path to credentials file.
+Note: The credentials file must be in .json format.</p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="py method">
+<dt class="sig sig-object py" id="ocrpy.parsers.text.gcp_text.GcpTextOCR.parse">
+<span class="sig-prename descclassname"><span class="pre">GcpTextOCR.</span></span><span class="sig-name descname"><span class="pre">parse</span></span><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="headerlink" href="#ocrpy.parsers.text.gcp_text.GcpTextOCR.parse" title="Permalink to this definition">#</a></dt>
+<dd><p>Parses the document and returns the ocr data as a dictionary of pages along with additional metadata.</p>
+<dl class="simple">
+<dt>parsed_data<span class="classifier">dict</span></dt><dd><p>Dictionary of pages.</p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="py class">
+<dt class="sig sig-object py" id="ocrpy.parsers.text.tesseract_text.TesseractTextOCR">
+<em class="property"><span class="pre">class</span><span class="w"> </span></em><span class="sig-prename descclassname"><span class="pre">ocrpy.parsers.text.tesseract_text.</span></span><span class="sig-name descname"><span class="pre">TesseractTextOCR</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">reader</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">Any</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">credentials</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#ocrpy.parsers.text.tesseract_text.TesseractTextOCR" title="Permalink to this definition">#</a></dt>
+<dd><p>PyTesseract OCR Engine</p>
+<dl class="simple">
+<dt>reader: Any</dt><dd><p>Reader object that can be used to read the document.</p>
+</dd>
+<dt>credentials<span class="classifier">None</span></dt><dd><p>Credentials for the OCR engine (if any).</p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="py method">
+<dt class="sig sig-object py" id="ocrpy.parsers.text.tesseract_text.TesseractTextOCR.parse">
+<span class="sig-prename descclassname"><span class="pre">TesseractTextOCR.</span></span><span class="sig-name descname"><span class="pre">parse</span></span><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="headerlink" href="#ocrpy.parsers.text.tesseract_text.TesseractTextOCR.parse" title="Permalink to this definition">#</a></dt>
+<dd><p>Parses the document and returns the ocr data as a dictionary of pages along with additional metadata.</p>
+<dl class="simple">
+<dt>parsed_data<span class="classifier">dict</span></dt><dd><p>Dictionary of pages.</p>
+</dd>
+</dl>
+</dd></dl>
+
+</section>
+<section id="ocrpy-parsers-table">
+<h2><code class="docutils literal notranslate"><span class="pre">ocrpy.parsers.table</span></code><a class="headerlink" href="#ocrpy-parsers-table" title="Permalink to this heading">#</a></h2>
+<dl class="py class">
+<dt class="sig sig-object py" id="ocrpy.parsers.table.aws_table.AwsTableOCR">
+<em class="property"><span class="pre">class</span><span class="w"> </span></em><span class="sig-prename descclassname"><span class="pre">ocrpy.parsers.table.aws_table.</span></span><span class="sig-name descname"><span class="pre">AwsTableOCR</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">credentials</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">Optional</span><span class="p"><span class="pre">[</span></span><span class="pre">str</span><span class="p"><span class="pre">]</span></span></span><span class="w"> </span><span class="o"><span class="pre">=</span></span><span class="w"> </span><span class="default_value"><span class="pre">None</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#ocrpy.parsers.table.aws_table.AwsTableOCR" title="Permalink to this definition">#</a></dt>
+<dd><p>AWS Table Parser - This parser uses AWS Textract to analyze the document
+and extract the tables.</p>
+<dl class="simple">
+<dt>credentials<span class="classifier">str</span></dt><dd><p>Path to credentials file.
+Note: The credentials file must be in .env format.</p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="py method">
+<dt class="sig sig-object py" id="ocrpy.parsers.table.aws_table.AwsTableOCR.parse">
+<span class="sig-prename descclassname"><span class="pre">AwsTableOCR.</span></span><span class="sig-name descname"><span class="pre">parse</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">document</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">str</span></span></em><span class="sig-paren">)</span> <span class="sig-return"><span class="sig-return-icon">&#x2192;</span> <span class="sig-return-typehint"><span class="pre">List</span><span class="p"><span class="pre">[</span></span><span class="pre">List</span><span class="p"><span class="pre">]</span></span></span></span><a class="headerlink" href="#ocrpy.parsers.table.aws_table.AwsTableOCR.parse" title="Permalink to this definition">#</a></dt>
+<dd><p>Parse the document and extract the tables.</p>
+<dl class="simple">
+<dt>document<span class="classifier">str</span></dt><dd><p>Path to the document to be parsed.</p>
+</dd>
+</dl>
+<dl class="simple">
+<dt>tables<span class="classifier">List[List]</span></dt><dd><p>List of list of tabular data.</p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="py function">
+<dt class="sig sig-object py" id="ocrpy.parsers.table.aws_table.table_to_csv">
+<span class="sig-prename descclassname"><span class="pre">ocrpy.parsers.table.aws_table.</span></span><span class="sig-name descname"><span class="pre">table_to_csv</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">table_data</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">List</span><span class="p"><span class="pre">[</span></span><span class="pre">List</span><span class="p"><span class="pre">]</span></span></span></em><span class="sig-paren">)</span> <span class="sig-return"><span class="sig-return-icon">&#x2192;</span> <span class="sig-return-typehint"><span class="pre">Dict</span><span class="p"><span class="pre">[</span></span><span class="pre">int</span><span class="p"><span class="pre">,</span></span><span class="w"> </span><span class="pre">DataFrame</span><span class="p"><span class="pre">]</span></span></span></span><a class="headerlink" href="#ocrpy.parsers.table.aws_table.table_to_csv" title="Permalink to this definition">#</a></dt>
+<dd><p>Convert the table data to CSV.</p>
+<dl class="simple">
+<dt>table_data<span class="classifier">List[List]</span></dt><dd><p>Table data extracted from the document using the parser.</p>
+</dd>
+</dl>
+<dl class="simple">
+<dt>table_data<span class="classifier">Dict[int, pd.DataFrame]</span></dt><dd><p>Table data in CSV format.</p>
+</dd>
+</dl>
+</dd></dl>
+
+</section>
+<section id="ocrpy-pipelines">
+<h2><code class="docutils literal notranslate"><span class="pre">ocrpy.pipelines</span></code><a class="headerlink" href="#ocrpy-pipelines" title="Permalink to this heading">#</a></h2>
+<dl class="py class">
+<dt class="sig sig-object py" id="ocrpy.pipelines.config.PipelineConfig">
+<em class="property"><span class="pre">class</span><span class="w"> </span></em><span class="sig-prename descclassname"><span class="pre">ocrpy.pipelines.config.</span></span><span class="sig-name descname"><span class="pre">PipelineConfig</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">config_path</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#ocrpy.pipelines.config.PipelineConfig" title="Permalink to this definition">#</a></dt>
+<dd><p>OCR Pipeline Configuration container.</p>
+<dl class="simple">
+<dt>config_path<span class="classifier">str</span></dt><dd><p>Path to the ocrpy config file.</p>
+</dd>
+</dl>
+<dl class="simple">
+<dt>storage_config:</dt><dd><p>source_dir: /path/to/source/dir
+destination_dir: /path/to/destination/dir</p>
+</dd>
+<dt>parser_config:</dt><dd><p>parser_backend: pytesseract</p>
+</dd>
+<dt>cloud_credentials:</dt><dd><p>aws: /path/to/aws-credentials.env
+gcp: /path/to/gcp-credentials.json</p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="py class">
+<dt class="sig sig-object py" id="ocrpy.pipelines.text_pipeline.TextOcrPipeline">
+<em class="property"><span class="pre">class</span><span class="w"> </span></em><span class="sig-prename descclassname"><span class="pre">ocrpy.pipelines.text_pipeline.</span></span><span class="sig-name descname"><span class="pre">TextOcrPipeline</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">source_dir</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">str</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">destination_dir</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">str</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">parser_backend</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">str</span></span><span class="w"> </span><span class="o"><span class="pre">=</span></span><span class="w"> </span><span class="default_value"><span class="pre">'pytesseract'</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">credentials_config</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#ocrpy.pipelines.text_pipeline.TextOcrPipeline" title="Permalink to this definition">#</a></dt>
+<dd><p>TextOCRPipeline provides a high level interface to run ocr on PDFs, JPGs, and PNGs
+in either local or cloud storage(AWS S3 or Google Cloud Storage) with a configurable parser backend.</p>
+<p>Note: Supported parser backends are - aws-textract, google-cloud-vision, pytesseract.</p>
+<dl class="simple">
+<dt>source_dir<span class="classifier">str</span></dt><dd><p>Path to the directory containing the documents to be processed.</p>
+</dd>
+<dt>destination_dir<span class="classifier">str</span></dt><dd><p>Path to the directory where the processed documents will be stored.</p>
+</dd>
+<dt>parser_backend<span class="classifier">str</span></dt><dd><p>The parser backend to be used for processing.
+default: “pytesseract”
+options: “aws-textract”, “google-cloud-vision”, “pytesseract”</p>
+</dd>
+<dt>credentials_config<span class="classifier">dict</span></dt><dd><p>A dictionary containing the credentials for the parser or cloud storage backends.
+default: None
+example: {“AWS”: “aws-credentials.env”, “GCP”: “gcp-credentials.json”}</p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="py method">
+<dt class="sig sig-object py" id="ocrpy.pipelines.text_pipeline.TextOcrPipeline.from_config">
+<em class="property"><span class="pre">classmethod</span><span class="w"> </span></em><span class="sig-prename descclassname"><span class="pre">TextOcrPipeline.</span></span><span class="sig-name descname"><span class="pre">from_config</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">config_path</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">str</span></span></em><span class="sig-paren">)</span> <span class="sig-return"><span class="sig-return-icon">&#x2192;</span> <span class="sig-return-typehint"><a class="reference internal" href="#ocrpy.pipelines.text_pipeline.TextOcrPipeline" title="ocrpy.pipelines.text_pipeline.TextOcrPipeline"><span class="pre">TextOcrPipeline</span></a></span></span><a class="headerlink" href="#ocrpy.pipelines.text_pipeline.TextOcrPipeline.from_config" title="Permalink to this definition">#</a></dt>
+<dd><p>Allows you to create a TextOcrPipeline from a config file (config file format: yaml).</p>
+<dl class="simple">
+<dt>config_path<span class="classifier">str</span></dt><dd><p>Path to the config file.</p>
+</dd>
+</dl>
+<dl class="simple">
+<dt>TextOcrPipeline</dt><dd><p>A TextOcrPipeline object.</p>
+</dd>
+</dl>
+<dl class="simple">
+<dt>storage_config:</dt><dd><p>source_dir: /path/to/source/dir
+destination_dir: /path/to/destination/dir</p>
+</dd>
+<dt>parser_config:</dt><dd><p>parser_backend: pytesseract</p>
+</dd>
+<dt>cloud_credentials:</dt><dd><p>aws: /path/to/aws-credentials.env
+gcp: /path/to/gcp-credentials.json</p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="py property">
+<dt class="sig sig-object py" id="ocrpy.pipelines.text_pipeline.TextOcrPipeline.pipeline_config">
+<em class="property"><span class="pre">property</span><span class="w"> </span></em><span class="sig-prename descclassname"><span class="pre">TextOcrPipeline.</span></span><span class="sig-name descname"><span class="pre">pipeline_config</span></span><a class="headerlink" href="#ocrpy.pipelines.text_pipeline.TextOcrPipeline.pipeline_config" title="Permalink to this definition">#</a></dt>
+<dd></dd></dl>
+
+<dl class="py method">
+<dt class="sig sig-object py" id="ocrpy.pipelines.text_pipeline.TextOcrPipeline.process">
+<span class="sig-prename descclassname"><span class="pre">TextOcrPipeline.</span></span><span class="sig-name descname"><span class="pre">process</span></span><span class="sig-paren">(</span><span class="sig-paren">)</span> <span class="sig-return"><span class="sig-return-icon">&#x2192;</span> <span class="sig-return-typehint"><span class="pre">None</span></span></span><a class="headerlink" href="#ocrpy.pipelines.text_pipeline.TextOcrPipeline.process" title="Permalink to this definition">#</a></dt>
+<dd><p>Runs the pipeline with the given configuration and
+writes the output to the destination directory.</p>
+<dl class="simple">
+<dt>Returns:</dt><dd><p>None</p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="py class">
+<dt class="sig sig-object py" id="ocrpy.pipelines.index_pipeline.TextOcrIndexPipeline">
+<em class="property"><span class="pre">class</span><span class="w"> </span></em><span class="sig-prename descclassname"><span class="pre">ocrpy.pipelines.index_pipeline.</span></span><span class="sig-name descname"><span class="pre">TextOcrIndexPipeline</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">source_dir</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">str</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">destination_dir</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">str</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">parser_backend</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">str</span></span><span class="w"> </span><span class="o"><span class="pre">=</span></span><span class="w"> </span><span class="default_value"><span class="pre">'pytesseract'</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">credentials_config</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">database_backend</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">str</span></span><span class="w"> </span><span class="o"><span class="pre">=</span></span><span class="w"> </span><span class="default_value"><span class="pre">'sql'</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">database_config</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">Optional</span><span class="p"><span class="pre">[</span></span><span class="pre">Dict</span><span class="p"><span class="pre">]</span></span></span><span class="w"> </span><span class="o"><span class="pre">=</span></span><span class="w"> </span><span class="default_value"><span class="pre">None</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#ocrpy.pipelines.index_pipeline.TextOcrIndexPipeline" title="Permalink to this definition">#</a></dt>
+<dd><p>TextOcrIndexPipeline provides a high level interface to run ocr on PDFs, JPGs, and PNGs
+in either local or cloud storage(AWS S3 or Google Cloud Storage) with a configurable parser backend
+and then index the results to a database backend of your choice.</p>
+<p>Note: Supported parser backends are - aws-textract, google-cloud-vision, pytesseract &amp;
+the supported database/search backends are - sql, opensearch &amp; elasticsearch.</p>
+<dl class="simple">
+<dt>database_backend<span class="classifier">str</span></dt><dd><p>The database backend to be used for indexing.
+default: “sql”
+options: “sql”, “opensearch”, “elasticsearch”</p>
+</dd>
+<dt>database_config<span class="classifier">dict</span></dt><dd><p>A dictionary containing the credentials and other params for the database backend.
+default: None
+example: {“sql”: {“db_url”: “sqlite:///test.db”, “db_table”: “test”}}</p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="py method">
+<dt class="sig sig-object py" id="ocrpy.pipelines.index_pipeline.TextOcrIndexPipeline.from_config">
+<em class="property"><span class="pre">classmethod</span><span class="w"> </span></em><span class="sig-prename descclassname"><span class="pre">TextOcrIndexPipeline.</span></span><span class="sig-name descname"><span class="pre">from_config</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">config_path</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">str</span></span></em><span class="sig-paren">)</span> <span class="sig-return"><span class="sig-return-icon">&#x2192;</span> <span class="sig-return-typehint"><a class="reference internal" href="#ocrpy.pipelines.text_pipeline.TextOcrPipeline" title="ocrpy.pipelines.text_pipeline.TextOcrPipeline"><span class="pre">TextOcrPipeline</span></a></span></span><a class="headerlink" href="#ocrpy.pipelines.index_pipeline.TextOcrIndexPipeline.from_config" title="Permalink to this definition">#</a></dt>
+<dd><p>Allows you to create a TextOcrPipeline from a config file (config file format: yaml).</p>
+<dl class="simple">
+<dt>config_path<span class="classifier">str</span></dt><dd><p>Path to the config file.</p>
+</dd>
+</dl>
+<dl class="simple">
+<dt>TextOcrPipeline</dt><dd><p>A TextOcrPipeline object.</p>
+</dd>
+</dl>
+<dl class="simple">
+<dt>storage_config:</dt><dd><p>source_dir: /path/to/source/dir
+destination_dir: /path/to/destination/dir</p>
+</dd>
+<dt>parser_config:</dt><dd><p>parser_backend: pytesseract</p>
+</dd>
+<dt>cloud_credentials:</dt><dd><p>aws: /path/to/aws-credentials.env
+gcp: /path/to/gcp-credentials.json</p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="py property">
+<dt class="sig sig-object py" id="ocrpy.pipelines.index_pipeline.TextOcrIndexPipeline.pipeline_config">
+<em class="property"><span class="pre">property</span><span class="w"> </span></em><span class="sig-prename descclassname"><span class="pre">TextOcrIndexPipeline.</span></span><span class="sig-name descname"><span class="pre">pipeline_config</span></span><a class="headerlink" href="#ocrpy.pipelines.index_pipeline.TextOcrIndexPipeline.pipeline_config" title="Permalink to this definition">#</a></dt>
+<dd></dd></dl>
+
+<dl class="py method">
+<dt class="sig sig-object py" id="ocrpy.pipelines.index_pipeline.TextOcrIndexPipeline.process">
+<span class="sig-prename descclassname"><span class="pre">TextOcrIndexPipeline.</span></span><span class="sig-name descname"><span class="pre">process</span></span><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="headerlink" href="#ocrpy.pipelines.index_pipeline.TextOcrIndexPipeline.process" title="Permalink to this definition">#</a></dt>
+<dd><p>Runs the pipeline with the given configuration and
+writes the output to the destination directory.</p>
+<dl class="simple">
+<dt>Returns:</dt><dd><p>None</p>
+</dd>
+</dl>
+</dd></dl>
+
+</section>
+<section id="ocrpy-experimental">
+<h2><code class="docutils literal notranslate"><span class="pre">ocrpy.experimental</span></code><a class="headerlink" href="#ocrpy-experimental" title="Permalink to this heading">#</a></h2>
+<dl class="py class">
+<dt class="sig sig-object py" id="ocrpy.experimental.document_classifier.DocumentClassifier">
+<em class="property"><span class="pre">class</span><span class="w"> </span></em><span class="sig-prename descclassname"><span class="pre">ocrpy.experimental.document_classifier.</span></span><span class="sig-name descname"><span class="pre">DocumentClassifier</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">model_name</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">str</span></span><span class="w"> </span><span class="o"><span class="pre">=</span></span><span class="w"> </span><span class="default_value"><span class="pre">'microsoft/dit-base-finetuned-rvlcdip'</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#ocrpy.experimental.document_classifier.DocumentClassifier" title="Permalink to this definition">#</a></dt>
+<dd><p>DocumentClassifier utilises a fine tuned Document image classifier (DiT) model
+to predict the document type.
+The default model is a dit-base model trained on the rvlcdip dataset.</p>
+<p>You can also choose alternate models available on HuggingFace modelshub
+at <a class="reference external" href="https://huggingface.co/models">https://huggingface.co/models</a>.</p>
+<dl>
+<dt>model_name<span class="classifier">str</span></dt><dd><p>The name of the model to use.
+Should be a valid model name from HuggingFace modelshub.</p>
+<p>default: “microsoft/dit-base-finetuned-rvlcdip”</p>
+</dd>
+</dl>
+<ul class="simple">
+<li><p>The model is trained on the rvlcdip dataset and can identify the following document types:</p></li>
+</ul>
+<p>letter, form, email, handwritten, advertisement, scientific report, scientific publication,
+specification, file folder, news article, budget, invoice, presentation, questionnaire, resume, memo</p>
+<ul class="simple">
+<li><p>For more information on the model please refer this paper: <a class="reference external" href="https://arxiv.org/abs/2203.02378">https://arxiv.org/abs/2203.02378</a></p></li>
+<li><p>For more information on the document types, see this link: <a class="reference external" href="https://www.cs.cmu.edu/~aharley/rvl-cdip/">https://www.cs.cmu.edu/~aharley/rvl-cdip/</a></p></li>
+</ul>
+</dd></dl>
+
+<dl class="py method">
+<dt class="sig sig-object py" id="ocrpy.experimental.document_classifier.DocumentClassifier.predict">
+<span class="sig-prename descclassname"><span class="pre">DocumentClassifier.</span></span><span class="sig-name descname"><span class="pre">predict</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">reader</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><a class="reference internal" href="#ocrpy.io.reader.DocumentReader" title="ocrpy.io.reader.DocumentReader"><span class="pre">DocumentReader</span></a></span></em><span class="sig-paren">)</span> <span class="sig-return"><span class="sig-return-icon">&#x2192;</span> <span class="sig-return-typehint"><span class="pre">List</span></span></span><a class="headerlink" href="#ocrpy.experimental.document_classifier.DocumentClassifier.predict" title="Permalink to this definition">#</a></dt>
+<dd><p>Predict the document type of the document in the reader.</p>
+<dl class="simple">
+<dt>reader<span class="classifier">DocumentReader</span></dt><dd><p>The reader containing the document to predict.</p>
+</dd>
+</dl>
+<dl class="simple">
+<dt>predicted_labels: List</dt><dd><p>A list of predicted document types.</p>
+</dd>
+</dl>
+<p>document types can be one of the following:
+letter, form, email, handwritten, advertisement, scientific report, scientific publication,
+specification, file folder, news article, budget, invoice, presentation, questionnaire, resume, memo</p>
+</dd></dl>
+
+</section>
+<section id="ocrpy-utils">
+<h2><code class="docutils literal notranslate"><span class="pre">ocrpy.utils</span></code><a class="headerlink" href="#ocrpy-utils" title="Permalink to this heading">#</a></h2>
+<dl class="py function">
+<dt class="sig sig-object py" id="ocrpy.utils.utils.guess_extension">
+<span class="sig-prename descclassname"><span class="pre">ocrpy.utils.utils.</span></span><span class="sig-name descname"><span class="pre">guess_extension</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">file_path</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">str</span></span></em><span class="sig-paren">)</span> <span class="sig-return"><span class="sig-return-icon">&#x2192;</span> <span class="sig-return-typehint"><span class="pre">str</span></span></span><a class="headerlink" href="#ocrpy.utils.utils.guess_extension" title="Permalink to this definition">#</a></dt>
+<dd><p>Guesses the file extension of the file.</p>
+</dd></dl>
+
+<dl class="py function">
+<dt class="sig sig-object py" id="ocrpy.utils.utils.guess_storage">
+<span class="sig-prename descclassname"><span class="pre">ocrpy.utils.utils.</span></span><span class="sig-name descname"><span class="pre">guess_storage</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">file_path</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">str</span></span></em><span class="sig-paren">)</span> <span class="sig-return"><span class="sig-return-icon">&#x2192;</span> <span class="sig-return-typehint"><span class="pre">str</span></span></span><a class="headerlink" href="#ocrpy.utils.utils.guess_storage" title="Permalink to this definition">#</a></dt>
+<dd><p>Guesses the storage type of the file.</p>
+</dd></dl>
+
+</section>
+</section>
+
+        </article>
+      </div>
+      <footer>
+        
+        <div class="related-pages">
+          <a class="next-page" href="system-design.html">
+              <div class="page-info">
+                <div class="context">
+                  <span>Next</span>
+                </div>
+                <div class="title">System Design</div>
+              </div>
+              <svg><use href="#svg-arrow-right"></use></svg>
+            </a>
+          <a class="prev-page" href="tutorials.html">
+              <svg><use href="#svg-arrow-right"></use></svg>
+              <div class="page-info">
+                <div class="context">
+                  <span>Previous</span>
+                </div>
+                
+                <div class="title">Tutorials</div>
+                
+              </div>
+            </a>
+        </div>
+        <div class="bottom-of-page">
+          <div class="left-details">
+            <div class="copyright">
+                Copyright &#169; 2022, maxentlabs.ai
+            </div>
+            Made with <a href="https://www.sphinx-doc.org/">Sphinx</a> and <a class="muted-link" href="https://pradyunsg.me">@pradyunsg</a>'s
+            
+            <a href="https://github.com/pradyunsg/furo">Furo</a>
+            
+          </div>
+          <div class="right-details">
+            <div class="icons">
+              
+            </div>
+          </div>
+        </div>
+        
+      </footer>
+    </div>
+    <aside class="toc-drawer">
+      
+      
+      <div class="toc-sticky toc-scroll">
+        <div class="toc-title-container">
+          <span class="toc-title">
+            Contents
+          </span>
+        </div>
+        <div class="toc-tree-container">
+          <div class="toc-tree">
+            <ul>
+<li><a class="reference internal" href="#">API Reference</a><ul>
+<li><a class="reference internal" href="#ocrpy-io"><code class="docutils literal notranslate"><span class="pre">ocrpy.io</span></code></a></li>
+<li><a class="reference internal" href="#ocrpy-parsers"><code class="docutils literal notranslate"><span class="pre">ocrpy.parsers</span></code></a></li>
+<li><a class="reference internal" href="#ocrpy-parsers-text"><code class="docutils literal notranslate"><span class="pre">ocrpy.parsers.text</span></code></a></li>
+<li><a class="reference internal" href="#ocrpy-parsers-table"><code class="docutils literal notranslate"><span class="pre">ocrpy.parsers.table</span></code></a></li>
+<li><a class="reference internal" href="#ocrpy-pipelines"><code class="docutils literal notranslate"><span class="pre">ocrpy.pipelines</span></code></a></li>
+<li><a class="reference internal" href="#ocrpy-experimental"><code class="docutils literal notranslate"><span class="pre">ocrpy.experimental</span></code></a></li>
+<li><a class="reference internal" href="#ocrpy-utils"><code class="docutils literal notranslate"><span class="pre">ocrpy.utils</span></code></a></li>
+</ul>
+</li>
+</ul>
+
+          </div>
+        </div>
+      </div>
+      
+      
+    </aside>
+  </div>
+</div><script data-url_root="./" id="documentation_options" src="_static/documentation_options.js"></script>
+    <script src="_static/jquery.js"></script>
+    <script src="_static/underscore.js"></script>
+    <script src="_static/_sphinx_javascript_frameworks_compat.js"></script>
+    <script src="_static/doctools.js"></script>
+    <script src="_static/scripts/furo.js"></script>
+    </body>
+</html>

@@ -3,10 +3,10 @@
   <head><meta charset="utf-8"/>
     <meta name="viewport" content="width=device-width,initial-scale=1"/>
     <meta name="color-scheme" content="light dark"><meta name="generator" content="Docutils 0.18.1: http://docutils.sourceforge.net/" />
-<link rel="index" title="Index" href="genindex.html" /><link rel="search" title="Search" href="search.html" /><link rel="prev" title="ocrpy.pipelines package" href="ocrpy.pipelines.html" />
+<link rel="index" title="Index" href="genindex.html" /><link rel="search" title="Search" href="search.html" /><link rel="prev" title="System Design" href="system-design.html" />
 
     <meta name="generator" content="sphinx-5.0.2, furo 2022.06.21"/>
-        <title>ocrpy.utils package - ocrpy 0.3.6 documentation</title>
+        <title>License and Credits - ocrpy 0.3.6 documentation</title>
       <link rel="stylesheet" type="text/css" href="_static/pygments.css" />
     <link rel="stylesheet" type="text/css" href="_static/styles/furo.css?digest=40978830699223671f4072448e654b5958f38b89" />
     <link rel="stylesheet" type="text/css" href="_static/styles/furo-extensions.css?digest=30d1aed668e5c3a91c3e3bf6a60b675221979f0e" />
@@ -157,24 +157,15 @@
   <input type="hidden" name="area" value="default">
 </form>
 <div id="searchbox"></div><div class="sidebar-scroll"><div class="sidebar-tree">
-  <p class="caption" role="heading"><span class="caption-text">Contents:</span></p>
-<ul class="current">
+  <ul>
 <li class="toctree-l1"><a class="reference internal" href="overview.html">Overview</a></li>
-<li class="toctree-l1 current has-children"><a class="reference internal" href="modules.html">ocrpy</a><input checked="" class="toctree-checkbox" id="toctree-checkbox-1" name="toctree-checkbox-1" role="switch" type="checkbox"/><label for="toctree-checkbox-1"><div class="visually-hidden">Toggle child pages in navigation</div><i class="icon"><svg><use href="#svg-arrow-right"></use></svg></i></label><ul class="current">
-<li class="toctree-l2 current has-children"><a class="reference internal" href="ocrpy.html">ocrpy package</a><input checked="" class="toctree-checkbox" id="toctree-checkbox-2" name="toctree-checkbox-2" role="switch" type="checkbox"/><label for="toctree-checkbox-2"><div class="visually-hidden">Toggle child pages in navigation</div><i class="icon"><svg><use href="#svg-arrow-right"></use></svg></i></label><ul class="current">
-<li class="toctree-l3"><a class="reference internal" href="ocrpy.experimental.html">ocrpy.experimental package</a></li>
-<li class="toctree-l3"><a class="reference internal" href="ocrpy.io.html">ocrpy.io package</a></li>
-<li class="toctree-l3 has-children"><a class="reference internal" href="ocrpy.parsers.html">ocrpy.parsers package</a><input class="toctree-checkbox" id="toctree-checkbox-3" name="toctree-checkbox-3" role="switch" type="checkbox"/><label for="toctree-checkbox-3"><div class="visually-hidden">Toggle child pages in navigation</div><i class="icon"><svg><use href="#svg-arrow-right"></use></svg></i></label><ul>
-<li class="toctree-l4"><a class="reference internal" href="ocrpy.parsers.table.html">ocrpy.parsers.table package</a></li>
-<li class="toctree-l4"><a class="reference internal" href="ocrpy.parsers.text.html">ocrpy.parsers.text package</a></li>
+<li class="toctree-l1"><a class="reference internal" href="examples.html">Examples</a></li>
+<li class="toctree-l1"><a class="reference internal" href="tutorials.html">Tutorials</a></li>
+<li class="toctree-l1"><a class="reference internal" href="api-reference.html">API Reference</a></li>
+<li class="toctree-l1"><a class="reference internal" href="system-design.html">System Design</a></li>
 </ul>
-</li>
-<li class="toctree-l3"><a class="reference internal" href="ocrpy.pipelines.html">ocrpy.pipelines package</a></li>
-<li class="toctree-l3 current current-page"><a class="current reference internal" href="#">ocrpy.utils package</a></li>
-</ul>
-</li>
-</ul>
-</li>
+<ul class="current">
+<li class="toctree-l1 current current-page"><a class="current reference internal" href="#">License and Credits</a></li>
 </ul>
 
 </div>
@@ -208,56 +199,14 @@
           </label>
         </div>
         <article role="main">
-          <section id="ocrpy-utils-package">
-<h1>ocrpy.utils package<a class="headerlink" href="#ocrpy-utils-package" title="Permalink to this heading">#</a></h1>
-<section id="submodules">
-<h2>Submodules<a class="headerlink" href="#submodules" title="Permalink to this heading">#</a></h2>
-</section>
-<section id="module-ocrpy.utils.exceptions">
-<span id="ocrpy-utils-exceptions-module"></span><h2>ocrpy.utils.exceptions module<a class="headerlink" href="#module-ocrpy.utils.exceptions" title="Permalink to this heading">#</a></h2>
-<p>Exceptions raised by various modules in the ocrpy package.</p>
-<dl class="py exception">
-<dt class="sig sig-object py" id="ocrpy.utils.exceptions.AttributeNotSupported">
-<em class="property"><span class="pre">exception</span><span class="w"> </span></em><span class="sig-prename descclassname"><span class="pre">ocrpy.utils.exceptions.</span></span><span class="sig-name descname"><span class="pre">AttributeNotSupported</span></span><a class="headerlink" href="#ocrpy.utils.exceptions.AttributeNotSupported" title="Permalink to this definition">#</a></dt>
-<dd><p>Bases: <code class="xref py py-class docutils literal notranslate"><span class="pre">Exception</span></code></p>
-<p>Raise when an Attribute like block or line extraction is not supported by the backends.</p>
-</dd></dl>
-
-<dl class="py exception">
-<dt class="sig sig-object py" id="ocrpy.utils.exceptions.BackendNotSupported">
-<em class="property"><span class="pre">exception</span><span class="w"> </span></em><span class="sig-prename descclassname"><span class="pre">ocrpy.utils.exceptions.</span></span><span class="sig-name descname"><span class="pre">BackendNotSupported</span></span><a class="headerlink" href="#ocrpy.utils.exceptions.BackendNotSupported" title="Permalink to this definition">#</a></dt>
-<dd><p>Bases: <code class="xref py py-class docutils literal notranslate"><span class="pre">Exception</span></code></p>
-<p>Raise when a backend is not supported by the parser module.</p>
-</dd></dl>
-
-<dl class="py exception">
-<dt class="sig sig-object py" id="ocrpy.utils.exceptions.FileTypeNotSupported">
-<em class="property"><span class="pre">exception</span><span class="w"> </span></em><span class="sig-prename descclassname"><span class="pre">ocrpy.utils.exceptions.</span></span><span class="sig-name descname"><span class="pre">FileTypeNotSupported</span></span><a class="headerlink" href="#ocrpy.utils.exceptions.FileTypeNotSupported" title="Permalink to this definition">#</a></dt>
-<dd><p>Bases: <code class="xref py py-class docutils literal notranslate"><span class="pre">Exception</span></code></p>
-<p>Raise when processing a file type is not supported by the backends.</p>
-</dd></dl>
-
-</section>
-<section id="module-ocrpy.utils.logger">
-<span id="ocrpy-utils-logger-module"></span><h2>ocrpy.utils.logger module<a class="headerlink" href="#module-ocrpy.utils.logger" title="Permalink to this heading">#</a></h2>
-</section>
-<section id="module-ocrpy.utils.utils">
-<span id="ocrpy-utils-utils-module"></span><h2>ocrpy.utils.utils module<a class="headerlink" href="#module-ocrpy.utils.utils" title="Permalink to this heading">#</a></h2>
-<dl class="py function">
-<dt class="sig sig-object py" id="ocrpy.utils.utils.guess_extension">
-<span class="sig-prename descclassname"><span class="pre">ocrpy.utils.utils.</span></span><span class="sig-name descname"><span class="pre">guess_extension</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">file_path</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">str</span></span></em><span class="sig-paren">)</span> <span class="sig-return"><span class="sig-return-icon">&#x2192;</span> <span class="sig-return-typehint"><span class="pre">str</span></span></span><a class="headerlink" href="#ocrpy.utils.utils.guess_extension" title="Permalink to this definition">#</a></dt>
-<dd><p>Guesses the file extension of the file.</p>
-</dd></dl>
-
-<dl class="py function">
-<dt class="sig sig-object py" id="ocrpy.utils.utils.guess_storage">
-<span class="sig-prename descclassname"><span class="pre">ocrpy.utils.utils.</span></span><span class="sig-name descname"><span class="pre">guess_storage</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">file_path</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">str</span></span></em><span class="sig-paren">)</span> <span class="sig-return"><span class="sig-return-icon">&#x2192;</span> <span class="sig-return-typehint"><span class="pre">str</span></span></span><a class="headerlink" href="#ocrpy.utils.utils.guess_storage" title="Permalink to this definition">#</a></dt>
-<dd><p>Guesses the storage type of the file.</p>
-</dd></dl>
-
-</section>
-<section id="module-ocrpy.utils">
-<span id="module-contents"></span><h2>Module contents<a class="headerlink" href="#module-ocrpy.utils" title="Permalink to this heading">#</a></h2>
+          <section id="license-and-credits">
+<h1>License and Credits<a class="headerlink" href="#license-and-credits" title="Permalink to this heading">#</a></h1>
+<p><code class="docutils literal notranslate"><span class="pre">ocrpy</span></code> is licensed under the <a class="reference external" href="https://choosealicense.com/licenses/mit/">MIT</a> license.
+The full license text can be also found in the <a class="reference external" href="https://github.com/maxent-ai/ocrpy/blob/main/LICENSE">source code repository</a>.</p>
+<section id="credits">
+<h2>Credits<a class="headerlink" href="#credits" title="Permalink to this heading">#</a></h2>
+<p><code class="docutils literal notranslate"><span class="pre">ocrpy</span></code> is written and maintained by <a class="reference external" href="https://github.com/bharathgs">Bharath G.S</a> and <a class="reference external" href="https://github.com/AnjanaRita">Rita Anjana</a>.</p>
+<p>A full list of contributors can be found in <a class="reference external" href="https://github.com/maxent-ai/ocrpy/graphs/contributors">GitHub’s overview</a>.</p>
 </section>
 </section>
 
@@ -267,14 +216,14 @@
         
         <div class="related-pages">
           
-          <a class="prev-page" href="ocrpy.pipelines.html">
+          <a class="prev-page" href="system-design.html">
               <svg><use href="#svg-arrow-right"></use></svg>
               <div class="page-info">
                 <div class="context">
                   <span>Previous</span>
                 </div>
                 
-                <div class="title">ocrpy.pipelines package</div>
+                <div class="title">System Design</div>
                 
               </div>
             </a>
@@ -310,12 +259,8 @@
         <div class="toc-tree-container">
           <div class="toc-tree">
             <ul>
-<li><a class="reference internal" href="#">ocrpy.utils package</a><ul>
-<li><a class="reference internal" href="#submodules">Submodules</a></li>
-<li><a class="reference internal" href="#module-ocrpy.utils.exceptions">ocrpy.utils.exceptions module</a></li>
-<li><a class="reference internal" href="#module-ocrpy.utils.logger">ocrpy.utils.logger module</a></li>
-<li><a class="reference internal" href="#module-ocrpy.utils.utils">ocrpy.utils.utils module</a></li>
-<li><a class="reference internal" href="#module-ocrpy.utils">Module contents</a></li>
+<li><a class="reference internal" href="#">License and Credits</a><ul>
+<li><a class="reference internal" href="#credits">Credits</a></li>
 </ul>
 </li>
 </ul>
