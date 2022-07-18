@@ -9,6 +9,7 @@
         <title>Examples - ocrpy 0.3.6 documentation</title>
       <link rel="stylesheet" type="text/css" href="_static/pygments.css" />
     <link rel="stylesheet" type="text/css" href="_static/styles/furo.css?digest=40978830699223671f4072448e654b5958f38b89" />
+    <link rel="stylesheet" type="text/css" href="_static/copybutton.css" />
     <link rel="stylesheet" type="text/css" href="_static/styles/furo-extensions.css?digest=30d1aed668e5c3a91c3e3bf6a60b675221979f0e" />
     
     
@@ -134,7 +135,7 @@
           <svg class="theme-icon-when-light"><use href="#svg-sun"></use></svg>
         </button>
       </div>
-      <label class="toc-overlay-icon toc-header-icon no-toc" for="__toc">
+      <label class="toc-overlay-icon toc-header-icon" for="__toc">
         <div class="visually-hidden">Toggle table of contents sidebar</div>
         <i class="icon"><svg><use href="#svg-toc"></use></svg></i>
       </label>
@@ -193,7 +194,7 @@
               <svg class="theme-icon-when-light"><use href="#svg-sun"></use></svg>
             </button>
           </div>
-          <label class="toc-overlay-icon toc-content-icon no-toc" for="__toc">
+          <label class="toc-overlay-icon toc-content-icon" for="__toc">
             <div class="visually-hidden">Toggle table of contents sidebar</div>
             <i class="icon"><svg><use href="#svg-toc"></use></svg></i>
           </label>
@@ -201,6 +202,132 @@
         <article role="main">
           <section id="examples">
 <h1>Examples<a class="headerlink" href="#examples" title="Permalink to this heading">#</a></h1>
+<p>Weather you are working with images or pdfs, you can use <code class="docutils literal notranslate"><span class="pre">ocrpy</span></code> to extract text or tables from them,
+further you can also classify a document automatically as an invoice, research-paper or any other document and process them accordingly.
+with various types of parsers (cloud/open-source) and classifiers available.</p>
+<p>Ocrpy let’s you do most of the things with just few lines of code!
+Here are some examples on using ocrpy at different levels of abstraction.</p>
+<section id="text-extraction-with-ocrpy-pipelines">
+<h2>text extraction with <code class="docutils literal notranslate"><span class="pre">ocrpy.pipelines</span></code><a class="headerlink" href="#text-extraction-with-ocrpy-pipelines" title="Permalink to this heading">#</a></h2>
+<p>First let’s use ocrpy from it’s hightest level of abstraction, which is the <code class="docutils literal notranslate"><span class="pre">ocrpy.pipelines</span></code> API.</p>
+<p>The Pipeline API can be invoked in two ways. The first method is to define the config for running the
+pipeline as a yaml file and and then run the pipeline by loading it as follows:</p>
+<div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="kn">from</span> <span class="nn">ocrpy</span> <span class="kn">import</span> <span class="n">TextOcrPipeline</span>
+
+<span class="n">PIPELINE_CONFIG_PATH</span> <span class="o">=</span> <span class="s2">&quot;ocrpy_config.yaml&quot;</span> <span class="c1"># path to the pipeline config file</span>
+<span class="n">ocr_pipeline</span> <span class="o">=</span> <span class="n">TextOcrPipeline</span><span class="o">.</span><span class="n">from_config</span><span class="p">(</span><span class="n">PIPELINE_CONFIG_PATH</span><span class="p">)</span>
+<span class="n">ocr_pipeline</span><span class="o">.</span><span class="n">process</span><span class="p">()</span>
+</pre></div>
+</div>
+<p>alternatively you can also run a pipeline by directly instantiating the pipeline class as follows:</p>
+<div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="kn">from</span> <span class="nn">ocrpy</span> <span class="kn">import</span> <span class="n">TextOcrPipeline</span>
+
+<span class="n">SOURCE</span> <span class="o">=</span> <span class="s1">&#39;s3://document_bucket/&#39;</span> <span class="c1"># s3 bucket or local directory or gcs bucket with your documents.</span>
+<span class="n">DESTINATION</span> <span class="o">=</span> <span class="s1">&#39;gs://processed_document_bucket/outputs/&#39;</span> <span class="c1"># s3 bucket or local directory or gcs bucket to write the processed documents.</span>
+<span class="n">PARSER</span> <span class="o">=</span> <span class="s1">&#39;aws-textract&#39;</span> <span class="c1"># or &#39;google-cloud-vision&#39; or &#39;pytesseract&#39;</span>
+<span class="n">CREDENTIALS</span> <span class="o">=</span> <span class="p">{</span><span class="s2">&quot;AWS&quot;</span><span class="p">:</span> <span class="s2">&quot;path/to/aws-credentials.env/file&quot;</span><span class="p">,</span>
+               <span class="s2">&quot;GCP&quot;</span><span class="p">:</span> <span class="s2">&quot;path/to/gcp-credentials.json/file&quot;</span><span class="p">}</span> <span class="c1"># optional - if you are using any cloud service.</span>
+
+<span class="n">pipeline</span> <span class="o">=</span> <span class="n">TextOcrPipeline</span><span class="p">(</span><span class="n">source_dir</span><span class="o">=</span><span class="n">SOURCE</span><span class="p">,</span> <span class="n">destination_dir</span><span class="o">=</span><span class="n">DESTINATION</span><span class="p">,</span>
+                           <span class="n">parser_backend</span><span class="o">=</span><span class="n">PARSER</span><span class="p">,</span> <span class="n">credentials</span><span class="o">=</span><span class="n">CREDENTIALS</span><span class="p">)</span>
+<span class="n">pipeline</span><span class="o">.</span><span class="n">process</span><span class="p">()</span>
+</pre></div>
+</div>
+<p>Essentially, the pipeline classes let you process collections of documents in a single step,
+as shown in the above examples the pipeline class (<code class="docutils literal notranslate"><span class="pre">TextOcrPipeline</span></code> in the above example.)
+expects you to define only four parameters - <code class="docutils literal notranslate"><span class="pre">source_dir</span></code>, <code class="docutils literal notranslate"><span class="pre">destination_dir</span></code>, <code class="docutils literal notranslate"><span class="pre">parser_backend</span></code> and <code class="docutils literal notranslate"><span class="pre">credentials</span></code>
+and takes care of the rest.</p>
+<div class="admonition note">
+<p class="admonition-title">Note</p>
+<p>credentials are optional and they need to be provided only if you are using a cloud service
+such as gcs, s3, google-cloud-vision, aws-textract. Otherwise, you can ignore them and set it to <code class="docutils literal notranslate"><span class="pre">None</span></code>.
+or if using via config file you can leave the <cite>cloud_credentials.aws</cite> &amp; <cite>cloud_credentials.gcp</cite> field empty.</p>
+</div>
+<p>If you are defining the pipeline config as a yaml file, here is how a sample config file should look like:</p>
+<div class="highlight-yaml notranslate"><div class="highlight"><pre><span></span><span class="nt">storage_config</span><span class="p">:</span><span class="w"></span>
+<span class="w">    </span><span class="nt">source_dir</span><span class="p">:</span><span class="w"> </span><span class="s">&quot;s3://document_bucket/&quot;</span><span class="w"></span>
+<span class="w">    </span><span class="nt">destination_dir</span><span class="p">:</span><span class="w"> </span><span class="s">&#39;gs://processed_document_bucket/outputs/&#39;</span><span class="w"></span>
+
+<span class="nt">parser_config</span><span class="p">:</span><span class="w"></span>
+<span class="w">    </span><span class="nt">parser_backend</span><span class="p">:</span><span class="w"> </span><span class="s">&quot;aws-textract&quot;</span><span class="w"></span>
+
+<span class="nt">cloud_credentials</span><span class="p">:</span><span class="w"></span>
+<span class="w">    </span><span class="nt">aws</span><span class="p">:</span><span class="w"> </span><span class="s">&quot;.credentials/aws-credentials.env&quot;</span><span class="w"></span>
+<span class="w">    </span><span class="nt">gcp</span><span class="p">:</span><span class="w"> </span><span class="s">&quot;.credentials/gcp-credentials.json</span><span class="w"></span>
+</pre></div>
+</div>
+</section>
+<section id="text-extraction-with-ocrpy-io-reader-ocrpy-io-writer-and-ocrpy-parsers">
+<h2>text extraction with <code class="docutils literal notranslate"><span class="pre">ocrpy.io.reader</span></code>, <code class="docutils literal notranslate"><span class="pre">ocrpy.io.writer</span></code> and <code class="docutils literal notranslate"><span class="pre">ocrpy.parsers</span></code><a class="headerlink" href="#text-extraction-with-ocrpy-io-reader-ocrpy-io-writer-and-ocrpy-parsers" title="Permalink to this heading">#</a></h2>
+<p>If you prefer to use <code class="docutils literal notranslate"><span class="pre">ocrpy</span></code> from it’s lowest level of abstraction, you can do so via the
+<code class="docutils literal notranslate"><span class="pre">ocrpy.io.reader</span></code>, <code class="docutils literal notranslate"><span class="pre">ocrpy.io.writer</span></code> and <code class="docutils literal notranslate"><span class="pre">ocrpy.parsers</span></code> APIs.</p>
+<p>Lets look at an example of doing so.</p>
+<div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="kn">from</span> <span class="nn">ocrpy</span> <span class="kn">import</span> <span class="n">DocumentReader</span><span class="p">,</span> <span class="n">StorageWriter</span><span class="p">,</span> <span class="n">TextParser</span>
+
+<span class="n">DOC_PATH</span> <span class="o">=</span> <span class="s1">&#39;s3://document_bucket/example_document.pdf&#39;</span> <span class="c1"># path to an image or pdf file on s3 bucket, gcs bucket or local directory.</span>
+<span class="n">AWS_CREDENTIALS</span> <span class="o">=</span> <span class="s2">&quot;.credentials/aws-credentials.env&quot;</span> <span class="c1"># path to the aws credentials file.</span>
+<span class="n">GCP_CREDENTIALS</span> <span class="o">=</span> <span class="s2">&quot;.credentials/gcp-credentials.json&quot;</span> <span class="c1"># path to the gcp credentials file.</span>
+<span class="n">PARSER_BACKEND</span> <span class="o">=</span> <span class="s1">&#39;pytesseract&#39;</span> <span class="c1"># or &#39;google-cloud-vision&#39; or &#39;pytesseract&#39;</span>
+
+<span class="n">reader</span> <span class="o">=</span> <span class="n">DocumentReader</span><span class="p">(</span><span class="n">file</span><span class="o">=</span><span class="n">DOC_PATH</span><span class="p">,</span> <span class="n">credentials</span><span class="o">=</span><span class="n">AWS_CREDENTIALS</span><span class="p">)</span>
+<span class="n">writer</span> <span class="o">=</span> <span class="n">StorageWriter</span><span class="p">()</span>
+<span class="n">text_parser</span> <span class="o">=</span> <span class="n">TextParser</span><span class="p">(</span><span class="n">credentials</span><span class="o">=</span><span class="n">GCP_CREDENTIALS</span><span class="p">,</span> <span class="n">backend</span><span class="o">=</span><span class="n">PARSER_BACKEND</span><span class="p">)</span>
+
+<span class="n">parsed_text</span> <span class="o">=</span> <span class="n">text_parser</span><span class="o">.</span><span class="n">parse</span><span class="p">(</span><span class="n">reader</span><span class="p">)</span> <span class="c1"># parse the document using the selected parser backend.</span>
+<span class="n">writer</span><span class="o">.</span><span class="n">write</span><span class="p">(</span><span class="n">parsed_text</span><span class="p">,</span> <span class="s2">&quot;test_output/s3_output/sample-gcp.json&quot;</span><span class="p">)</span> <span class="c1"># write the parsed text to a file on s3 bucket, gcs bucket or local directory.</span>
+</pre></div>
+</div>
+<p>In the above example, we imported ocrpy’s <code class="docutils literal notranslate"><span class="pre">DocumentReader</span></code>, <code class="docutils literal notranslate"><span class="pre">StorageWriter</span></code> &amp; <code class="docutils literal notranslate"><span class="pre">TextParser</span></code> and
+then used them to parse a document stored on s3 bucket with ‘pytesseract’ parser backend and wrote the
+parsed text to a file on local directory.</p>
+<p>Similarly you can also read document in your local directory, gcs bucket or s3 bucket and parse it
+with any of the parser backends that we currently support and write the parsed text to a file on
+s3 bucket, gcs bucket or local directory as well.</p>
+</section>
+<section id="table-extraction-with-ocrpy-parsers-table">
+<h2>table extraction with <code class="docutils literal notranslate"><span class="pre">ocrpy.parsers.table</span></code><a class="headerlink" href="#table-extraction-with-ocrpy-parsers-table" title="Permalink to this heading">#</a></h2>
+<p>Now let’s look at how to extract tables from a document using the <code class="docutils literal notranslate"><span class="pre">ocrpy.parsers.table</span></code> API.</p>
+<div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="kn">from</span> <span class="nn">ocrpy</span> <span class="kn">import</span> <span class="n">DocumentReader</span><span class="p">,</span> <span class="n">StorageWriter</span><span class="p">,</span> <span class="n">TableParser</span>
+
+<span class="n">DOC_PATH</span> <span class="o">=</span> <span class="s1">&#39;../documents/example_document_with_table.pdf&#39;</span> <span class="c1"># path to an image or pdf file on s3 bucket, gcs bucket or local directory.</span>
+<span class="n">AWS_CREDENTIALS</span> <span class="o">=</span> <span class="s2">&quot;.credentials/aws-credentials.env&quot;</span> <span class="c1"># path to the aws credentials file.</span>
+
+<span class="n">table_parser</span> <span class="o">=</span> <span class="n">TableParser</span><span class="p">(</span><span class="n">credentials</span><span class="o">=</span><span class="n">AWS_CREDENTIALS</span><span class="p">)</span>
+
+<span class="n">parsed_table</span> <span class="o">=</span> <span class="n">table_parser</span><span class="o">.</span><span class="n">parse</span><span class="p">(</span><span class="n">DOC_PATH</span><span class="p">,</span> <span class="n">attempt_csv_conversion</span><span class="o">=</span><span class="kc">False</span><span class="p">)</span>
+</pre></div>
+</div>
+<div class="admonition note">
+<p class="admonition-title">Note</p>
+<p><code class="docutils literal notranslate"><span class="pre">ocrpy</span></code> currently supports table extraction only with the <code class="docutils literal notranslate"><span class="pre">aws-textract</span></code> parser backend.
+Support for other parser backends will be added soon.</p>
+</div>
+</section>
+<section id="classify-documents-with-ocrpy-experimental-document-classifier">
+<h2>classify documents  with <code class="docutils literal notranslate"><span class="pre">ocrpy.experimental.document_classifier</span></code><a class="headerlink" href="#classify-documents-with-ocrpy-experimental-document-classifier" title="Permalink to this heading">#</a></h2>
+<p>In this example let’s look at how you can use <code class="docutils literal notranslate"><span class="pre">ocrpy</span></code> to classify documents using the
+<code class="docutils literal notranslate"><span class="pre">ocrpy.experimental.document_classifier</span></code> API.</p>
+<div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="kn">from</span> <span class="nn">ocrpy</span> <span class="kn">import</span> <span class="n">DocumentReader</span>
+<span class="kn">from</span> <span class="nn">ocrpy.experimental</span> <span class="kn">import</span> <span class="n">DocumentClassifier</span>
+
+<span class="n">DOC_PATH</span> <span class="o">=</span> <span class="s1">&#39;../documents/document.img&#39;</span> <span class="c1"># path to an image or pdf file on s3 bucket, gcs bucket or local directory.</span>
+
+<span class="n">reader</span> <span class="o">=</span> <span class="n">DocumentReader</span><span class="p">(</span><span class="n">file</span><span class="o">=</span><span class="n">DOC_PATH</span><span class="p">)</span>
+<span class="n">classifier</span> <span class="o">=</span> <span class="n">DocumentClassifier</span><span class="p">()</span>
+
+<span class="n">doc_types</span> <span class="o">=</span> <span class="n">classifier</span><span class="o">.</span><span class="n">classify</span><span class="p">(</span><span class="n">reader</span><span class="p">)</span>
+</pre></div>
+</div>
+<div class="admonition note">
+<p class="admonition-title">Note</p>
+<p><code class="docutils literal notranslate"><span class="pre">ocrpy</span></code> uses HuggingFace’s <code class="docutils literal notranslate"><span class="pre">transformers</span></code> library in the backend with a pretrained model to perform the classification.
+as such, please make sure you have the <code class="docutils literal notranslate"><span class="pre">transformers</span></code> library installed.</p>
+</div>
+<p>When you run this for the first time, it will download the pretrained model weights and store them in a local directory.
+Alternatively you can download or use your own pretrained model weights as well.
+For more info on this see Huggingface <a class="reference external" href="https://huggingface.co/docs/transformers/index">transformers</a> library documentation.</p>
+<p>For more information on the default model and the categories it classifies to, please refer <cite>ocrpy.experimental.document_classifier</cite>.</p>
+</section>
 </section>
 
         </article>
@@ -248,8 +375,30 @@
         
       </footer>
     </div>
-    <aside class="toc-drawer no-toc">
+    <aside class="toc-drawer">
       
+      
+      <div class="toc-sticky toc-scroll">
+        <div class="toc-title-container">
+          <span class="toc-title">
+            Contents
+          </span>
+        </div>
+        <div class="toc-tree-container">
+          <div class="toc-tree">
+            <ul>
+<li><a class="reference internal" href="#">Examples</a><ul>
+<li><a class="reference internal" href="#text-extraction-with-ocrpy-pipelines">text extraction with <code class="docutils literal notranslate"><span class="pre">ocrpy.pipelines</span></code></a></li>
+<li><a class="reference internal" href="#text-extraction-with-ocrpy-io-reader-ocrpy-io-writer-and-ocrpy-parsers">text extraction with <code class="docutils literal notranslate"><span class="pre">ocrpy.io.reader</span></code>, <code class="docutils literal notranslate"><span class="pre">ocrpy.io.writer</span></code> and <code class="docutils literal notranslate"><span class="pre">ocrpy.parsers</span></code></a></li>
+<li><a class="reference internal" href="#table-extraction-with-ocrpy-parsers-table">table extraction with <code class="docutils literal notranslate"><span class="pre">ocrpy.parsers.table</span></code></a></li>
+<li><a class="reference internal" href="#classify-documents-with-ocrpy-experimental-document-classifier">classify documents  with <code class="docutils literal notranslate"><span class="pre">ocrpy.experimental.document_classifier</span></code></a></li>
+</ul>
+</li>
+</ul>
+
+          </div>
+        </div>
+      </div>
       
       
     </aside>
@@ -260,5 +409,7 @@
     <script src="_static/_sphinx_javascript_frameworks_compat.js"></script>
     <script src="_static/doctools.js"></script>
     <script src="_static/scripts/furo.js"></script>
+    <script src="_static/clipboard.min.js"></script>
+    <script src="_static/copybutton.js"></script>
     </body>
 </html>
