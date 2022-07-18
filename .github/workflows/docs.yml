@@ -20,7 +20,7 @@ jobs:
     - name: Install requirements
       run: |
         pip install .
-        pip install furo
+        pip install furo sphinx_copybutton
     
     - name: Build docs
       run: |
