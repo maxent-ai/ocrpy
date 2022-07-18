@@ -19,4 +19,5 @@ class AttributeNotSupported(Exception):
 
 class BackendNotSupported(Exception):
     """Raise when a backend is not supported by the parser module."""
+
     pass
