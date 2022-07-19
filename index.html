@@ -158,14 +158,21 @@
   <input type="hidden" name="area" value="default">
 </form>
 <div id="searchbox"></div><div class="sidebar-scroll"><div class="sidebar-tree">
-  <ul>
+  <p class="caption" role="heading"><span class="caption-text">Getting Started</span></p>
+<ul>
 <li class="toctree-l1"><a class="reference internal" href="overview.html">Overview</a></li>
 <li class="toctree-l1"><a class="reference internal" href="examples.html">Examples</a></li>
 <li class="toctree-l1"><a class="reference internal" href="tutorials.html">Tutorials</a></li>
+</ul>
+<p class="caption" role="heading"><span class="caption-text">API Reference</span></p>
+<ul>
 <li class="toctree-l1"><a class="reference internal" href="api-reference.html">API Reference</a></li>
 <li class="toctree-l1"><a class="reference internal" href="system-design.html">System Design</a></li>
 </ul>
+<p class="caption" role="heading"><span class="caption-text">Contributing to ocrpy</span></p>
 <ul>
+<li class="toctree-l1"><a class="reference internal" href="contributing.html">Contributing to ocrpy</a></li>
+<li class="toctree-l1"><a class="reference internal" href="code-of-conduct.html">Code of conduct</a></li>
 <li class="toctree-l1"><a class="reference internal" href="license-and-credits.html">License and Credits</a></li>
 </ul>
 
@@ -202,7 +209,7 @@
         <article role="main">
           <span class="target" id="module-ocrpy"></span><section id="ocrpy-documentation">
 <h1>OcrPy Documentation<a class="headerlink" href="#ocrpy-documentation" title="Permalink to this heading">#</a></h1>
-<p>The Core mission of OcrPy is to let users OCR, Archive, Index and Search any documents with ease,
+<p>The Core objective of OcrPy is to let users OCR, Archive, Index and Search any documents with ease,
 with a simple and intuitive interface and a powerful Pipeline API.</p>
 <p><cite>ocrpy</cite>  achieves this by wrapping around various OCR engines like <a class="reference external" href="https://tesseract-ocr.github.io/">Tesseract OCR</a>, <a class="reference external" href="https://aws.amazon.com/textract/">Aws Textract</a>,
 <a class="reference external" href="https://cloud.google.com/vision/docs/ocr">Google Cloud Vision</a> and <a class="reference external" href="https://azure.microsoft.com/en-in/services/cognitive-services/computer-vision/#features">Azure Computer Vision</a>.
@@ -235,15 +242,21 @@ pipeline as a yaml file and and then run the pipeline by loading it as follows:<
 <span class="n">pipeline</span> <span class="o">=</span> <span class="n">TextOcrPipeline</span><span class="p">(</span><span class="n">source_dir</span><span class="o">=</span><span class="s1">&#39;s3://document_bucket/&#39;</span><span class="p">,</span>
                            <span class="n">destination_dir</span><span class="o">=</span><span class="s2">&quot;gs://processed_document_bucket/outputs/&quot;</span><span class="p">,</span>
                            <span class="n">parser_backend</span><span class="o">=</span><span class="s1">&#39;aws-textract&#39;</span><span class="p">,</span>
-                           <span class="n">credentials</span><span class="o">=</span><span class="p">{</span><span class="s2">&quot;AWS&quot;</span><span class="p">:</span> <span class="s2">&quot;path/to/aws-credentials.env/file&quot;</span><span class="p">,</span>
+                           <span class="n">credentials_config</span><span class="o">=</span><span class="p">{</span><span class="s2">&quot;AWS&quot;</span><span class="p">:</span> <span class="s2">&quot;path/to/aws-credentials.env/file&quot;</span><span class="p">,</span>
                                         <span class="s2">&quot;GCP&quot;</span><span class="p">:</span> <span class="s2">&quot;path/to/gcp-credentials.json/file&quot;</span><span class="p">})</span>
 <span class="n">pipeline</span><span class="o">.</span><span class="n">process</span><span class="p">()</span>
 </pre></div>
+</div>
+<div class="admonition note">
+<p class="admonition-title">Note</p>
+<p>For a more detailed explanation of the <code class="docutils literal notranslate"><span class="pre">pipelines</span></code> API, please refer to the <cite>ocrpy.pipelines</cite> section of the documentation
+&amp; please check out the examples and tutorials for a more in-depth understanding of how to leverage ocrpy.</p>
 </div>
 </section>
 <section id="full-table-of-contents">
 <h1>Full Table of Contents<a class="headerlink" href="#full-table-of-contents" title="Permalink to this heading">#</a></h1>
 <div class="toctree-wrapper compound">
+<p class="caption" role="heading"><span class="caption-text">Getting Started</span></p>
 <ul>
 <li class="toctree-l1"><a class="reference internal" href="overview.html">Overview</a></li>
 <li class="toctree-l1"><a class="reference internal" href="examples.html">Examples</a><ul>
@@ -254,6 +267,11 @@ pipeline as a yaml file and and then run the pipeline by loading it as follows:<
 </ul>
 </li>
 <li class="toctree-l1"><a class="reference internal" href="tutorials.html">Tutorials</a></li>
+</ul>
+</div>
+<div class="toctree-wrapper compound">
+<p class="caption" role="heading"><span class="caption-text">API Reference</span></p>
+<ul>
 <li class="toctree-l1"><a class="reference internal" href="api-reference.html">API Reference</a><ul>
 <li class="toctree-l2"><a class="reference internal" href="api-reference.html#ocrpy-io"><code class="docutils literal notranslate"><span class="pre">ocrpy.io</span></code></a></li>
 <li class="toctree-l2"><a class="reference internal" href="api-reference.html#ocrpy-parsers"><code class="docutils literal notranslate"><span class="pre">ocrpy.parsers</span></code></a></li>
@@ -268,7 +286,10 @@ pipeline as a yaml file and and then run the pipeline by loading it as follows:<
 </ul>
 </div>
 <div class="toctree-wrapper compound">
+<p class="caption" role="heading"><span class="caption-text">Contributing to ocrpy</span></p>
 <ul>
+<li class="toctree-l1"><a class="reference internal" href="contributing.html">Contributing to ocrpy</a></li>
+<li class="toctree-l1"><a class="reference internal" href="code-of-conduct.html">Code of conduct</a></li>
 <li class="toctree-l1"><a class="reference internal" href="license-and-credits.html">License and Credits</a></li>
 </ul>
 </div>
