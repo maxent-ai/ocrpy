@@ -57,7 +57,7 @@ alternatively you can also run a pipeline by directly instantiating the pipeline
 ## Support and Documentation
 
 * For an in-depth reference of the ocrpy API refer our [API docs](https://maxentlabs.com/ocrpy/api-reference.html).
-* For inspiration on how to use ocrpy for your usecase, check out our [tutorials](https://maxentlabs.com/ocrpy/tutorials.html) or our [examples] (https://maxentlabs.com/ocrpy/examples.html).
+* For inspiration on how to use ocrpy for your usecase, check out our [tutorials](https://maxentlabs.com/ocrpy/tutorials.html) or our [examples](https://maxentlabs.com/ocrpy/examples.html).
 * If you're interested in understanding how ocrpy works, check out our [Ocrpy Overview](https://maxentlabs.com/ocrpy/system-design.html).
 
 ## Feedback and Contributions
@@ -82,9 +82,7 @@ If you wish to cite this project, feel free to use this [BibTeX](http://www.bibt
 
 ## License and Credits
 
-`ocrpy` is licensed under the [MIT](https://choosealicense.com/licenses/mit/) license.
+* `ocrpy` is licensed under the [MIT](https://choosealicense.com/licenses/mit/) license.
 The full license text can be also found in the [source code repository](https://github.com/maxent-ai/ocrpy/blob/main/LICENSE).
-
-`ocrpy` is written and maintained by [Bharath G.S](https://github.com/bharathgs) and [Rita Anjana](https://github.com/AnjanaRita).
-
-A full list of contributors can be found in [GitHub's overview](https://github.com/maxent-ai/ocrpy/graphs/contributors).
+* `ocrpy` is written and maintained by [Bharath G.S](https://github.com/bharathgs) and [Rita Anjana](https://github.com/AnjanaRita).
+* A full list of contributors can be found in [GitHub's overview](https://github.com/maxent-ai/ocrpy/graphs/contributors).
