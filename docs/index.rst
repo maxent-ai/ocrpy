@@ -3,7 +3,7 @@
 OcrPy Documentation
 ===================
 
-The Core mission of OcrPy is to let users OCR, Archive, Index and Search any documents with ease, 
+The Core objective of OcrPy is to let users OCR, Archive, Index and Search any documents with ease, 
 with a simple and intuitive interface and a powerful Pipeline API. 
 
 `ocrpy`  achieves this by wrapping around various OCR engines like `Tesseract OCR <https://tesseract-ocr.github.io/>`_, `Aws Textract <https://aws.amazon.com/textract/>`_, 
@@ -48,25 +48,37 @@ alternatively you can also run a pipeline by directly instantiating the pipeline
    pipeline = TextOcrPipeline(source_dir='s3://document_bucket/', 
                               destination_dir="gs://processed_document_bucket/outputs/", 
                               parser_backend='aws-textract', 
-                              credentials={"AWS": "path/to/aws-credentials.env/file", 
+                              credentials_config={"AWS": "path/to/aws-credentials.env/file", 
                                            "GCP": "path/to/gcp-credentials.json/file"})
    pipeline.process()
+
+.. note :: For a more detailed explanation of the ``pipelines`` API, please refer to the `ocrpy.pipelines` section of the documentation 
+           & please check out the examples and tutorials for a more in-depth understanding of how to leverage ocrpy.
 
 Full Table of Contents
 ======================
 
 .. toctree::
    :maxdepth: 2
+   :caption: Getting Started
 
    overview
    examples
    tutorials
+
+.. toctree::
+   :maxdepth: 2
+   :caption: API Reference
+
    api-reference
    system-design
 
 .. toctree::
    :maxdepth: 1
+   :caption: Contributing to ocrpy
 
+   contributing
+   code-of-conduct
    license-and-credits
 
 

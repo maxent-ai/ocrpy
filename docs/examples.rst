@@ -37,7 +37,7 @@ alternatively you can also run a pipeline by directly instantiating the pipeline
                   "GCP": "path/to/gcp-credentials.json/file"} # optional - if you are using any cloud service.
 
    pipeline = TextOcrPipeline(source_dir=SOURCE, destination_dir=DESTINATION, 
-                              parser_backend=PARSER, credentials=CREDENTIALS)
+                              parser_backend=PARSER, credentials_config=CREDENTIALS)
    pipeline.process()
 
 Essentially, the pipeline classes let you process collections of documents in a single step, 
