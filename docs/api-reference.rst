@@ -5,8 +5,18 @@ API Reference
 
 ``ocrpy.io``
 ------------
+
+The ``ocrpy.io`` module provides utilities for reading and writing data to and from various types of storage. 
+It let's you read and write Image (.png and .jpg) or Pdf files from Various types of cloud storage providers 
+like Amazon S3, Google Cloud Storage, Azure Blob Storage or local file system.
+
+These functionalities are primarily exposed through the :class:`ocrpy.io.reader.DocumentReader` 
+and :class:`ocrpy.io.writer.StorageWriter` classes & they are intended to be used along with the various types of 
+parsers we support which are exposed through the :class:`ocrpy.parsers.text.text_parser.TextParser` class.
+
+
 .. autoclass:: ocrpy.io.reader.DocumentReader
-.. automethod:: ocrpy.io.writer.DocumentWriter.read
+.. automethod:: ocrpy.io.reader.DocumentReader.read
 
 .. autoclass:: ocrpy.io.writer.StorageWriter
 .. automethod:: ocrpy.io.writer.StorageWriter.write 
@@ -14,8 +24,15 @@ API Reference
 ``ocrpy.parsers``
 ------------------
 
+The ``ocrpy.parsers`` module provides a high level interface for parsing text and table from various types of documents 
+with various types of backends we support. Currently, we support the following parsers: 
+
+- :class:`ocrpy.parsers.text.text_parser.TextParser` - Parses text from various types of documents like Image, Pdf using Tesseract, Aws Textract, Azure and Google Cloud vision APIs.
+
+- :class:`ocrpy.parsers.table.table_parser.TableParser` - Parses table from various types of documents like Image, Pdf using Aws Textract. (Table extraction with Google Cloud vision, Azure and other APIs is not supported yet - will be added soon)
+
 .. autoclass:: ocrpy.parsers.text.text_parser.TextParser
-.. automodule:: ocrpy.parsers.text.text_parser.parse 
+.. automethod:: ocrpy.parsers.text.text_parser.TextParser.parse 
 
 .. autoclass:: ocrpy.parsers.table.table_parser.TableParser
 .. automethod:: ocrpy.parsers.table.table_parser.TableParser.parse
@@ -43,6 +60,13 @@ API Reference
 ``ocrpy.pipelines``
 -------------------
 
+The ``ocrpy.pipelines`` module provides a set of High level classes that essentially wrap different types of 
+readers, writers & parser backends and let the user do ocr on collections of documents in either remote or local 
+storage and write the results to remote or local storage of their choice. 
+
+Alternatively, it also lets the users to do ocr on document collections and index the results to a database/search 
+backend of their choice.
+
 .. autoclass:: ocrpy.pipelines.config.PipelineConfig
 
 .. autoclass:: ocrpy.pipelines.text_pipeline.TextOcrPipeline
@@ -59,12 +83,25 @@ API Reference
 ``ocrpy.experimental``
 ----------------------
 
+The ``ocrpy.experimental`` module contains experimental features that are not yet stable and may change 
+or be removed in future releases. 
+
+Currently it exposes the :class:`ocrpy.experimental.document_classifier.DocumentClassifier` 
+class which can be used to classify documents into various categories.
+
+Other experimental features which are not exposed include document layout parsers which would enable 
+you to extract the layout of a document and extract the text from the document with different type of parsers 
+like table or text parsers.
+
+
 .. autoclass:: ocrpy.experimental.document_classifier.DocumentClassifier
 .. automethod:: ocrpy.experimental.document_classifier.DocumentClassifier.predict
 
 
 ``ocrpy.utils``
 ---------------
+
+The ``ocrpy.utils`` module provides various helper functions used by the other modules in the package.
 
 .. autofunction:: ocrpy.utils.utils.guess_extension
 .. autofunction:: ocrpy.utils.utils.guess_storage
