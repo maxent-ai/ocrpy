@@ -64,7 +64,7 @@ alternatively you can also run a pipeline by directly instantiating the pipeline
 
 * If you have any questions, Feedback or notice something wrong, please open an issue on [GitHub Issues](https://github.com/maxent-ai/ocrpy/issues/).
 * If you are interested in contributing to the project, please open a PR on [GitHub Pull Requests](https://github.com/maxent-ai/ocrpy/pulls).
-* Or if you just want to say hi, feel free to [contact us](https://maxentlabs.com).
+* Or if you just want to say hi, feel free to [contact us](info@maxentlabs.com).
 
 ## Citation
 
