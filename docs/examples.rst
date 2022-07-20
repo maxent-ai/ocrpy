@@ -134,7 +134,7 @@ In this example let's look at how you can use ``ocrpy`` to classify documents us
     reader = DocumentReader(file=DOC_PATH)
     classifier = DocumentClassifier()
 
-    doc_types = classifier.classify(reader)
+    doc_types = classifier.predict(reader)
 
 
 
