@@ -14,16 +14,20 @@ class PipelineConfig:
     config_path : str
         Path to the ocrpy config file.
 
-    example config file:
-    ---------------------
-    storage_config:
-        source_dir: /path/to/source/dir
-        destination_dir: /path/to/destination/dir
-    parser_config:
-        parser_backend: pytesseract
-    cloud_credentials:
-        aws: /path/to/aws-credentials.env
-        gcp: /path/to/gcp-credentials.json
+            a sample config file looks like this:
+
+            storage_config:
+                source_dir: /path/to/source/dir
+
+                destination_dir: /path/to/destination/dir
+
+            parser_config:
+                parser_backend: pytesseract
+
+            cloud_credentials:
+                aws: /path/to/aws-credentials.env
+
+                gcp: /path/to/gcp-credentials.json
     """
 
     config_path = field()

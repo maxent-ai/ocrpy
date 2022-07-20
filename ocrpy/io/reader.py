@@ -18,6 +18,7 @@ __all__ = ["DocumentReader"]
 class DocumentReader:
     """
     Reads an image or a pdf file from a local or remote location.
+
     Note: Currently supports Google Storage and Amazon S3 Remote Files.
 
     Attributes
@@ -26,7 +27,8 @@ class DocumentReader:
         The path to the file to be read.
     credentials : str
         The path to the credentials file.
-        Note:
+
+            Note:
             If the Remote storage is AWS S3, the credentials file must be in the .env format.
             If the Remote storage is Google Storage, the credentials file must be in the .json format.
     """
