@@ -211,20 +211,39 @@
 <h1>API Reference<a class="headerlink" href="#api-reference" title="Permalink to this heading">#</a></h1>
 <section id="ocrpy-io">
 <h2><code class="docutils literal notranslate"><span class="pre">ocrpy.io</span></code><a class="headerlink" href="#ocrpy-io" title="Permalink to this heading">#</a></h2>
+<p>The <code class="docutils literal notranslate"><span class="pre">ocrpy.io</span></code> module provides utilities for reading and writing data to and from various types of storage.
+It let’s you read and write Image (.png and .jpg) or Pdf files from Various types of cloud storage providers
+like Amazon S3, Google Cloud Storage, Azure Blob Storage or local file system.</p>
+<p>These functionalities are primarily exposed through the <a class="reference internal" href="#ocrpy.io.reader.DocumentReader" title="ocrpy.io.reader.DocumentReader"><code class="xref py py-class docutils literal notranslate"><span class="pre">ocrpy.io.reader.DocumentReader</span></code></a>
+and <a class="reference internal" href="#ocrpy.io.writer.StorageWriter" title="ocrpy.io.writer.StorageWriter"><code class="xref py py-class docutils literal notranslate"><span class="pre">ocrpy.io.writer.StorageWriter</span></code></a> classes &amp; they are intended to be used along with the various types of
+parsers we support which are exposed through the <a class="reference internal" href="#ocrpy.parsers.text.text_parser.TextParser" title="ocrpy.parsers.text.text_parser.TextParser"><code class="xref py py-class docutils literal notranslate"><span class="pre">ocrpy.parsers.text.text_parser.TextParser</span></code></a> class.</p>
 <dl class="py class">
 <dt class="sig sig-object py" id="ocrpy.io.reader.DocumentReader">
 <em class="property"><span class="pre">class</span><span class="w"> </span></em><span class="sig-prename descclassname"><span class="pre">ocrpy.io.reader.</span></span><span class="sig-name descname"><span class="pre">DocumentReader</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">file</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">str</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">credentials</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">Optional</span><span class="p"><span class="pre">[</span></span><span class="pre">str</span><span class="p"><span class="pre">]</span></span></span><span class="w"> </span><span class="o"><span class="pre">=</span></span><span class="w"> </span><span class="default_value"><span class="pre">None</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#ocrpy.io.reader.DocumentReader" title="Permalink to this definition">#</a></dt>
-<dd><p>Reads an image or a pdf file from a local or remote location.
-Note: Currently supports Google Storage and Amazon S3 Remote Files.</p>
+<dd><p>Reads an image or a pdf file from a local or remote location.</p>
+<p>Note: Currently supports Google Storage and Amazon S3 Remote Files.</p>
 <dl>
 <dt>file<span class="classifier">str</span></dt><dd><p>The path to the file to be read.</p>
 </dd>
-<dt>credentials<span class="classifier">str</span></dt><dd><p>The path to the credentials file.
-Note:</p>
+<dt>credentials<span class="classifier">str</span></dt><dd><p>The path to the credentials file.</p>
 <blockquote>
-<div><p>If the Remote storage is AWS S3, the credentials file must be in the .env format.
+<div><p>Note:
+If the Remote storage is AWS S3, the credentials file must be in the .env format.
 If the Remote storage is Google Storage, the credentials file must be in the .json format.</p>
 </div></blockquote>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="py method">
+<dt class="sig sig-object py" id="ocrpy.io.reader.DocumentReader.read">
+<span class="sig-prename descclassname"><span class="pre">DocumentReader.</span></span><span class="sig-name descname"><span class="pre">read</span></span><span class="sig-paren">(</span><span class="sig-paren">)</span> <span class="sig-return"><span class="sig-return-icon">&#x2192;</span> <span class="sig-return-typehint"><span class="pre">Union</span><span class="p"><span class="pre">[</span></span><span class="pre">Generator</span><span class="p"><span class="pre">,</span></span><span class="w"> </span><span class="pre">ByteString</span><span class="p"><span class="pre">]</span></span></span></span><a class="headerlink" href="#ocrpy.io.reader.DocumentReader.read" title="Permalink to this definition">#</a></dt>
+<dd><p>Reads the file from a local or remote location and
+returns the data in byte-string for an image or as a
+generator of byte-strings for a pdf.</p>
+<dl class="simple">
+<dt>data<span class="classifier">Union[bytes, List[bytes]]</span></dt><dd><p>The data in byte-string for an image or as a
+generator of byte-strings for a pdf.</p>
 </dd>
 </dl>
 </dd></dl>
@@ -234,10 +253,13 @@ If the Remote storage is Google Storage, the credentials file must be in the .js
 <em class="property"><span class="pre">class</span><span class="w"> </span></em><span class="sig-prename descclassname"><span class="pre">ocrpy.io.writer.</span></span><span class="sig-name descname"><span class="pre">StorageWriter</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">credentials</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">Optional</span><span class="p"><span class="pre">[</span></span><span class="pre">str</span><span class="p"><span class="pre">]</span></span></span><span class="w"> </span><span class="o"><span class="pre">=</span></span><span class="w"> </span><span class="default_value"><span class="pre">None</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#ocrpy.io.writer.StorageWriter" title="Permalink to this definition">#</a></dt>
 <dd><p>Write a parser output to a given location (supports write to local storage, S3 and GS).</p>
 <dl>
-<dt>credentials<span class="classifier">Optional[str]</span></dt><dd><p>default: None
-The credentials to use for the selected storage location.</p>
-<p>Note: If the storage location is AWS S3, the credentials file must be in the .env format and
+<dt>credentials<span class="classifier">Optional[str]</span></dt><dd><p>default : None</p>
+<p>The credentials to use for the selected storage location.</p>
+<blockquote>
+<div><p>Note:
+If the storage location is AWS S3, the credentials file must be in the .env format and
 If the storage location is Google Storage, the credentials file must be in the .json format.</p>
+</div></blockquote>
 </dd>
 </dl>
 </dd></dl>
@@ -258,6 +280,12 @@ If the storage location is Google Storage, the credentials file must be in the .
 </section>
 <section id="ocrpy-parsers">
 <h2><code class="docutils literal notranslate"><span class="pre">ocrpy.parsers</span></code><a class="headerlink" href="#ocrpy-parsers" title="Permalink to this heading">#</a></h2>
+<p>The <code class="docutils literal notranslate"><span class="pre">ocrpy.parsers</span></code> module provides a high level interface for parsing text and table from various types of documents
+with various types of backends we support. Currently, we support the following parsers:</p>
+<ul class="simple">
+<li><p><a class="reference internal" href="#ocrpy.parsers.text.text_parser.TextParser" title="ocrpy.parsers.text.text_parser.TextParser"><code class="xref py py-class docutils literal notranslate"><span class="pre">ocrpy.parsers.text.text_parser.TextParser</span></code></a> - Parses text from various types of documents like Image, Pdf using Tesseract, Aws Textract, Azure and Google Cloud vision APIs.</p></li>
+<li><p><a class="reference internal" href="#ocrpy.parsers.table.table_parser.TableParser" title="ocrpy.parsers.table.table_parser.TableParser"><code class="xref py py-class docutils literal notranslate"><span class="pre">ocrpy.parsers.table.table_parser.TableParser</span></code></a> - Parses table from various types of documents like Image, Pdf using Aws Textract. (Table extraction with Google Cloud vision, Azure and other APIs is not supported yet - will be added soon)</p></li>
+</ul>
 <dl class="py class">
 <dt class="sig sig-object py" id="ocrpy.parsers.text.text_parser.TextParser">
 <em class="property"><span class="pre">class</span><span class="w"> </span></em><span class="sig-prename descclassname"><span class="pre">ocrpy.parsers.text.text_parser.</span></span><span class="sig-name descname"><span class="pre">TextParser</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">credentials</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">Optional</span><span class="p"><span class="pre">[</span></span><span class="pre">str</span><span class="p"><span class="pre">]</span></span></span><span class="w"> </span><span class="o"><span class="pre">=</span></span><span class="w"> </span><span class="default_value"><span class="pre">None</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">backend</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">str</span></span><span class="w"> </span><span class="o"><span class="pre">=</span></span><span class="w"> </span><span class="default_value"><span class="pre">'pytesseract'</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#ocrpy.parsers.text.text_parser.TextParser" title="Permalink to this definition">#</a></dt>
@@ -270,6 +298,21 @@ alternative options: “pytesseract”, “aws-textract”, “google-cloud-visi
 </dd>
 <dt>credentials<span class="classifier">Optional[str]</span></dt><dd><p>The credentials to use for the selected backend.
 default: None</p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="py method">
+<dt class="sig sig-object py" id="ocrpy.parsers.text.text_parser.TextParser.parse">
+<span class="sig-prename descclassname"><span class="pre">TextParser.</span></span><span class="sig-name descname"><span class="pre">parse</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">reader</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><a class="reference internal" href="#ocrpy.io.reader.DocumentReader" title="ocrpy.io.reader.DocumentReader"><span class="pre">DocumentReader</span></a></span></em><span class="sig-paren">)</span> <span class="sig-return"><span class="sig-return-icon">&#x2192;</span> <span class="sig-return-typehint"><span class="pre">Dict</span></span></span><a class="headerlink" href="#ocrpy.parsers.text.text_parser.TextParser.parse" title="Permalink to this definition">#</a></dt>
+<dd><p>Parse the data from a given reader. The reader should be an instance of
+<cite>ocrpy.io.reader.DocumentReader</cite>.</p>
+<dl class="simple">
+<dt>reader<span class="classifier">DocumentReader</span></dt><dd><p>The reader to parse the data from.</p>
+</dd>
+</dl>
+<dl class="simple">
+<dt>data<span class="classifier">Dict</span></dt><dd><p>The parsed data.</p>
 </dd>
 </dl>
 </dd></dl>
@@ -421,22 +464,30 @@ Note: The credentials file must be in .env format.</p>
 </section>
 <section id="ocrpy-pipelines">
 <h2><code class="docutils literal notranslate"><span class="pre">ocrpy.pipelines</span></code><a class="headerlink" href="#ocrpy-pipelines" title="Permalink to this heading">#</a></h2>
+<p>The <code class="docutils literal notranslate"><span class="pre">ocrpy.pipelines</span></code> module provides a set of High level classes that essentially wrap different types of
+readers, writers &amp; parser backends and let the user do ocr on collections of documents in either remote or local
+storage and write the results to remote or local storage of their choice.</p>
+<p>Alternatively, it also lets the users to do ocr on document collections and index the results to a database/search
+backend of their choice.</p>
 <dl class="py class">
 <dt class="sig sig-object py" id="ocrpy.pipelines.config.PipelineConfig">
 <em class="property"><span class="pre">class</span><span class="w"> </span></em><span class="sig-prename descclassname"><span class="pre">ocrpy.pipelines.config.</span></span><span class="sig-name descname"><span class="pre">PipelineConfig</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">config_path</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#ocrpy.pipelines.config.PipelineConfig" title="Permalink to this definition">#</a></dt>
 <dd><p>OCR Pipeline Configuration container.</p>
-<dl class="simple">
+<dl>
 <dt>config_path<span class="classifier">str</span></dt><dd><p>Path to the ocrpy config file.</p>
-</dd>
-</dl>
-<dl class="simple">
-<dt>storage_config:</dt><dd><p>source_dir: /path/to/source/dir
-destination_dir: /path/to/destination/dir</p>
+<blockquote>
+<div><p>a sample config file looks like this:</p>
+<dl>
+<dt>storage_config:</dt><dd><p>source_dir: /path/to/source/dir</p>
+<p>destination_dir: /path/to/destination/dir</p>
 </dd>
 <dt>parser_config:</dt><dd><p>parser_backend: pytesseract</p>
 </dd>
-<dt>cloud_credentials:</dt><dd><p>aws: /path/to/aws-credentials.env
-gcp: /path/to/gcp-credentials.json</p>
+<dt>cloud_credentials:</dt><dd><p>aws: /path/to/aws-credentials.env</p>
+<p>gcp: /path/to/gcp-credentials.json</p>
+</dd>
+</dl>
+</div></blockquote>
 </dd>
 </dl>
 </dd></dl>
@@ -566,6 +617,13 @@ writes the output to the destination directory.</p>
 </section>
 <section id="ocrpy-experimental">
 <h2><code class="docutils literal notranslate"><span class="pre">ocrpy.experimental</span></code><a class="headerlink" href="#ocrpy-experimental" title="Permalink to this heading">#</a></h2>
+<p>The <code class="docutils literal notranslate"><span class="pre">ocrpy.experimental</span></code> module contains experimental features that are not yet stable and may change
+or be removed in future releases.</p>
+<p>Currently it exposes the <a class="reference internal" href="#ocrpy.experimental.document_classifier.DocumentClassifier" title="ocrpy.experimental.document_classifier.DocumentClassifier"><code class="xref py py-class docutils literal notranslate"><span class="pre">ocrpy.experimental.document_classifier.DocumentClassifier</span></code></a>
+class which can be used to classify documents into various categories.</p>
+<p>Other experimental features which are not exposed include document layout parsers which would enable
+you to extract the layout of a document and extract the text from the document with different type of parsers
+like table or text parsers.</p>
 <dl class="py class">
 <dt class="sig sig-object py" id="ocrpy.experimental.document_classifier.DocumentClassifier">
 <em class="property"><span class="pre">class</span><span class="w"> </span></em><span class="sig-prename descclassname"><span class="pre">ocrpy.experimental.document_classifier.</span></span><span class="sig-name descname"><span class="pre">DocumentClassifier</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">model_name</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">str</span></span><span class="w"> </span><span class="o"><span class="pre">=</span></span><span class="w"> </span><span class="default_value"><span class="pre">'microsoft/dit-base-finetuned-rvlcdip'</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#ocrpy.experimental.document_classifier.DocumentClassifier" title="Permalink to this definition">#</a></dt>
@@ -611,16 +669,33 @@ specification, file folder, news article, budget, invoice, presentation, questio
 </section>
 <section id="ocrpy-utils">
 <h2><code class="docutils literal notranslate"><span class="pre">ocrpy.utils</span></code><a class="headerlink" href="#ocrpy-utils" title="Permalink to this heading">#</a></h2>
+<p>The <code class="docutils literal notranslate"><span class="pre">ocrpy.utils</span></code> module provides various helper functions used by the other modules in the package.</p>
 <dl class="py function">
 <dt class="sig sig-object py" id="ocrpy.utils.utils.guess_extension">
 <span class="sig-prename descclassname"><span class="pre">ocrpy.utils.utils.</span></span><span class="sig-name descname"><span class="pre">guess_extension</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">file_path</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">str</span></span></em><span class="sig-paren">)</span> <span class="sig-return"><span class="sig-return-icon">&#x2192;</span> <span class="sig-return-typehint"><span class="pre">str</span></span></span><a class="headerlink" href="#ocrpy.utils.utils.guess_extension" title="Permalink to this definition">#</a></dt>
 <dd><p>Guesses the file extension of the file.</p>
+<dl class="simple">
+<dt>file_path<span class="classifier">str</span></dt><dd><p>Path to the file.</p>
+</dd>
+</dl>
+<dl class="simple">
+<dt>extension_type<span class="classifier">str</span></dt><dd><p>File extension.</p>
+</dd>
+</dl>
 </dd></dl>
 
 <dl class="py function">
 <dt class="sig sig-object py" id="ocrpy.utils.utils.guess_storage">
 <span class="sig-prename descclassname"><span class="pre">ocrpy.utils.utils.</span></span><span class="sig-name descname"><span class="pre">guess_storage</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">file_path</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">str</span></span></em><span class="sig-paren">)</span> <span class="sig-return"><span class="sig-return-icon">&#x2192;</span> <span class="sig-return-typehint"><span class="pre">str</span></span></span><a class="headerlink" href="#ocrpy.utils.utils.guess_storage" title="Permalink to this definition">#</a></dt>
 <dd><p>Guesses the storage type of the file.</p>
+<dl class="simple">
+<dt>file_path<span class="classifier">str</span></dt><dd><p>Path to the file.</p>
+</dd>
+</dl>
+<dl class="simple">
+<dt>storage_type<span class="classifier">str</span></dt><dd><p>Storage type.</p>
+</dd>
+</dl>
 </dd></dl>
 
 </section>
