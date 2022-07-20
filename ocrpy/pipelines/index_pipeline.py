@@ -1,6 +1,9 @@
+import json
+from tqdm import tqdm
 from attrs import define, field
 from typing import Dict, Optional
 from .text_pipeline import TextOcrPipeline
+from haystack.document_stores import OpenSearchDocumentStore, SQLDocumentStore, ElasticsearchDocumentStore
 
 __all__ = ["TextOcrIndexPipeline"]
 
@@ -31,5 +34,83 @@ class TextOcrIndexPipeline(TextOcrPipeline):
     database_backend: str = field(default="sql")
     database_config: Optional[Dict] = field(default=None)
 
+    def _database_backend_factory(self):
+        if self.database_config:
+            if self.database_backend == "sql":
+                return SQLDocumentStore(**self.database_config["sql"])
+            elif self.database_backend == "opensearch":
+                return OpenSearchDocumentStore(**self.database_config["opensearch"])
+            elif self.database_backend == "elasticsearch":
+                return ElasticsearchDocumentStore(**self.database_config["elasticsearch"])
+            else:
+                raise ValueError(
+                    f"{self.database_backend} is not a supported database backend"
+                )
+
+    def _create_documents(self, data, file_name=None):
+        full_text = " ".join([page['text']
+                             for page_index, page in data.items()])
+        return dict(content=full_text, meta=dict(file_name=file_name))
+
+    @database_config.validator
+    def _validate_credentials_config(self, attribute, value):
+        if value is None:
+            return
+        if not isinstance(value, dict):
+            raise ValueError("credentials_config must be a dictionary")
+        if self.database_backend not in value:
+            raise ValueError(
+                f"credentials_config must contain a `{self.database_backend}` config")
+
+    @property
+    def pipeline_config(self):
+        temp_config = self._pipeline_config()
+        temp_config['database_backend'] = self.database_backend
+        temp_config['database_config'] = self.database_config
+        return temp_config
+
     def process(self):
-        return None
+        """
+        Runs the pipeline with the given configuration and
+        writes the output to the destination directory.
+
+        Returns:
+            None
+        """
+        database_config = self.database_config[self.database_backend]
+        batch_size = self.database_config['batch_size']
+        database_backend = self._database_backend_factory()
+        docs = []
+
+        if self.source_dir.is_dir():
+
+            print(f"Running Pipeline with the following configuration:\n")
+            for i, (k, v) in enumerate(self.pipeline_config.items()):
+                print(f"{i+1}. {k.upper()}: {v}")
+
+            for file in tqdm(self.source_dir.iterdir()):
+                try:
+                    result = self._process_file(file)
+                    file_name = ".".join(file.name.split(".")[:-1])
+                    file_name = f"{file_name}_{self.parser_backend}.json"
+                    save_path = self.destination_dir.joinpath(file_name)
+                    save_path.write_text(json.dumps(result))
+                    docs.append(self._create_documents(result, file_name))
+
+                    if len(docs) == batch_size:
+                        database_backend.write_documents(
+                            docs, batch_size=batch_size)
+                        docs = []
+
+                except Exception as ex:
+                    print(f"FILE: {file.name} - ERROR: {ex}")
+                    continue
+
+            if len(docs):
+                database_backend.write_documents(docs)
+
+        else:
+            raise NotADirectoryError(
+                """Please set the `source_dir` to the dir/bucket that has your input files and/or set the `destination_dir` 
+                to the dir/bucket where you want to write the pipeline output. """
+            )
