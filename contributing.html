@@ -209,54 +209,110 @@
         <article role="main">
           <section id="contributing-to-ocrpy">
 <h1>Contributing to ocrpy<a class="headerlink" href="#contributing-to-ocrpy" title="Permalink to this heading">#</a></h1>
-<p>Everything you need to know to contribute to ocrpy, effectively.</p>
+<p>All you need to know to contribute to ocrpy, effectively.</p>
 <section id="codebase-structure">
 <h2>Codebase structure<a class="headerlink" href="#codebase-structure" title="Permalink to this heading">#</a></h2>
+<ul class="simple">
+<li><p>Ocrpy codebase on github: <a class="reference external" href="https://github.com/maxent-ai/ocrpy/tree/main/ocrpy">Ocrpy Codebase</a></p></li>
+<li><p>Python unit tests: <a class="reference external" href="https://github.com/maxent-ai/ocrpy/tree/main/tests">Tests</a></p></li>
+<li><p>Ocrpy documentation: <a class="reference external" href="https://github.com/maxent-ai/ocrpy/tree/main/docs">Docs</a></p></li>
+<li><p>Ocrpy tutorials: <a class="reference external" href="https://github.com/maxent-ai/ocrpy/">Notebooks</a></p></li>
+</ul>
 </section>
 <section id="continuous-integration">
 <h2>Continuous Integration<a class="headerlink" href="#continuous-integration" title="Permalink to this heading">#</a></h2>
+<p>This project uses the following integrations to ensure proper codebase maintenance:</p>
+<ul class="simple">
+<li><p>Run jobs for package build and coverage: <a href="#id1"><span class="problematic" id="id2">`</span></a>Github Worklow &lt;<a class="reference external" href="https://help.github.com/en/actions/configuring-and-managing-workflows/configuring-a-workflow">https://help.github.com/en/actions/configuring-and-managing-workflows/configuring-a-workflow</a>&gt;_</p></li>
+<li><p>Reports back coverage results: <a class="reference external" href="https://codecov.io/">Codecov</a></p></li>
+<li><p>As a contributor, please ensure that you write unit tests for your code and run coverage tests for your code before submitting a pull request.</p></li>
+</ul>
 </section>
 <section id="feedback">
 <h2>Feedback<a class="headerlink" href="#feedback" title="Permalink to this heading">#</a></h2>
 <section id="feature-requests-bug-report">
 <h3>Feature requests &amp; bug report<a class="headerlink" href="#feature-requests-bug-report" title="Permalink to this heading">#</a></h3>
+<ul class="simple">
+<li><p>Whether you encountered a problem, or you have a feature suggestion, your input has value and can be used by contributors to reference it in their developments. For this purpose, we advise you to use Github issues.Please submit them at <a class="reference external" href="https://github.com/maxent-ai/ocrpy/issues">Github Issues</a></p></li>
+<li><p>First, check whether the topic wasn’t already covered in an open / closed issue. If not, feel free to open a new one! When doing so, use issue templates whenever possible and provide enough information for other contributors to jump in.</p></li>
+</ul>
 </section>
 <section id="questions">
 <h3>Questions<a class="headerlink" href="#questions" title="Permalink to this heading">#</a></h3>
+<p>If you are wondering how to do something with ocrpy, or a more general question, you should consider checking out Github discussions at <a class="reference external" href="https://github.com/maxent-ai/ocrpy/discussions">Github Discussions</a></p>
 </section>
 </section>
 <section id="developing-ocrpy">
 <h2>Developing ocrpy<a class="headerlink" href="#developing-ocrpy" title="Permalink to this heading">#</a></h2>
 <section id="developer-mode-installation">
 <h3>Developer mode installation<a class="headerlink" href="#developer-mode-installation" title="Permalink to this heading">#</a></h3>
+<p>Install all additional dependencies with the following command:</p>
+<div class="highlight-console notranslate"><div class="highlight"><pre><span></span><span class="go">pip install -e .[dev]</span>
+</pre></div>
+</div>
 </section>
 </section>
 <section id="commits">
 <h2>Commits<a class="headerlink" href="#commits" title="Permalink to this heading">#</a></h2>
+<ul class="simple">
+<li><p><strong>Code</strong>: ensure to provide docstrings to your Python code. In doing so, please follow <a class="reference external" href="https://sphinxcontrib-napoleon.readthedocs.io/en/latest/example_google.html">Google-style</a> so it can ease the process of documentation later.</p></li>
+<li><p><strong>Commit message</strong>: please follow <a class="reference external" href="http://udacity.github.io/git-styleguide/">Udacity guide</a></p></li>
+</ul>
 </section>
 <section id="unit-tests">
 <h2>Unit tests<a class="headerlink" href="#unit-tests" title="Permalink to this heading">#</a></h2>
+<p>In order to run the same unit tests as the CI workflows, you can run unittests locally:</p>
+<div class="highlight-console notranslate"><div class="highlight"><pre><span></span><span class="go">make test</span>
+</pre></div>
+</div>
 </section>
 <section id="code-quality">
 <h2>Code Quality<a class="headerlink" href="#code-quality" title="Permalink to this heading">#</a></h2>
+<p>To run all quality checks together</p>
+<div class="highlight-console notranslate"><div class="highlight"><pre><span></span><span class="go">make quality</span>
+</pre></div>
+</div>
 <section id="linting">
 <h3>Linting<a class="headerlink" href="#linting" title="Permalink to this heading">#</a></h3>
+<p>To ensure that your incoming PR complies with the lint settings, you need to install <a class="reference external" href="https://black.readthedocs.io/en/stable/">black</a> and run the following command from the repository’s root folder:</p>
+<div class="highlight-console notranslate"><div class="highlight"><pre><span></span><span class="go">black ./</span>
+</pre></div>
+</div>
 </section>
 <section id="import-format">
 <h3>Import format<a class="headerlink" href="#import-format" title="Permalink to this heading">#</a></h3>
+<p>In order to ensure there is a common import order convention, run <a class="reference external" href="https://github.com/PyCQA/isort">isort</a> as follows:</p>
+<div class="highlight-console notranslate"><div class="highlight"><pre><span></span><span class="go">isort **/*.py</span>
+</pre></div>
+</div>
+<p>This will reorder the imports of your local files.</p>
 </section>
 <section id="type-annotations">
 <h3>Type Annotations<a class="headerlink" href="#type-annotations" title="Permalink to this heading">#</a></h3>
+<p>Additionally, to catch type-related issues and have a cleaner codebase, annotation typing are expected. After installing <a class="reference external" href="https://github.com/python/mypy">mypy</a>, you can run the verifications as follows:</p>
+<div class="highlight-console notranslate"><div class="highlight"><pre><span></span><span class="go">mypy --config-file mypy.ini ocrpy/</span>
+</pre></div>
+</div>
+<p>The <cite>mypy.ini</cite> file will be read to check your typing.</p>
 </section>
 <section id="docstring-format">
 <h3>Docstring format<a class="headerlink" href="#docstring-format" title="Permalink to this heading">#</a></h3>
+<p>Please follow Google style for docstrings which can be found over here: <a class="reference external" href="https://google.github.io/styleguide/pyguide.html">Google-style</a></p>
 </section>
 </section>
 <section id="modifying-the-documentation">
 <h2>Modifying the documentation<a class="headerlink" href="#modifying-the-documentation" title="Permalink to this heading">#</a></h2>
+<p>In order to check locally your modifications to the documentation:</p>
+<div class="highlight-console notranslate"><div class="highlight"><pre><span></span><span class="go">cd docs</span>
+<span class="go">make clean html</span>
+</pre></div>
+</div>
+<p><a href="#id4"><span class="problematic" id="id5">``</span></a>`
+You can now open your local version of the documentation located at <cite>docs/_build/index.html</cite> in your browser.</p>
 </section>
 <section id="let-s-connect">
 <h2>Let’s connect<a class="headerlink" href="#let-s-connect" title="Permalink to this heading">#</a></h2>
+<p>Should you wish to connect somewhere else than on GitHub, feel free to reach out to us at <a class="reference external" href="mailto:info&#37;&#52;&#48;maxentlabs&#46;com">info<span>&#64;</span>maxentlabs<span>&#46;</span>com</a></p>
 </section>
 </section>
 
