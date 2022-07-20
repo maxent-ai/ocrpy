@@ -17,7 +17,7 @@ Continuous Integration
 
 This project uses the following integrations to ensure proper codebase maintenance:
 
-- Run jobs for package build and coverage: `Github Worklow <https://help.github.com/en/actions/configuring-and-managing-workflows/configuring-a-workflow>_
+- Run jobs for package build and coverage: `Github Worklow <https://help.github.com/en/actions/configuring-and-managing-workflows/configuring-a-workflow>`_
 - Reports back coverage results: `Codecov <https://codecov.io/>`_
 - As a contributor, please ensure that you write unit tests for your code and run coverage tests for your code before submitting a pull request.
 
