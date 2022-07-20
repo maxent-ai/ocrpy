@@ -9,7 +9,7 @@ description = 'unified interface to google vision, aws textract, azure, tesserac
 readme = 'README.md'
 requires-python = ">=3.7"
 authors = [
-  { name = "Maxentlabs", email = "maxentlabsai@gmail.com" },
+  { name = "Maxentlabs", email = "info@maxentlabs.com" },
 ]
 license = { text = "MIT" }
 

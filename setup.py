@@ -26,9 +26,9 @@ kwargs = {
     'description': 'Unified interface to google vision, aws textract, azure and tesseract OCR tools.',
     'long_description': readme,
     'author': 'Maxentlabs',
-    'author_email': 'maxentlabsai@gmail.com',
+    'author_email': 'info@maxentlabs.com',
     'maintainer': 'Maxentlabs',
-    'maintainer_email': 'maxentlabsai@gmail.com',
+    'maintainer_email': 'info@maxentlabs.com',
     'url': 'https://github.com/maxent-ai/ocrpy',
     'license': 'MIT/Apache-2.0',
     'classifiers': [
