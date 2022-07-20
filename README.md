@@ -6,7 +6,7 @@
 ![tag](https://img.shields.io/github/v/tag/maxent-ai/ocrpy)
 ![mit-license](https://img.shields.io/github/license/maxent-ai/ocrpy?color=blue)
 
-__Unified interface to google vision, aws textract, azure and tesseract OCR tools__
+__Unified interface to google vision, aws textract, azure, tesseract and other OCR tools__
 
 The Core objective of OcrPy is to let users OCR, Archive, Index and Search any documents with ease,
 with a simple and intuitive interface and a powerful Pipeline API.
@@ -16,7 +16,7 @@ ocrpy achieves this by wrapping around various OCR engines like [Tesseract OCR](
 ## Getting Started
 
 `ocrpy` is a Python-only package hosted on [PyPI](https://pypi.org/project/ocrpy/).
-The recommended installation method is [pip] (https://pip.pypa.io/en/stable/)
+The recommended installation method is [pip](https://pip.pypa.io/en/stable/)
 
 ```bash
 pip install ocrpy
