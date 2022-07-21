@@ -299,9 +299,10 @@ s3 bucket, gcs bucket or local directory as well.</p>
 <span class="n">DOC_PATH</span> <span class="o">=</span> <span class="s1">&#39;../documents/example_document_with_table.pdf&#39;</span> <span class="c1"># path to an image or pdf file on s3 bucket, gcs bucket or local directory.</span>
 <span class="n">AWS_CREDENTIALS</span> <span class="o">=</span> <span class="s2">&quot;.credentials/aws-credentials.env&quot;</span> <span class="c1"># path to the aws credentials file.</span>
 
+<span class="n">reader</span> <span class="o">=</span> <span class="n">DocumentReader</span><span class="p">(</span><span class="n">file</span><span class="o">=</span><span class="n">DOC_PATH</span><span class="p">)</span>
 <span class="n">table_parser</span> <span class="o">=</span> <span class="n">TableParser</span><span class="p">(</span><span class="n">credentials</span><span class="o">=</span><span class="n">AWS_CREDENTIALS</span><span class="p">)</span>
 
-<span class="n">parsed_table</span> <span class="o">=</span> <span class="n">table_parser</span><span class="o">.</span><span class="n">parse</span><span class="p">(</span><span class="n">DOC_PATH</span><span class="p">,</span> <span class="n">attempt_csv_conversion</span><span class="o">=</span><span class="kc">False</span><span class="p">)</span>
+<span class="n">parsed_table</span> <span class="o">=</span> <span class="n">table_parser</span><span class="o">.</span><span class="n">parse</span><span class="p">(</span><span class="n">reader</span><span class="p">,</span> <span class="n">attempt_csv_conversion</span><span class="o">=</span><span class="kc">False</span><span class="p">)</span>
 </pre></div>
 </div>
 <div class="admonition note">
