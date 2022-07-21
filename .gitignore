@@ -145,4 +145,6 @@ nohup.out
 notebooks/local/*
 notebooks/temp
 notebooks/*.env
+notebooks/sample_data/data/*
+notebooks/sample_data/output/*
 
