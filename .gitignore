@@ -147,4 +147,5 @@ notebooks/temp
 notebooks/*.env
 notebooks/sample_data/data/*
 notebooks/sample_data/output/*
+notebooks/sample_data/__MACOSX
 
