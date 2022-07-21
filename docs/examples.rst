@@ -110,9 +110,10 @@ Now let's look at how to extract tables from a document using the ``ocrpy.parser
     DOC_PATH = '../documents/example_document_with_table.pdf' # path to an image or pdf file on s3 bucket, gcs bucket or local directory.
     AWS_CREDENTIALS = ".credentials/aws-credentials.env" # path to the aws credentials file.
 
+    reader = DocumentReader(file=DOC_PATH)
     table_parser = TableParser(credentials=AWS_CREDENTIALS)
 
-    parsed_table = table_parser.parse(DOC_PATH, attempt_csv_conversion=False)
+    parsed_table = table_parser.parse(reader, attempt_csv_conversion=False)
 
 .. note:: ``ocrpy`` currently supports table extraction only with the ``aws-textract`` parser backend. 
             Support for other parser backends will be added soon.
