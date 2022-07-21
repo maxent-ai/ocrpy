@@ -57,7 +57,6 @@ class AwsTableOCR(AbstractTableOCR):
         tables : List[List]
             List of list of tabular data.
         """
-        print(self.reader)
         self._document = self.reader.read()
         if isinstance(self._document, bytes):
             self._document = [self._document]
