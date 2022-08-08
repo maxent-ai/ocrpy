@@ -57,6 +57,7 @@ kwargs = {
 
     ],
     'install_requires': REQUIRES,
+    dependency_links = ["https://github.com/facebookresearch/detectron2.git@v0.5#egg=detectron2"],
     'tests_require': ['coverage', 'pytest'],
     'packages': find_packages(exclude=('tests', 'tests.*')),
     'project_urls': {
