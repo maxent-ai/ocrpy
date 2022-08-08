@@ -2,7 +2,6 @@ import io
 import re
 from PIL import Image
 from typing import List
-import layoutparser as lp
 from attrs import define, field
 from ..parsers import TextParser
 from ..io.reader import DocumentReader
@@ -35,10 +34,9 @@ class DocumentLayoutParser:
 
     Note
     ----
-    - The model is trained on the Publaynet dataset and can detect the following blocks from the document:
-    text, title, list, table, figure
+    - The model is trained on the Publaynet dataset and can detect the following blocks from the document: text, title, list, table, figure
 
-    - For more information on the datase please refer this paper: https://arxiv.org/abs/1908.07836
+    - For more information on the dataset please refer this paper: https://arxiv.org/abs/1908.07836
 
     """
     model_name: str = field(
@@ -109,7 +107,7 @@ class DocumentLayoutParser:
             blocks_list.append(self._block_formatter(block, tokens, meta_data))
         return blocks_list
 
-    def parser(self, reader: DocumentReader, ocr: TextParser) -> List:
+    def parse(self, reader: DocumentReader, ocr: TextParser) -> List:
         """
         Predict the document type of the document in the reader.
 
