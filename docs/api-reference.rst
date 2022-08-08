@@ -87,15 +87,17 @@ The ``ocrpy.experimental`` module contains experimental features that are not ye
 or be removed in future releases. 
 
 Currently it exposes the :class:`ocrpy.experimental.document_classifier.DocumentClassifier` 
-class which can be used to classify documents into various categories.
+class which can be used to classify documents into various categories & :class:`ocrpy.experimental.layout_parser.DocumentLayoutParser` 
+class which can be used to identify different components of a document like text, title, table, figures etc.
 
-Other experimental features which are not exposed include document layout parsers which would enable 
-you to extract the layout of a document and extract the text from the document with different type of parsers 
-like table or text parsers.
-
+These can be used along with the ocr pipelines, as preprocessing utils to identify different types of documents
+and their layout and launch appropriate ocr pipelines for custom processing.
 
 .. autoclass:: ocrpy.experimental.document_classifier.DocumentClassifier
 .. automethod:: ocrpy.experimental.document_classifier.DocumentClassifier.predict
+
+.. autoclass:: ocrpy.experimental.layout_parser.DocumentLayoutParser
+.. automethod:: ocrpy.experimental.layout_parser.DocumentLayoutParser.parse
 
 
 ``ocrpy.utils``
