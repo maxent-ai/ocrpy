@@ -55,10 +55,8 @@ dependencies = [
     'farm-haystack==1.6.0',
     'torchvision==0.11.3',
     'layoutparser==0.3.4',
+    'https://github.com/facebookresearch/detectron2.git@v0.5#egg=detectron2'
 ]
-
-[project.dependencies]
-detectron2 = {git = 'https://github.com/facebookresearch/detectron2.git@v0.5#egg=detectron2' }
 
 dynamic = ["version"]
 
