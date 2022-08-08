@@ -57,7 +57,6 @@ torchvision = {version= '0.11.3'}
 layoutparser = {version= '0.3.4'}
 detectron2= {git = "https://github.com/facebookresearch/detectron2.git@v0.5#egg=detectron2" }
 
-]
 
 dynamic = ["version"]
 
