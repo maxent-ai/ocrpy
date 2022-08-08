@@ -147,3 +147,30 @@ Alternatively you can download or use your own pretrained model weights as well.
 For more info on this see Huggingface `transformers <https://huggingface.co/docs/transformers/index>`_ library documentation.
 
 For more information on the default model and the categories it classifies to, please refer `ocrpy.experimental.document_classifier`.
+
+Parse layout with ``ocrpy.experimental.layout_parser``
+---------------------------------------------------
+
+In this example let's look at how you can use ``ocrpy`` to parse layout from a document using the 
+``ocrpy.experimental.layout_parser`` API.
+
+.. code-block:: python
+
+    from ocrpy import DocumentReader, TextParser
+    from ocrpy.experimental import LayoutParser
+
+    DOC_PATH = '../documents/document.img' # path to an image or pdf file on s3 bucket, gcs bucket or local directory.
+
+    reader = DocumentReader(file=DOC_PATH)
+    text_parser = TextParser()
+    layout_parser = LayoutParser()
+
+    parsed_layout = layout_parser.parse(reader, text_parser)
+
+.. note:: ``ocrpy`` uses Microsoft's LayoutParser library in the backend to perform the layout parsing.
+            as such, please make sure you have the ``layoutparser`` library installed, if not please install it from 
+            `LayoutParser <https://github.com/Layout-Parser/layout-parser>`_.
+
+When you run this for the first time, it will download the pretrained model weights and store them in a local directory.
+Alternatively you can download or use your own pretrained model weights as well. The model weights can be downloaded from
+`LayoutParser Model Catalog <https://layout-parser.readthedocs.io/en/latest/notes/modelzoo.html#model-catalog>`_.

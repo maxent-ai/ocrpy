@@ -6,7 +6,7 @@
 <link rel="index" title="Index" href="genindex.html" /><link rel="search" title="Search" href="search.html" /><link rel="next" title="API Reference" href="api-reference.html" /><link rel="prev" title="Examples" href="examples.html" />
 
     <meta name="generator" content="sphinx-5.1.1, furo 2022.06.21"/>
-        <title>Tutorials - ocrpy 0.3.8 documentation</title>
+        <title>Tutorials - ocrpy 0.3.9 documentation</title>
       <link rel="stylesheet" type="text/css" href="_static/pygments.css" />
     <link rel="stylesheet" type="text/css" href="_static/styles/furo.css?digest=40978830699223671f4072448e654b5958f38b89" />
     <link rel="stylesheet" type="text/css" href="_static/copybutton.css" />
@@ -124,7 +124,7 @@
       </label>
     </div>
     <div class="header-center">
-      <a href="index.html"><div class="brand">ocrpy 0.3.8 documentation</div></a>
+      <a href="index.html"><div class="brand">ocrpy 0.3.9 documentation</div></a>
     </div>
     <div class="header-right">
       <div class="theme-toggle-container theme-toggle-header">
@@ -135,7 +135,7 @@
           <svg class="theme-icon-when-light"><use href="#svg-sun"></use></svg>
         </button>
       </div>
-      <label class="toc-overlay-icon toc-header-icon no-toc" for="__toc">
+      <label class="toc-overlay-icon toc-header-icon" for="__toc">
         <div class="visually-hidden">Toggle table of contents sidebar</div>
         <i class="icon"><svg><use href="#svg-toc"></use></svg></i>
       </label>
@@ -201,7 +201,7 @@
               <svg class="theme-icon-when-light"><use href="#svg-sun"></use></svg>
             </button>
           </div>
-          <label class="toc-overlay-icon toc-content-icon no-toc" for="__toc">
+          <label class="toc-overlay-icon toc-content-icon" for="__toc">
             <div class="visually-hidden">Toggle table of contents sidebar</div>
             <i class="icon"><svg><use href="#svg-toc"></use></svg></i>
           </label>
@@ -209,10 +209,24 @@
         <article role="main">
           <section id="tutorials">
 <h1>Tutorials<a class="headerlink" href="#tutorials" title="Permalink to this heading">#</a></h1>
+<section id="getting-started">
+<h2>Getting Started<a class="headerlink" href="#getting-started" title="Permalink to this heading">#</a></h2>
+<p>Please refer to <a class="reference external" href="https://github.com/maxent-ai/ocrpy/blob/main/notebooks/ocrpy_usage.ipynb">Ocrpy Quick starter Notebook</a> for an in-depth walkthrough of how to use Ocrpy.
+This notebook gives an overview  of how to use Ocrpy to perform:</p>
 <ul class="simple">
-<li><p>Please refer to <a class="reference external" href="https://github.com/maxent-ai/ocrpy/blob/main/notebooks/ocrpy_usage.ipynb">Ocrpy Quick starter Notebook</a> for an in-depth walkthrough of how to use Ocrpy.</p></li>
-<li><p>Also checkout the <a class="reference external" href="https://github.com/maxent-ai/ocrpy/blob/main/notebooks/ocrpy_with_haystack.ipynb">Ocr, index and Search Notebook</a> for an in-depth walkthrough of how to use Ocrpy to ocr, index and do semantic search.</p></li>
+<li><p>Document classification</p></li>
+<li><p>Layout Parsing</p></li>
+<li><p>Table extraction</p></li>
+<li><p>Running a full Text Ocr pipeline</p></li>
+<li><p>and writing the extracted output to a storage of choice.</p></li>
 </ul>
+</section>
+<section id="ocr-index-and-search">
+<h2>Ocr, Index and Search<a class="headerlink" href="#ocr-index-and-search" title="Permalink to this heading">#</a></h2>
+<p>Also checkout the <a class="reference external" href="https://github.com/maxent-ai/ocrpy/blob/main/notebooks/ocrpy_with_haystack.ipynb">Ocr, index and Search Notebook</a> for an in-depth walkthrough of how to use Ocrpy to ocr, index and do semantic search.
+In this Notebook, you will find how to use ocrpy to extract text and tables from your pdf’s and images and then index the extracted the data to either
+opensearch, elasticsearch or a mysql database &amp; then query the indexed collection of docs via semantic search.</p>
+</section>
 </section>
 
         </article>
@@ -260,8 +274,28 @@
         
       </footer>
     </div>
-    <aside class="toc-drawer no-toc">
+    <aside class="toc-drawer">
       
+      
+      <div class="toc-sticky toc-scroll">
+        <div class="toc-title-container">
+          <span class="toc-title">
+            Contents
+          </span>
+        </div>
+        <div class="toc-tree-container">
+          <div class="toc-tree">
+            <ul>
+<li><a class="reference internal" href="#">Tutorials</a><ul>
+<li><a class="reference internal" href="#getting-started">Getting Started</a></li>
+<li><a class="reference internal" href="#ocr-index-and-search">Ocr, Index and Search</a></li>
+</ul>
+</li>
+</ul>
+
+          </div>
+        </div>
+      </div>
       
       
     </aside>

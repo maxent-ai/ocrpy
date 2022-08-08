@@ -6,7 +6,7 @@
 <link rel="index" title="Index" href="genindex.html" /><link rel="search" title="Search" href="search.html" /><link rel="next" title="Examples" href="examples.html" /><link rel="prev" title="OcrPy Documentation" href="index.html" />
 
     <meta name="generator" content="sphinx-5.1.1, furo 2022.06.21"/>
-        <title>Overview - ocrpy 0.3.8 documentation</title>
+        <title>Overview - ocrpy 0.3.9 documentation</title>
       <link rel="stylesheet" type="text/css" href="_static/pygments.css" />
     <link rel="stylesheet" type="text/css" href="_static/styles/furo.css?digest=40978830699223671f4072448e654b5958f38b89" />
     <link rel="stylesheet" type="text/css" href="_static/copybutton.css" />
@@ -124,7 +124,7 @@
       </label>
     </div>
     <div class="header-center">
-      <a href="index.html"><div class="brand">ocrpy 0.3.8 documentation</div></a>
+      <a href="index.html"><div class="brand">ocrpy 0.3.9 documentation</div></a>
     </div>
     <div class="header-right">
       <div class="theme-toggle-container theme-toggle-header">
@@ -135,7 +135,7 @@
           <svg class="theme-icon-when-light"><use href="#svg-sun"></use></svg>
         </button>
       </div>
-      <label class="toc-overlay-icon toc-header-icon no-toc" for="__toc">
+      <label class="toc-overlay-icon toc-header-icon" for="__toc">
         <div class="visually-hidden">Toggle table of contents sidebar</div>
         <i class="icon"><svg><use href="#svg-toc"></use></svg></i>
       </label>
@@ -201,7 +201,7 @@
               <svg class="theme-icon-when-light"><use href="#svg-sun"></use></svg>
             </button>
           </div>
-          <label class="toc-overlay-icon toc-content-icon no-toc" for="__toc">
+          <label class="toc-overlay-icon toc-content-icon" for="__toc">
             <div class="visually-hidden">Toggle table of contents sidebar</div>
             <i class="icon"><svg><use href="#svg-toc"></use></svg></i>
           </label>
@@ -209,6 +209,24 @@
         <article role="main">
           <section id="overview">
 <h1>Overview<a class="headerlink" href="#overview" title="Permalink to this heading">#</a></h1>
+<a class="reference internal image-reference" href="_images/ocrpy-overview-plain.png"><img alt="ocrpy overview" class="align-center" src="_images/ocrpy-overview-plain.png" style="height: 400px;" /></a>
+<p>At its core, ocrpy is a Python library that can read Pdf and Image documents from Any cloud
+storage service or a local file system, and then perform a set of operations on these documents like identification of document type,
+parsing the layout of the document, and extracting text &amp;/or tables from the document and then writing the results to cloud storage,
+local file system or a database.</p>
+<section id="ocrpy-internal-system-architecture">
+<h2>Ocrpy Internal System Architecture<a class="headerlink" href="#ocrpy-internal-system-architecture" title="Permalink to this heading">#</a></h2>
+<a class="reference internal image-reference" href="_static/ocrpy-architecture.png"><img alt="ocrpy architecture" class="align-center" src="_static/ocrpy-architecture.png" style="height: 400px;" /></a>
+<ul class="simple">
+<li><p>Read - Parse - Write Pipeline (R-P-W) Detils</p></li>
+<li><p>Document classification Details</p></li>
+<li><p>Document layout parsing Details</p></li>
+<li><p>Read - Parse - Index Pipeline (R-P-I) Detils</p></li>
+</ul>
+</section>
+<section id="ocrpy-features-overview">
+<h2>Ocrpy Features Overview<a class="headerlink" href="#ocrpy-features-overview" title="Permalink to this heading">#</a></h2>
+</section>
 </section>
 
         </article>
@@ -256,8 +274,28 @@
         
       </footer>
     </div>
-    <aside class="toc-drawer no-toc">
+    <aside class="toc-drawer">
       
+      
+      <div class="toc-sticky toc-scroll">
+        <div class="toc-title-container">
+          <span class="toc-title">
+            Contents
+          </span>
+        </div>
+        <div class="toc-tree-container">
+          <div class="toc-tree">
+            <ul>
+<li><a class="reference internal" href="#">Overview</a><ul>
+<li><a class="reference internal" href="#ocrpy-internal-system-architecture">Ocrpy Internal System Architecture</a></li>
+<li><a class="reference internal" href="#ocrpy-features-overview">Ocrpy Features Overview</a></li>
+</ul>
+</li>
+</ul>
+
+          </div>
+        </div>
+      </div>
       
       
     </aside>
