@@ -40,7 +40,7 @@ classifiers = [
 
 dynamic = ["version"]
 
-[dependencies]
+[project.dependencies]
 attrs ="21.4.0"
 pytesseract = "0.3.6"
 opencv-python = {version= '4.1.2.30'}
