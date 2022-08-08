@@ -2,7 +2,7 @@ import io
 from PIL import Image
 from typing import List
 from attrs import define, field
-from ocrpy import DocumentReader
+from ..io.reader import DocumentReader
 from transformers import AutoFeatureExtractor, AutoModelForImageClassification
 
 __all__ = ["DocumentClassifier"]
@@ -47,7 +47,8 @@ class DocumentClassifier:
     )
 
     def __attrs_post_init__(self):
-        self.feature_extractor = AutoFeatureExtractor.from_pretrained(self.model_name)
+        self.feature_extractor = AutoFeatureExtractor.from_pretrained(
+            self.model_name)
         self.classifier = AutoModelForImageClassification.from_pretrained(
             self.model_name
         )
@@ -71,7 +72,8 @@ class DocumentClassifier:
         outputs = self.classifier(**inputs)
         logits = outputs.logits
         predicted_class_idx = logits.argmax(-1).tolist()
-        labels = [self.classifier.config.id2label[i] for i in predicted_class_idx]
+        labels = [self.classifier.config.id2label[i]
+                  for i in predicted_class_idx]
         return labels
 
     def predict(self, reader: DocumentReader) -> List:
