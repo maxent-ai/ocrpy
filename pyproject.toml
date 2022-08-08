@@ -42,6 +42,21 @@ dynamic = ["version"]
 
 [dependencies]
 attrs = {version = '21.4.0'}
+pytesseract = {version = '0.3.6'}
+opencv-python = {version= '4.1.2.30'}
+beautifulsoup4 = {version= '4.9.1'}
+google-cloud-vision = {version= '1.0.0'}
+boto3 = {version= '1.19.7'}
+pdf2image = {version='1.14.0'}
+numpy = {version='1.21.1'}
+transformers = {version='4.20.1'}
+tqdm = {version= '4.64.0'}
+pandas = {version= '1.3.3'}
+python-dotenv = {version='0.17.1'}
+cloudpathlib = {version= '0.9.0'}
+farm-haystack = {version= '1.6.0'}
+torchvision = {version= '0.11.3'}
+layoutparser = {version= '0.3.4'}
 detectron2= {git = "https://github.com/facebookresearch/detectron2.git@v0.5#egg=detectron2" }
 
 [project.urls]
