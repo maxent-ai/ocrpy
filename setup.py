@@ -18,7 +18,7 @@ with open('ocrpy/__init__.py', 'r') as f:
 with open('README.md', 'r', encoding='utf-8') as f:
     readme = f.read()
 
-REQUIRES = ['detectron2@git+https://github.com/facebookresearch/detectron2.git@v0.5#egg=detectron2']
+REQUIRES = []
 
 kwargs = {
     'name': 'ocrpy',
