@@ -21,6 +21,7 @@ jobs:
       run: |
         pip install .
         pip install furo sphinx_copybutton
+        pip install git+https://github.com/facebookresearch/detectron2.git@v0.5#egg=detectron2 
     
     - name: Build docs
       run: |
