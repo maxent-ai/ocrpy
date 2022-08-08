@@ -2,10 +2,10 @@
 <html class="no-js" lang="en">
   <head><meta charset="utf-8"/>
     <meta name="viewport" content="width=device-width,initial-scale=1"/>
-    <meta name="color-scheme" content="light dark"><meta name="generator" content="Docutils 0.18.1: http://docutils.sourceforge.net/" />
+    <meta name="color-scheme" content="light dark"><meta name="generator" content="Docutils 0.19: https://docutils.sourceforge.io/" />
 <link rel="index" title="Index" href="genindex.html" /><link rel="search" title="Search" href="search.html" /><link rel="next" title="System Design" href="system-design.html" /><link rel="prev" title="Tutorials" href="tutorials.html" />
 
-    <meta name="generator" content="sphinx-5.0.2, furo 2022.06.21"/>
+    <meta name="generator" content="sphinx-5.1.1, furo 2022.06.21"/>
         <title>API Reference - ocrpy 0.3.8 documentation</title>
       <link rel="stylesheet" type="text/css" href="_static/pygments.css" />
     <link rel="stylesheet" type="text/css" href="_static/styles/furo.css?digest=40978830699223671f4072448e654b5958f38b89" />
@@ -619,36 +619,11 @@ writes the output to the destination directory.</p>
 <h2><code class="docutils literal notranslate"><span class="pre">ocrpy.experimental</span></code><a class="headerlink" href="#ocrpy-experimental" title="Permalink to this heading">#</a></h2>
 <p>The <code class="docutils literal notranslate"><span class="pre">ocrpy.experimental</span></code> module contains experimental features that are not yet stable and may change
 or be removed in future releases.</p>
-<p>Currently it exposes the <a class="reference internal" href="#ocrpy.experimental.document_classifier.DocumentClassifier" title="ocrpy.experimental.document_classifier.DocumentClassifier"><code class="xref py py-class docutils literal notranslate"><span class="pre">ocrpy.experimental.document_classifier.DocumentClassifier</span></code></a>
+<p>Currently it exposes the <code class="xref py py-class docutils literal notranslate"><span class="pre">ocrpy.experimental.document_classifier.DocumentClassifier</span></code>
 class which can be used to classify documents into various categories.</p>
 <p>Other experimental features which are not exposed include document layout parsers which would enable
 you to extract the layout of a document and extract the text from the document with different type of parsers
 like table or text parsers.</p>
-<dl class="py class">
-<dt class="sig sig-object py" id="ocrpy.experimental.document_classifier.DocumentClassifier">
-<em class="property"><span class="pre">class</span><span class="w"> </span></em><span class="sig-prename descclassname"><span class="pre">ocrpy.experimental.document_classifier.</span></span><span class="sig-name descname"><span class="pre">DocumentClassifier</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">model_name</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">str</span></span><span class="w"> </span><span class="o"><span class="pre">=</span></span><span class="w"> </span><span class="default_value"><span class="pre">'microsoft/dit-base-finetuned-rvlcdip'</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#ocrpy.experimental.document_classifier.DocumentClassifier" title="Permalink to this definition">#</a></dt>
-<dd><p>DocumentClassifier utilises a fine tuned Document image classifier (DiT) model
-to predict the document type.
-The default model is a dit-base model trained on the rvlcdip dataset.</p>
-<p>You can also choose alternate models available on HuggingFace modelshub
-at <a class="reference external" href="https://huggingface.co/models">https://huggingface.co/models</a>.</p>
-<dl>
-<dt>model_name<span class="classifier">str</span></dt><dd><p>The name of the model to use.
-Should be a valid model name from HuggingFace modelshub.</p>
-<p>default: “microsoft/dit-base-finetuned-rvlcdip”</p>
-</dd>
-</dl>
-<ul class="simple">
-<li><p>The model is trained on the rvlcdip dataset and can identify the following document types:</p></li>
-</ul>
-<p>letter, form, email, handwritten, advertisement, scientific report, scientific publication,
-specification, file folder, news article, budget, invoice, presentation, questionnaire, resume, memo</p>
-<ul class="simple">
-<li><p>For more information on the model please refer this paper: <a class="reference external" href="https://arxiv.org/abs/2203.02378">https://arxiv.org/abs/2203.02378</a></p></li>
-<li><p>For more information on the document types, see this link: <a class="reference external" href="https://www.cs.cmu.edu/~aharley/rvl-cdip/">https://www.cs.cmu.edu/~aharley/rvl-cdip/</a></p></li>
-</ul>
-</dd></dl>
-
 <dl class="py method">
 <dt class="sig sig-object py" id="ocrpy.experimental.document_classifier.DocumentClassifier.predict">
 <span class="sig-prename descclassname"><span class="pre">DocumentClassifier.</span></span><span class="sig-name descname"><span class="pre">predict</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">reader</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><a class="reference internal" href="#ocrpy.io.reader.DocumentReader" title="ocrpy.io.reader.DocumentReader"><span class="pre">DocumentReader</span></a></span></em><span class="sig-paren">)</span> <span class="sig-return"><span class="sig-return-icon">&#x2192;</span> <span class="sig-return-typehint"><span class="pre">List</span></span></span><a class="headerlink" href="#ocrpy.experimental.document_classifier.DocumentClassifier.predict" title="Permalink to this definition">#</a></dt>
