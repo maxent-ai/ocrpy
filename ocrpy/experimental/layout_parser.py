@@ -5,7 +5,7 @@ from typing import List
 from attrs import define, field
 from ..parsers import TextParser
 from ..io.reader import DocumentReader
-from layoutparser import Detectron2LayoutModel
+from layoutparser import PaddleDetectionLayoutModel
 
 LABEL_MAP = {"PubLayNet": {0: "Text", 1: "Title",
                            2: "List", 3: "Table", 4: "Figure"}}
@@ -18,7 +18,7 @@ __all__ = ["DocumentLayoutParser"]
 class DocumentLayoutParser:
 
     """
-    Document Layout Parser utilises a fine tuned Detectron2 model to detect the layout of the document.
+    Document Layout Parser utilises a fine tuned PaddleDetection model to detect the layout of the document.
     The default model is a rcnn based model trained on the publayent dataset.
 
     You can also choose alternate models available on layoutparser modelshub
@@ -30,7 +30,7 @@ class DocumentLayoutParser:
         The name of the model to use.
         Should be a valid model name from HuggingFace modelshub.
 
-        default: "lp://PubLayNet/faster_rcnn_R_50_FPN_3x/config"
+        default: "lp://PubLayNet/ppyolov2_r50vd_dcn_365e/config"
 
     Note
     ----
@@ -40,8 +40,8 @@ class DocumentLayoutParser:
 
     """
     model_name: str = field(
-        default='lp://PubLayNet/faster_rcnn_R_50_FPN_3x/config')
-    layout_parser: Detectron2LayoutModel = field(
+        default='lp://PubLayNet/ppyolov2_r50vd_dcn_365e/config')
+    layout_parser: PaddleDetectionLayoutModel = field(
         default=None, init=False, repr=False)
 
     @model_name.validator
@@ -51,8 +51,8 @@ class DocumentLayoutParser:
 
     def __attrs_post_init__(self):
         label_map = self.model_name.split('/')[2]
-        self.layout_parser = Detectron2LayoutModel(self.model_name, extra_config=[
-                                                   "MODEL.ROI_HEADS.SCORE_THRESH_TEST", 0.8], label_map=LABEL_MAP["PubLayNet"])
+        self.layout_parser = PaddleDetectionLayoutModel(
+            self.model_name, label_map=LABEL_MAP["PubLayNet"])
 
     def _bytes_to_img(self, reader):
         data = reader.read()
