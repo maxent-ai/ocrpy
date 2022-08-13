@@ -46,12 +46,12 @@ jobs:
     runs-on: ubuntu-20.04
 
     steps:
-      - uses: actions/setup-python@v1
+    - uses: actions/setup-python@v1
       with:
         python-version: 3.8
 
-      - name: Install package
-        run: |
+    - name: Install package
+      run: |
           python -m pip install --upgrade pip
           pip install ocrpy
           python -c "import ocrpy; print(ocrpy.__version__)"
