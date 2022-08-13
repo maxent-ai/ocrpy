@@ -1,0 +1,40 @@
+name: style
+
+on:
+  push:
+    branches: main
+  pull_request:
+    branches: main
+
+jobs:
+  black:
+    runs-on: ubuntu-20.04
+    steps:
+    - uses: actions/checkout@v2
+      with:
+        fetch-depth: 1
+
+    - uses: actions/setup-python@v1
+      with:
+        python-version: 3.8
+    
+    - run: pip install black
+    
+    - name: Run black
+      run: make format
+      
+  flake8:
+    runs-on: ubuntu-20.04
+    steps:
+    - uses: actions/checkout@v2
+      with:
+        fetch-depth: 1
+
+    - uses: actions/setup-python@v1
+      with:
+        python-version: 3.8
+    
+    - run: pip install flake8
+
+    - name: Run flake8
+      run: make lint
