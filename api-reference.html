@@ -344,7 +344,8 @@ default: False</p>
 </dl>
 <p>tables : Union[List, Dict]</p>
 <p>Note: returns a list of lists if attempt_csv_conversion is False.
-Otherwise, returns a dictionary of pandas dataframes. (each item represents an individual table in a pdf document)</p>
+Otherwise, returns a dictionary of pandas dataframes. 
+(each item represents an individual table in a pdf document)</p>
 </dd></dl>
 
 </section>
@@ -680,7 +681,13 @@ Should be a valid model name from HuggingFace modelshub.</p>
 </dd>
 </dl>
 <ul class="simple">
-<li><p>The model is trained on the Publaynet dataset and can detect the following blocks from the document: text, title, list, table, figure</p></li>
+<li><dl class="simple">
+<dt>The model is trained on the Publaynet dataset and can detect the following blocks from the document:</dt><dd><ul>
+<li><p>text, title, list, table, figure</p></li>
+</ul>
+</dd>
+</dl>
+</li>
 <li><p>For more information on the dataset please refer this paper: <a class="reference external" href="https://arxiv.org/abs/1908.07836">https://arxiv.org/abs/1908.07836</a></p></li>
 </ul>
 </dd></dl>
