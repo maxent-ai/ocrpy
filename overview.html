@@ -6,7 +6,7 @@
 <link rel="index" title="Index" href="genindex.html" /><link rel="search" title="Search" href="search.html" /><link rel="next" title="Examples" href="examples.html" /><link rel="prev" title="OcrPy Documentation" href="index.html" />
 
     <meta name="generator" content="sphinx-5.1.1, furo 2022.06.21"/>
-        <title>Overview - ocrpy 0.3.9 documentation</title>
+        <title>Overview - ocrpy 0.3.10 documentation</title>
       <link rel="stylesheet" type="text/css" href="_static/pygments.css" />
     <link rel="stylesheet" type="text/css" href="_static/styles/furo.css?digest=40978830699223671f4072448e654b5958f38b89" />
     <link rel="stylesheet" type="text/css" href="_static/copybutton.css" />
@@ -124,7 +124,7 @@
       </label>
     </div>
     <div class="header-center">
-      <a href="index.html"><div class="brand">ocrpy 0.3.9 documentation</div></a>
+      <a href="index.html"><div class="brand">ocrpy 0.3.10 documentation</div></a>
     </div>
     <div class="header-right">
       <div class="theme-toggle-container theme-toggle-header">
@@ -209,23 +209,199 @@
         <article role="main">
           <section id="overview">
 <h1>Overview<a class="headerlink" href="#overview" title="Permalink to this heading">#</a></h1>
-<a class="reference internal image-reference" href="_images/ocrpy-overview-plain.png"><img alt="ocrpy overview" class="align-center" src="_images/ocrpy-overview-plain.png" style="height: 400px;" /></a>
 <p>At its core, ocrpy is a Python library that can read Pdf and Image documents from Any cloud
 storage service or a local file system, and then perform a set of operations on these documents like identification of document type,
 parsing the layout of the document, and extracting text &amp;/or tables from the document and then writing the results to cloud storage,
 local file system or a database.</p>
-<section id="ocrpy-internal-system-architecture">
-<h2>Ocrpy Internal System Architecture<a class="headerlink" href="#ocrpy-internal-system-architecture" title="Permalink to this heading">#</a></h2>
-<a class="reference internal image-reference" href="_static/ocrpy-architecture.png"><img alt="ocrpy architecture" class="align-center" src="_static/ocrpy-architecture.png" style="height: 400px;" /></a>
-<ul class="simple">
-<li><p>Read - Parse - Write Pipeline (R-P-W) Detils</p></li>
-<li><p>Document classification Details</p></li>
-<li><p>Document layout parsing Details</p></li>
-<li><p>Read - Parse - Index Pipeline (R-P-I) Detils</p></li>
-</ul>
+<a class="reference internal image-reference" href="_images/ocrpy-workflow.png"><img alt="ocrpy overview" class="align-center" src="_images/ocrpy-workflow.png" style="height: 350px;" /></a>
+<section id="ocrpy-library-overview">
+<h2>Ocrpy Library Overview<a class="headerlink" href="#ocrpy-library-overview" title="Permalink to this heading">#</a></h2>
+<p>Ocrpy provides Five core APIs for performing the above mentioned operations. These APIs are:</p>
+<ol class="arabic simple">
+<li><p>Readers - Reads the data from cloud storage or local file system and returns a document object.</p></li>
+<li><p>Parsers - Parses the document layout, extracts text and/or tables from the document &amp; identify the document type.</p></li>
+<li><p>Classifiers - Classify documents into various types like Invoice, Receipt, etc. and also identify the various layout components within those documents.</p></li>
+<li><p>Writers - Writes the results to cloud storage, local file system or a database.</p></li>
+</ol>
+<p>5. Pipelines - A High level abstraction that combines readers, parsers and writers to perform the above mentioned operations on a collection
+of documents in a single call.</p>
+<section id="readers">
+<h3>Readers<a class="headerlink" href="#readers" title="Permalink to this heading">#</a></h3>
+<p>Readers lets you read data from multiple cloud storage or local file system and return a standar document object.
+We currently support the following readers:</p>
+<div class="table-wrapper docutils container">
+<table class="docutils align-default">
+<thead>
+<tr class="row-odd"><th class="head"><p>Reader</p></th>
+<th class="head"><p>Description</p></th>
+<th class="head"><p>Supported File Formats</p></th>
+<th class="head"><p>Storage Type</p></th>
+</tr>
+</thead>
+<tbody>
+<tr class="row-even"><td><p>S3Reader</p></td>
+<td><p>Reads data from Amazon S3 storage</p></td>
+<td><p>Pdf, JPG and PNG</p></td>
+<td><p>Aws S3</p></td>
+</tr>
+<tr class="row-odd"><td><p>GcsReader</p></td>
+<td><p>Reads data from Google Cloud Storage</p></td>
+<td><p>Pdf, JPG and PNG</p></td>
+<td><p>Google Cloud Storage</p></td>
+</tr>
+<tr class="row-even"><td><p>AzureBlobReader</p></td>
+<td><p>Reads data from Azure Blob Storage</p></td>
+<td><p>Pdf, JPG and PNG</p></td>
+<td><p>Azure Blob Storage</p></td>
+</tr>
+<tr class="row-odd"><td><p>LocalFileReader</p></td>
+<td><p>Reads data from local file system</p></td>
+<td><p>Pdf, JPG and PNG</p></td>
+<td><p>Local File System</p></td>
+</tr>
+</tbody>
+</table>
+</div>
 </section>
-<section id="ocrpy-features-overview">
-<h2>Ocrpy Features Overview<a class="headerlink" href="#ocrpy-features-overview" title="Permalink to this heading">#</a></h2>
+<section id="parsers">
+<h3>Parsers<a class="headerlink" href="#parsers" title="Permalink to this heading">#</a></h3>
+<p>Parsers extracts text and/or tables from the Pdfs &amp; Images and return them in a standardised format.
+We currently support the following parsers:</p>
+<div class="table-wrapper docutils container">
+<table class="docutils align-default">
+<thead>
+<tr class="row-odd"><th class="head"><p>Parser</p></th>
+<th class="head"><p>Description</p></th>
+<th class="head"><p>Extracts</p></th>
+<th class="head"><p>Implementation</p></th>
+</tr>
+</thead>
+<tbody>
+<tr class="row-even"><td><p>AwsTextOcr</p></td>
+<td><p>Extracts text from Pdfs &amp; Images using Amazon Textract OCR service</p></td>
+<td><p>Text</p></td>
+<td><p>Supported</p></td>
+</tr>
+<tr class="row-odd"><td><p>GcpTextOcr</p></td>
+<td><p>Extracts text from Pdfs &amp; Images using Google Cloud Vision OCR service</p></td>
+<td><p>Text</p></td>
+<td><p>Supported</p></td>
+</tr>
+<tr class="row-even"><td><p>AwsTableOcr</p></td>
+<td><p>Extracts tables from Pdfs &amp; Images using Amazon Textract OCR service</p></td>
+<td><p>Table</p></td>
+<td><p>Supported</p></td>
+</tr>
+<tr class="row-odd"><td><p>TesseractTextOcr</p></td>
+<td><p>Extracts text from Pdfs &amp; Images using Tesseract OCR library.</p></td>
+<td><p>Text</p></td>
+<td><p>Supported</p></td>
+</tr>
+<tr class="row-even"><td><p>AzureTextOcr</p></td>
+<td><p>Extracts text from Pdfs &amp; Images using Azure Textract OCR service</p></td>
+<td><p>Text</p></td>
+<td><p>WIP</p></td>
+</tr>
+<tr class="row-odd"><td><p>AzureTableOcr</p></td>
+<td><p>Extracts tables from Pdfs &amp; Images using Azure Textract OCR service</p></td>
+<td><p>Table</p></td>
+<td><p>WIP</p></td>
+</tr>
+<tr class="row-even"><td><p>GcpTableOcr</p></td>
+<td><p>Extracts tables from Pdfs &amp; Images using Google Cloud Vision OCR service</p></td>
+<td><p>Table</p></td>
+<td><p>WIP</p></td>
+</tr>
+</tbody>
+</table>
+</div>
+</section>
+<section id="classifiers">
+<h3>Classifiers<a class="headerlink" href="#classifiers" title="Permalink to this heading">#</a></h3>
+<p>Classifiers identify the type of the document &amp; additionaly identify different layout components within a document/page.
+They integrate with Huggingface’s transformers library to perform the above mentioned operations.
+We currently support the following classifiers:</p>
+<div class="table-wrapper docutils container">
+<table class="docutils align-default">
+<thead>
+<tr class="row-odd"><th class="head"><p>Classifier</p></th>
+<th class="head"><p>Description</p></th>
+<th class="head"><p>Backbone Model</p></th>
+</tr>
+</thead>
+<tbody>
+<tr class="row-even"><td><p>DocumentClassifier</p></td>
+<td><p>Classifies a given document into 16 different categories (ex: invoice, research_paper …)</p></td>
+<td><p>microsoft/dit-base-finetuned-rvlcdip</p></td>
+</tr>
+<tr class="row-odd"><td><p>LayoutClassifier</p></td>
+<td><p>Detects and classifies the layout of a given document (ex: header, footer, table, image …)</p></td>
+<td><p>PubLayNet/ppyolov2_r50vd_dcn_365e</p></td>
+</tr>
+</tbody>
+</table>
+</div>
+</section>
+<section id="writers">
+<h3>Writers<a class="headerlink" href="#writers" title="Permalink to this heading">#</a></h3>
+<p>Writers consume the output from parsers &amp; classifiers and write the results to cloud storage, local file system or a database.
+We currently support the following writers:</p>
+<div class="table-wrapper docutils container">
+<table class="docutils align-default">
+<thead>
+<tr class="row-odd"><th class="head"><p>Writer</p></th>
+<th class="head"><p>Description</p></th>
+<th class="head"><p>Supported File Formats</p></th>
+<th class="head"><p>Storage Type</p></th>
+</tr>
+</thead>
+<tbody>
+<tr class="row-even"><td><p>S3Writer</p></td>
+<td><p>Writes data to Amazon S3 storage</p></td>
+<td><p>Json</p></td>
+<td><p>Aws S3</p></td>
+</tr>
+<tr class="row-odd"><td><p>GcsWriter</p></td>
+<td><p>Writes data to Google Cloud Storage</p></td>
+<td><p>Json</p></td>
+<td><p>Google Cloud Storage</p></td>
+</tr>
+<tr class="row-even"><td><p>AzureBlobWriter</p></td>
+<td><p>Writes data to Azure Blob Storage</p></td>
+<td><p>Json</p></td>
+<td><p>Azure Blob Storage</p></td>
+</tr>
+<tr class="row-odd"><td><p>LocalFileReader</p></td>
+<td><p>Writes data to local file system</p></td>
+<td><p>Json</p></td>
+<td><p>Local File System</p></td>
+</tr>
+</tbody>
+</table>
+</div>
+</section>
+<section id="pipelines">
+<h3>Pipelines<a class="headerlink" href="#pipelines" title="Permalink to this heading">#</a></h3>
+<p>Pipelines combine readers, parsers, classifiers and writers and work on a collection of documents in a single call.
+We currently support the following default pipelines:</p>
+<div class="table-wrapper docutils container">
+<table class="docutils align-default">
+<thead>
+<tr class="row-odd"><th class="head"><p>Pipeline</p></th>
+<th class="head"><p>Description</p></th>
+</tr>
+</thead>
+<tbody>
+<tr class="row-even"><td><p>TextOcrPipeline</p></td>
+<td><p>TextOCRPipeline provides a high level interface to run ocr on PDFs, JPGs, and PNGs in either local or cloud storage(AWS S3 or Google Cloud Storage) with a configurable parser backend.</p></td>
+</tr>
+<tr class="row-odd"><td><p>TextOcrIndexPipeline</p></td>
+<td><p>TextOcrIndexPipeline provides a high level interface to run ocr on PDFs, JPGs, and PNGs in either local or cloud storage(AWS S3 or Google Cloud Storage) with a configurable parser backend and then index the results to a database backend of your choice.</p></td>
+</tr>
+</tbody>
+</table>
+</div>
+</section>
 </section>
 </section>
 
@@ -287,8 +463,14 @@ local file system or a database.</p>
           <div class="toc-tree">
             <ul>
 <li><a class="reference internal" href="#">Overview</a><ul>
-<li><a class="reference internal" href="#ocrpy-internal-system-architecture">Ocrpy Internal System Architecture</a></li>
-<li><a class="reference internal" href="#ocrpy-features-overview">Ocrpy Features Overview</a></li>
+<li><a class="reference internal" href="#ocrpy-library-overview">Ocrpy Library Overview</a><ul>
+<li><a class="reference internal" href="#readers">Readers</a></li>
+<li><a class="reference internal" href="#parsers">Parsers</a></li>
+<li><a class="reference internal" href="#classifiers">Classifiers</a></li>
+<li><a class="reference internal" href="#writers">Writers</a></li>
+<li><a class="reference internal" href="#pipelines">Pipelines</a></li>
+</ul>
+</li>
 </ul>
 </li>
 </ul>
