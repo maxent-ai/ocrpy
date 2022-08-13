@@ -16,7 +16,7 @@ permissions:
   contents: read
 
 jobs:
-  release_package:
+  release-package:
     name: Build and publish package to pypi.org
     runs-on: ubuntu-20.04
     steps:
@@ -31,10 +31,27 @@ jobs:
     - run: pip install hatch
 
     - name: Build package
-      run: hatch build 
+      run: make build 
 
     - name: Publish package
-      run: hatch publish --user=${PYPI_USERNAME} --auth=${PYPI_PASSWORD}
+      run: make publish-package
       env:
         PYPI_USERNAME: ${{ secrets.PYPI_USERNAME }}
         PYPI_PASSWORD: ${{ secrets.PYPI_API_TOKEN }}
+
+
+  pypi-check:
+    needs: release-package
+    name: Test package to pypi.org
+    runs-on: ubuntu-20.04
+
+    steps:
+      - uses: actions/setup-python@v1
+      with:
+        python-version: 3.8
+
+      - name: Install package
+        run: |
+          python -m pip install --upgrade pip
+          pip install ocrpy
+          python -c "import ocrpy; print(ocrpy.__version__)"
