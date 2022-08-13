@@ -13,6 +13,8 @@ with a simple and intuitive interface and a powerful Pipeline API.
 
 ocrpy achieves this by wrapping around various OCR engines like [Tesseract OCR](https://tesseract-ocr.github.io/), [Aws Textract](https://aws.amazon.com/textract/), [Google Cloud Vision](https://cloud.google.com/vision/docs/ocr) and [Azure Computer Vision](https://azure.microsoft.com/en-in/services/cognitive-services/computer-vision/#features). It unifies the multitude of interfaces provided by a wide range of cloud tools & other open-source libraries and provides a simple, easy-to-use interface for the user.
 
+![](docs/_static/ocrpy-workflow.png)
+
 ## Getting Started
 
 `ocrpy` is a Python-only package hosted on [PyPI](https://pypi.org/project/ocrpy/).
