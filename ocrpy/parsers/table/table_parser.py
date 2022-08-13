@@ -57,7 +57,7 @@ class TableParser:
         tables : Union[List, Dict]
 
         Note: returns a list of lists if attempt_csv_conversion is False.
-        Otherwise, returns a dictionary of pandas dataframes. 
+        Otherwise, returns a dictionary of pandas dataframes.
         (each item represents an individual table in a pdf document)
         """
         parser = self._dispatch_parser()(reader, self.credentials)
