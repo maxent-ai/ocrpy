@@ -20,6 +20,6 @@ build-docs:
 
 publish-package:
 	echo "Publish the package."
-	hatch publish -user=${PYPI_USERNAME} --auth=${PYPI_PASSWORD}
+	hatch publish --user=${PYPI_USERNAME} --auth=${PYPI_PASSWORD}
 
 enforce-quality: format lint
