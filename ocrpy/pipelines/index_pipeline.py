@@ -3,7 +3,11 @@ from tqdm import tqdm
 from attrs import define, field
 from typing import Dict, Optional
 from .text_pipeline import TextOcrPipeline
-from haystack.document_stores import OpenSearchDocumentStore, SQLDocumentStore, ElasticsearchDocumentStore
+from haystack.document_stores import (
+    OpenSearchDocumentStore,
+    SQLDocumentStore,
+    ElasticsearchDocumentStore,
+)
 
 __all__ = ["TextOcrIndexPipeline"]
 
@@ -43,13 +47,10 @@ class TextOcrIndexPipeline(TextOcrPipeline):
             elif self.database_backend == "elasticsearch":
                 return ElasticsearchDocumentStore(**self.database_config["elasticsearch"])
             else:
-                raise ValueError(
-                    f"{self.database_backend} is not a supported database backend"
-                )
+                raise ValueError(f"{self.database_backend} is not a supported database backend")
 
     def _create_documents(self, data, file_name=None):
-        full_text = " ".join([page['text']
-                             for page_index, page in data.items()])
+        full_text = " ".join([page["text"] for page_index, page in data.items()])
         return dict(content=full_text, meta=dict(file_name=file_name))
 
     @database_config.validator
@@ -59,14 +60,13 @@ class TextOcrIndexPipeline(TextOcrPipeline):
         if not isinstance(value, dict):
             raise ValueError("credentials_config must be a dictionary")
         if self.database_backend not in value:
-            raise ValueError(
-                f"credentials_config must contain a `{self.database_backend}` config")
+            raise ValueError(f"credentials_config must contain a `{self.database_backend}` config")
 
     @property
     def pipeline_config(self):
         temp_config = self._pipeline_config()
-        temp_config['database_backend'] = self.database_backend
-        temp_config['database_config'] = self.database_config
+        temp_config["database_backend"] = self.database_backend
+        temp_config["database_config"] = self.database_config
         return temp_config
 
     def process(self):
@@ -77,14 +77,13 @@ class TextOcrIndexPipeline(TextOcrPipeline):
         Returns:
             None
         """
-        database_config = self.database_config[self.database_backend]
-        batch_size = self.database_config['batch_size']
+        batch_size = self.database_config["batch_size"]
         database_backend = self._database_backend_factory()
         docs = []
 
         if self.source_dir.is_dir():
 
-            print(f"Running Pipeline with the following configuration:\n")
+            print("Running Pipeline with the following configuration:\n")
             for i, (k, v) in enumerate(self.pipeline_config.items()):
                 print(f"{i+1}. {k.upper()}: {v}")
 
@@ -98,8 +97,7 @@ class TextOcrIndexPipeline(TextOcrPipeline):
                     docs.append(self._create_documents(result, file_name))
 
                     if len(docs) == batch_size:
-                        database_backend.write_documents(
-                            docs, batch_size=batch_size)
+                        database_backend.write_documents(docs, batch_size=batch_size)
                         docs = []
 
                 except Exception as ex:
@@ -111,6 +109,6 @@ class TextOcrIndexPipeline(TextOcrPipeline):
 
         else:
             raise NotADirectoryError(
-                """Please set the `source_dir` to the dir/bucket that has your input files and/or set the `destination_dir` 
-                to the dir/bucket where you want to write the pipeline output. """
+                """Please set the `source_dir` to the dir/bucket that has your input files and/or set the `destination_dir`
+                                    to the dir/bucket where you want to write the pipeline output. """
             )
