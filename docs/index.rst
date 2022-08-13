@@ -11,11 +11,6 @@ with a simple and intuitive interface and a powerful Pipeline API.
 It unifies the multitude of interfaces provided by a wide range of cloud tools & other open-source libraries 
 and provides a simple, easy-to-use interface for the user.
 
-.. image:: _static/ocrpy-overview-plain.png
-   :align: center
-   :alt: ocrpy overview
-   :height: 400px
-
 Getting Started
 ===============
 
