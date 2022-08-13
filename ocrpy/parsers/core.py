@@ -48,6 +48,7 @@ class AbstractTableOCR:
     """
     Abstract class for Table OCR backends.
     """
+
     reader: Any = field()
     credentials: Optional[str] = field(default=None)
 

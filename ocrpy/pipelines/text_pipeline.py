@@ -1,16 +1,15 @@
 import os
 import json
-import yaml
 import warnings
 from tqdm import tqdm
 from dotenv import load_dotenv
 from attr import field, define
+from ..io import DocumentReader
+from ..parsers import TextParser
 from typing import Dict, Optional
 from .config import PipelineConfig
-from ..parsers import TableParser, TextParser
-from ..io import DocumentReader, StorageWriter
 from cloudpathlib import AnyPath, S3Client, GSClient
-from ..utils import BackendNotSupported, guess_storage, guess_extension
+from ..utils import guess_storage, guess_extension
 
 __all__ = ["TextOcrPipeline"]
 
@@ -52,9 +51,7 @@ class TextOcrPipeline:
     source_storage_type: AnyPath = field(init=False, repr=False)
     destination_storage_type: AnyPath = field(init=False, repr=False)
     parser_backend: str = field(default="pytesseract")
-    credentials_config: Optional[Dict] = field(
-        default=None, converter=_credentials_config_converter
-    )
+    credentials_config: Optional[Dict] = field(default=None, converter=_credentials_config_converter)
 
     def __attrs_post_init__(self):
         self.source_storage_type = guess_storage(self.source_dir)
@@ -83,9 +80,7 @@ class TextOcrPipeline:
     def _supported_backends(self, attribute, value):
         _backends = ["pytesseract", "aws-textract", "google-cloud-vision"]
         if value not in _backends:
-            raise ValueError(
-                f"backend type {value} not supported. choose one of these instead: {', '.join(_backends)}"
-            )
+            raise ValueError(f"backend type {value} not supported. choose one of these instead: {', '.join(_backends)}")
 
     @classmethod
     def from_config(cls, config_path: str) -> "TextOcrPipeline":
@@ -175,19 +170,13 @@ class TextOcrPipeline:
         reader = self._set_document_reader(file, self.source_storage_type)
 
         if self.parser_backend == "aws-textract":
-            parser = TextParser(
-                credentials=aws_credentials, backend=self.parser_backend
-            )
+            parser = TextParser(credentials=aws_credentials, backend=self.parser_backend)
         elif self.parser_backend == "google-cloud-vision":
-            parser = TextParser(
-                credentials=gcp_credentials, backend=self.parser_backend
-            )
+            parser = TextParser(credentials=gcp_credentials, backend=self.parser_backend)
         elif self.parser_backend == "pytesseract":
             parser = TextParser(backend=self.parser_backend)
         else:
-            raise ValueError(
-                "Seems like the selected parser_backend or the credentials are incorrect! "
-            )
+            raise ValueError("Seems like the selected parser_backend or the credentials are incorrect! ")
 
         parsed_data = parser.parse(reader)
         return parsed_data
@@ -202,7 +191,7 @@ class TextOcrPipeline:
         """
         if self.source_dir.is_dir():
 
-            print(f"Running Pipeline with the following configuration:\n")
+            print("Running Pipeline with the following configuration:\n")
             for i, (k, v) in enumerate(self._pipeline_config().items()):
                 print(f"{i+1}. {k.upper()}: {v}")
 
@@ -219,6 +208,6 @@ class TextOcrPipeline:
 
         else:
             raise NotADirectoryError(
-                """Please set the `source_dir` to the dir/bucket that has your input files and/or set the `destination_dir` 
-                to the dir/bucket where you want to write the pipeline output. """
+                """Please set the `source_dir` to the dir/bucket that has your input files 
+                and/or set the `destination_dir` to the dir/bucket where you want to write the pipeline output. """
             )

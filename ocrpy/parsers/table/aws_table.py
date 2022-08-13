@@ -2,12 +2,11 @@ import os
 import boto3
 import pandas as pd
 from attr import define, field
-from typing import List, Dict
 from dotenv import load_dotenv
 from collections import defaultdict
 from ..core import AbstractTableOCR
 from ..text.aws_text import aws_region_extractor
-from typing import List, Dict, Any, Union, Generator, ByteString
+from typing import List, Dict, Union, Generator, ByteString
 
 __all__ = ["AwsTableOCR", "table_to_csv"]
 
@@ -25,10 +24,9 @@ class AwsTableOCR(AbstractTableOCR):
         Note: The credentials file must be in .env format.
 
     """
+
     _client: boto3.client = field(repr=False, init=False)
-    _document: Union[Generator, ByteString] = field(
-        default=None, repr=False, init=False
-    )
+    _document: Union[Generator, ByteString] = field(default=None, repr=False, init=False)
 
     def __attrs_post_init__(self):
         if self.credentials:
@@ -63,12 +61,9 @@ class AwsTableOCR(AbstractTableOCR):
 
         ocr = {}
         for index, image in enumerate(self._document):
-            result = self._client.analyze_document(
-                Document={"Bytes": image}, FeatureTypes=["TABLES"]
-            )
+            result = self._client.analyze_document(Document={"Bytes": image}, FeatureTypes=["TABLES"])
             mapper = {b["Id"]: b for b in result.get("Blocks")}
-            tables = [i for i in result["Blocks"]
-                      if i.get("BlockType") == "TABLE"]
+            tables = [i for i in result["Blocks"] if i.get("BlockType") == "TABLE"]
             output = [self._extract_table_data(i, mapper) for i in tables]
             ocr[index] = output
         return ocr

@@ -106,9 +106,7 @@ class GcpTextOCR(AbstractTextOCR):
 
     def __attrs_post_init__(self):
         if self.credentials:
-            cred = service_account.Credentials.from_service_account_file(
-                self.credentials
-            )
+            cred = service_account.Credentials.from_service_account_file(self.credentials)
             self._client = vision.ImageAnnotatorClient(credentials=cred)
         else:
             self._client = vision.ImageAnnotatorClient()

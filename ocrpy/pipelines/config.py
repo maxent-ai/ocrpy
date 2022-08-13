@@ -50,11 +50,13 @@ class PipelineConfig:
             )
         elif "parser_config" not in config.keys():
             raise ValueError(
-                "Missing Parser config - Please provide the parser_config with `parser_backend` param set to one of these: 'pytesseract', 'aws-textract' or 'google-cloud-vision'"
+                """Missing Parser config - Please provide the parser_config with `parser_backend` param set to one of these:
+                 'pytesseract', 'aws-textract' or 'google-cloud-vision'"""
             )
         elif "cloud_credentials" not in config.keys():
             raise ValueError(
-                "Missing cloud config - Please provide appropriate cloud credentials path to `aws` or `gcp`. if not using any cloud leave these params empty."
+                """Missing cloud config - Please provide appropriate cloud credentials path to `aws` or `gcp`.
+                 If not using any cloud leave these params empty."""
             )
 
     def _to_pipeline_config(self, config):
