@@ -39,19 +39,12 @@ class DocumentClassifier:
     """
 
     model_name: str = field(default="microsoft/dit-base-finetuned-rvlcdip")
-    feature_extractor: AutoFeatureExtractor = field(
-        default=None, init=False, repr=False
-    )
-    classifier: AutoModelForImageClassification = field(
-        default=None, init=False, repr=False
-    )
+    feature_extractor: AutoFeatureExtractor = field(default=None, init=False, repr=False)
+    classifier: AutoModelForImageClassification = field(default=None, init=False, repr=False)
 
     def __attrs_post_init__(self):
-        self.feature_extractor = AutoFeatureExtractor.from_pretrained(
-            self.model_name)
-        self.classifier = AutoModelForImageClassification.from_pretrained(
-            self.model_name
-        )
+        self.feature_extractor = AutoFeatureExtractor.from_pretrained(self.model_name)
+        self.classifier = AutoModelForImageClassification.from_pretrained(self.model_name)
 
     def _bytes_to_img(self, reader):
         data = reader.read()
@@ -72,8 +65,7 @@ class DocumentClassifier:
         outputs = self.classifier(**inputs)
         logits = outputs.logits
         predicted_class_idx = logits.argmax(-1).tolist()
-        labels = [self.classifier.config.id2label[i]
-                  for i in predicted_class_idx]
+        labels = [self.classifier.config.id2label[i] for i in predicted_class_idx]
         return labels
 
     def predict(self, reader: DocumentReader) -> List:

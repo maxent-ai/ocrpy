@@ -2,7 +2,7 @@ from attrs import define, field
 from ...io import DocumentReader
 from ...utils import BackendNotSupported
 from .aws_table import AwsTableOCR, table_to_csv
-from typing import Any, Dict, Optional, Union, List
+from typing import Dict, Optional, Union, List
 
 __all__ = ["TableParser"]
 
@@ -40,9 +40,7 @@ class TableParser:
 
         return parser_registry[self.backend]
 
-    def parse(
-        self, reader: DocumentReader, attempt_csv_conversion: bool = False
-    ) -> Union[List, Dict]:
+    def parse(self, reader: DocumentReader, attempt_csv_conversion: bool = False) -> Union[List, Dict]:
         """
         Parse the document and extract the tables.
 
@@ -59,7 +57,8 @@ class TableParser:
         tables : Union[List, Dict]
 
         Note: returns a list of lists if attempt_csv_conversion is False.
-        Otherwise, returns a dictionary of pandas dataframes. (each item represents an individual table in a pdf document)
+        Otherwise, returns a dictionary of pandas dataframes. 
+        (each item represents an individual table in a pdf document)
         """
         parser = self._dispatch_parser()(reader, self.credentials)
         parsed_doc = parser.parse()

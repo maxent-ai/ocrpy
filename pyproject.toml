@@ -64,3 +64,7 @@ Source = "https://github.com/maxent-ai/ocrpy"
 
 [tool.hatch.version]
 path = "ocrpy/__init__.py"
+
+[tool.black]
+line-length = 125
+fast = true

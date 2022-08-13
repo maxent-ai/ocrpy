@@ -1,6 +1,5 @@
 import os
 from io import BytesIO
-from ..utils import LOGGER
 from dotenv import load_dotenv
 from attr import define, field
 from pdf2image import convert_from_bytes
@@ -59,7 +58,8 @@ class DocumentReader:
             reader_methods[file_type](self.file)
             if file_type in reader_methods
             else FileTypeNotSupported(
-                f"""We failed to understand the file type of {self.file}. The supported file-types are .png, .jpg or .pdf files. Please check the file type and try again."""
+                f"""We failed to understand the file type of {self.file}. The supported file-types are .png, .jpg or .pdf files. 
+                Please check the file type and try again."""
             )
         )
 

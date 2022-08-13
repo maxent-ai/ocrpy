@@ -57,9 +57,7 @@ def tesseract_token_extractor(context):
         text = token.get("content")
         region = tesseract_region_extractor(token)
         index = tesseract_index_extraction(token)
-        _ = dict(
-            text=text, region=region, idx=index, meta_data=dict(text_length=len(text))
-        )
+        _ = dict(text=text, region=region, idx=index, meta_data=dict(text_length=len(text)))
         token_list.append(_)
     return token_list
 
@@ -85,9 +83,7 @@ class TesseractLineSegmenter(AbstractLineSegmenter):
             tokens = tesseract_token_extractor(line)
             index = tesseract_index_extraction(line)
             meta_data = dict(token_count=len(tokens), text_length=len(text))
-            _ = dict(
-                text=text, region=region, idx=index, tokens=tokens, meta_data=meta_data
-            )
+            _ = dict(text=text, region=region, idx=index, tokens=tokens, meta_data=meta_data)
             lines.append(_)
         return lines
 
@@ -114,9 +110,7 @@ class TesseractBlockSegmenter(AbstractBlockSegmenter):
             region = tesseract_region_extractor(block)
             lines = line_segments._extract_lines(block)
             tokens = tesseract_token_extractor(block)
-            meta_data = dict(
-                token_count=len(tokens), line_count=len(lines), text_length=len(text)
-            )
+            meta_data = dict(token_count=len(tokens), line_count=len(lines), text_length=len(text))
             _ = dict(
                 text=text,
                 region=region,
@@ -161,10 +155,9 @@ class TesseractTextOCR(AbstractTextOCR):
         return result
 
     def _process_data(self):
-        is_image = False
+        # is_image = False
         if isinstance(self._document, bytes):
             self._document = [self._document]
-            is_image = True
 
         result = {}
         for index, document in enumerate(self._document):

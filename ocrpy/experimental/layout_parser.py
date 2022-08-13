@@ -7,8 +7,7 @@ from ..parsers import TextParser
 from ..io.reader import DocumentReader
 from layoutparser import PaddleDetectionLayoutModel
 
-LABEL_MAP = {"PubLayNet": {0: "Text", 1: "Title",
-                           2: "List", 3: "Table", 4: "Figure"}}
+LABEL_MAP = {"PubLayNet": {0: "Text", 1: "Title", 2: "List", 3: "Table", 4: "Figure"}}
 
 
 __all__ = ["DocumentLayoutParser"]
@@ -34,25 +33,23 @@ class DocumentLayoutParser:
 
     Note
     ----
-    - The model is trained on the Publaynet dataset and can detect the following blocks from the document: text, title, list, table, figure
+    - The model is trained on the Publaynet dataset and can detect the following blocks from the document:
+        - text, title, list, table, figure
 
     - For more information on the dataset please refer this paper: https://arxiv.org/abs/1908.07836
 
     """
-    model_name: str = field(
-        default='lp://PubLayNet/ppyolov2_r50vd_dcn_365e/config')
-    layout_parser: PaddleDetectionLayoutModel = field(
-        default=None, init=False, repr=False)
+
+    model_name: str = field(default="lp://PubLayNet/ppyolov2_r50vd_dcn_365e/config")
+    layout_parser: PaddleDetectionLayoutModel = field(default=None, init=False, repr=False)
 
     @model_name.validator
     def check_model_name(self, attribute, value):
-        if 'PubLayNet' not in value:
+        if "PubLayNet" not in value:
             raise ValueError("Currently only PubLayNet is supported")
 
     def __attrs_post_init__(self):
-        label_map = self.model_name.split('/')[2]
-        self.layout_parser = PaddleDetectionLayoutModel(
-            self.model_name, label_map=LABEL_MAP["PubLayNet"])
+        self.layout_parser = PaddleDetectionLayoutModel(self.model_name, label_map=LABEL_MAP["PubLayNet"])
 
     def _bytes_to_img(self, reader):
         data = reader.read()
@@ -75,31 +72,41 @@ class DocumentLayoutParser:
             return True
 
     def _block_formatter(self, block, tokens, meta_data):
-        x1, y1, x2, y2 = block.block.x_1, block.block.y_1, block.block.x_2, block.block.y_2
+        x1, y1, x2, y2 = (
+            block.block.x_1,
+            block.block.y_1,
+            block.block.x_2,
+            block.block.y_2,
+        )
         r1 = [x1, y1, x2, y2]
 
         block_token = []
         for i in tokens:
-            _ = i['region']
-            r2 = [_['x1'], _['y1'], _['x2'], _['y2']]
+            _ = i["region"]
+            r2 = [_["x1"], _["y1"], _["x2"], _["y2"]]
             if meta_data:
                 x1, y1, x2, y2 = r2
-                x1 = x1*meta_data['width']
-                x2 = x2*meta_data['width']
-                y1 = y1*meta_data['height']
-                y2 = y2*meta_data['height']
+                x1 = x1 * meta_data["width"]
+                x2 = x2 * meta_data["width"]
+                y1 = y1 * meta_data["height"]
+                y2 = y2 * meta_data["height"]
                 r2 = [int(x1), int(y1), int(x2), int(y2)]
 
             if self._is_overlap(r1, r2):
                 block_token.append(i)
 
-        text = ' '.join([i['text'] for i in block_token])
-        text = re.sub(r'\s+', ' ', text)
+        text = " ".join([i["text"] for i in block_token])
+        text = re.sub(r"\s+", " ", text)
         region = dict(x1=x1, y1=y1, x2=x2, y2=y2)
         region = {k: round(v) for k, v in region.items()}
-        meta_data = dict(confidence=round(block.score, 3), type=block.type,
-                         token_count=len(block_token), line_count=None, text_length=len(text))
-        return dict(text=text, region=region,  tokens=block_token, lines=[], meta_data=meta_data)
+        meta_data = dict(
+            confidence=round(block.score, 3),
+            type=block.type,
+            token_count=len(block_token),
+            line_count=None,
+            text_length=len(text),
+        )
+        return dict(text=text, region=region, tokens=block_token, lines=[], meta_data=meta_data)
 
     def _update_blocks(self, blocks, tokens, meta_data=None):
         blocks_list = []
@@ -133,12 +140,11 @@ class DocumentLayoutParser:
         ocr_result = ocr.parse(reader)
         for index, image in enumerate(self._bytes_to_img(reader)):
             meta_data = None
-            if ocr.backend == 'aws-textract':
+            if ocr.backend == "aws-textract":
                 width, height = image.size
                 meta_data = dict(width=width, height=height)
             layout = self.layout_parser.detect(image)
             page_ocr = ocr_result[index]
-            ocr_result[index]['blocks'] = self._update_blocks(
-                layout, page_ocr['tokens'], meta_data)
+            ocr_result[index]["blocks"] = self._update_blocks(layout, page_ocr["tokens"], meta_data)
 
         return ocr_result

@@ -16,13 +16,11 @@ __all__ = ["AwsTextOCR"]
 def aws_region_extractor(block):
     x1, x2 = (
         block["Geometry"]["BoundingBox"]["Left"],
-        block["Geometry"]["BoundingBox"]["Left"]
-        + block["Geometry"]["BoundingBox"]["Width"],
+        block["Geometry"]["BoundingBox"]["Left"] + block["Geometry"]["BoundingBox"]["Width"],
     )
     y1, y2 = (
         block["Geometry"]["BoundingBox"]["Top"],
-        block["Geometry"]["BoundingBox"]["Top"]
-        + block["Geometry"]["BoundingBox"]["Height"],
+        block["Geometry"]["BoundingBox"]["Top"] + block["Geometry"]["BoundingBox"]["Height"],
     )
     return dict(x1=x1, y1=y1, x2=x2, y2=y2)
 
@@ -57,9 +55,7 @@ def _fetch_job_result(client, job_id):
         next_token = response["NextToken"]
 
     while next_token:
-        response = client.get_document_text_detection(
-            JobId=job_id, NextToken=next_token
-        )
+        response = client.get_document_text_detection(JobId=job_id, NextToken=next_token)
         pages.append(response)
         next_token = None
         if "NextToken" in response:
@@ -93,9 +89,7 @@ class AwsLineSegmenter(AbstractLineSegmenter):
                     text_length=len(text),
                     confidence=line.get("Confidence"),
                 )
-                line_data = dict(
-                    text=text, region=region, idx=idx, tokens=tokens, metadata=metadata
-                )
+                line_data = dict(text=text, region=region, idx=idx, tokens=tokens, metadata=metadata)
                 lines.append(line_data)
         return lines
 
@@ -114,9 +108,7 @@ class AwsLineSegmenter(AbstractLineSegmenter):
 class AwsBlockSegmenter(AbstractBlockSegmenter):
     @property
     def blocks(self):
-        raise AttributeNotSupported(
-            "AWS Backend does not support block segmentation yet."
-        )
+        raise AttributeNotSupported("AWS Backend does not support block segmentation yet.")
 
 
 @define
@@ -134,9 +126,7 @@ class AwsTextOCR(AbstractTextOCR):
     """
 
     _client: boto3.client = field(repr=False, init=False)
-    _document: Union[Generator, ByteString] = field(
-        default=None, repr=False, init=False
-    )
+    _document: Union[Generator, ByteString] = field(default=None, repr=False, init=False)
 
     def __attrs_post_init__(self):
         if self.credentials:
@@ -187,7 +177,7 @@ class AwsTextOCR(AbstractTextOCR):
                 DocumentLocation={"S3Object": {"Bucket": path.bucket, "Name": path.key}}
             )
             job_id = response["JobId"]
-            status = _job_status(self.textract, job_id)
+            # status = _job_status(self.textract, job_id)
             ocr = _fetch_job_result(self.textract, job_id)
 
         else:
@@ -214,17 +204,13 @@ class AwsTextOCR(AbstractTextOCR):
 
     def _get_tokens(self, ocr):
         try:
-            tokens = [
-                aws_token_formator(i) for i in ocr["Blocks"] if i["BlockType"] == "WORD"
-            ]
+            tokens = [aws_token_formator(i) for i in ocr["Blocks"] if i["BlockType"] == "WORD"]
             return tokens
         except Exception as ex:
             return ["Error: {}".format(ex)]
 
     def _get_text(self, ocr):
         try:
-            return " ".join(
-                [i.get("Text") for i in ocr["Blocks"] if i.get("BlockType") == "WORD"]
-            )
+            return " ".join([i.get("Text") for i in ocr["Blocks"] if i.get("BlockType") == "WORD"])
         except Exception as ex:
             return ["Error: {}".format(ex)]
