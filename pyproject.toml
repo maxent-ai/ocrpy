@@ -5,7 +5,7 @@ build-backend = "hatchling.build"
 
 [project]
 name = 'ocrpy'
-description = 'unified interface to google vision, aws textract, azure, tesseract OCR, EasyOCR tools.'
+description = 'unified interface to google vision, aws textract, azure & tesseract OCR tools.'
 readme = 'README.md'
 requires-python = ">=3.7"
 authors = [
