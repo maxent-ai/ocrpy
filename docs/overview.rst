@@ -136,7 +136,7 @@ We currently support the following writers:
      - Writes data to Azure Blob Storage
      - Json
      - Azure Blob Storage
-   * - LocalFileReader
+   * - LocalFileWriter
      - Writes data to local file system
      - Json
      - Local File System
