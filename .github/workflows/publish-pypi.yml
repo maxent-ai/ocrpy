@@ -35,7 +35,7 @@ jobs:
       run: hatch build 
 
     - name: Publish package
-      run: hatch publish --u=${PYPI_USERNAME} --a=${PYPI_PASSWORD}
+      run: hatch publish --user=${PYPI_USERNAME} --auth=${PYPI_PASSWORD}
       env:
         PYPI_USERNAME: ${{ secrets.PYPI_USERNAME }}
         PYPI_PASSWORD: ${{ secrets.PYPI_API_TOKEN }}
