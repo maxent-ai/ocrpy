@@ -54,13 +54,13 @@ alternatively you can also run a pipeline by directly instantiating the pipeline
    pipeline.process()
 ```
 
-> :memo: For a more detailed set of examples and tutorials on how you could use ocrpy for your usecase can be found at [ocrpy documentation](https://maxentlabs.com/ocrpy/).
+> :memo: For a more detailed set of examples and tutorials on how you could use ocrpy for your use case can be found at [ocrpy documentation](https://maxentlabs.com/ocrpy/).
 
 ## Support and Documentation
 
-* For an in-depth reference of the ocrpy API refer our [API docs](https://maxentlabs.com/ocrpy/api-reference.html).
+* For an in-depth reference of the ocrpy API refer to our [API docs](https://maxentlabs.com/ocrpy/api-reference.html).
 * For inspiration on how to use ocrpy for your usecase, check out our [tutorials](https://maxentlabs.com/ocrpy/tutorials.html) or our [examples](https://maxentlabs.com/ocrpy/examples.html).
-* If you're interested in understanding how ocrpy works, check out our [Ocrpy Overview](https://maxentlabs.com/ocrpy/system-design.html).
+* If you're interested in understanding how ocrpy works, check out our [Ocrpy Overview](https://maxentlabs.com/ocrpy/overview.html).
 
 ## Feedback and Contributions
 
