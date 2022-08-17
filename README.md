@@ -8,10 +8,9 @@
 
 __Unified interface to google vision, aws textract, azure, tesseract and other OCR tools__
 
-The Core objective of OcrPy is to let users OCR, Archive, Index and Search any documents with ease,
-with a simple and intuitive interface and a powerful Pipeline API.
+The core objective of `ocrpy` is to let users perform OCR, archive, index and search any document with ease, providing an intuitive interface and a powerful Pipeline API to solve common OCR-based tasks.
 
-ocrpy achieves this by wrapping around various OCR engines like [Tesseract OCR](https://tesseract-ocr.github.io/), [Aws Textract](https://aws.amazon.com/textract/), [Google Cloud Vision](https://cloud.google.com/vision/docs/ocr) and [Azure Computer Vision](https://azure.microsoft.com/en-in/services/cognitive-services/computer-vision/#features). It unifies the multitude of interfaces provided by a wide range of cloud tools & other open-source libraries and provides a simple, easy-to-use interface for the user.
+`ocrpy` achieves this by wrapping around the most popular OCR engines like [Tesseract OCR](https://tesseract-ocr.github.io/), [Aws Textract](https://aws.amazon.com/textract/), [Google Cloud Vision](https://cloud.google.com/vision/docs/ocr) and [Azure Computer Vision](https://azure.microsoft.com/en-in/services/cognitive-services/computer-vision/#features). It unifies the multitude of interfaces provided by a wide range of cloud tools & other open-source libraries under a common and easy-to-use interface for the user.
 
 ![](docs/_static/ocrpy-workflow.png)
 
@@ -26,11 +25,9 @@ pip install ocrpy
 
 ## Day-to-Day Usage
 
-Ocrpy Provides various levels of abstraction for the user to perform OCR on various types of documents. 
-The recommended and the best way to use Ocrpy is to use it through it's `pipelines` API as shown below.
+`ocrpy` provides various levels of abstraction for the user to perform OCR on different types of documents. The recommended and the best way to use `ocrpy` is through it's `pipeline` API as shown below.
 
-The Pipeline API can be invoked in two ways. The first method is to define the config for running the 
-pipeline as a yaml file and and then run the pipeline by loading it as follows: 
+The Pipeline API can be invoked in two ways. The first method is to define the config for running the pipeline as a yaml file and and then run the pipeline by loading it as follows: 
 
 ```python
 
@@ -40,7 +37,7 @@ pipeline as a yaml file and and then run the pipeline by loading it as follows:
    ocr_pipeline.process()
 ```
 
-alternatively you can also run a pipeline by directly instantiating the pipeline class as follows:
+Alternatively you can run a pipeline by directly instantiating the pipeline class as follows:
 
 ```python
 
@@ -58,7 +55,7 @@ alternatively you can also run a pipeline by directly instantiating the pipeline
 
 ## Support and Documentation
 
-* For an in-depth reference of the ocrpy API refer to our [API docs](https://maxentlabs.com/ocrpy/api-reference.html).
+* For an in-depth reference of the `ocrpy` API refer to our [API docs](https://maxentlabs.com/ocrpy/api-reference.html).
 * For inspiration on how to use ocrpy for your usecase, check out our [tutorials](https://maxentlabs.com/ocrpy/tutorials.html) or our [examples](https://maxentlabs.com/ocrpy/examples.html).
 * If you're interested in understanding how ocrpy works, check out our [Ocrpy Overview](https://maxentlabs.com/ocrpy/overview.html).
 
