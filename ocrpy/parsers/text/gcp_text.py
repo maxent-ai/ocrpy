@@ -177,6 +177,6 @@ class GcpTextOCR(AbstractTextOCR):
             return ["Error: {}".format(ex)]
 
     def _get_ocr(self, image):
-        image = vision.types.Image(content=image)
+        image = vision.Image(content=image)
         ocr = self._client.document_text_detection(image=image).full_text_annotation
         return ocr
